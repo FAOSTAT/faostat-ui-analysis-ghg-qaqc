@@ -31,6 +31,7 @@ define(['jquery',
 
         /* Clear the placeholder. */
         $('#' + this.CONFIG.placeholder_id).empty();
+        $('#' + this.CONFIG.placeholder_id).html('FAOSTAT UI ANALYSIS GHG QA/QC');
 
     };
 
