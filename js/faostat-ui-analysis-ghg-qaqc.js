@@ -2,16 +2,18 @@ define(['jquery',
         'handlebars',
         'text!faostat_ui_analysis_ghg_qa_qc/html/templates.html',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
+        'FAOSTAT_UI_COMMONS',
         'bootstrap',
-        'sweetAlert'], function ($, Handlebars, templates, translate) {
+        'sweetAlert'], function ($, Handlebars, templates, translate, Commons) {
 
     'use strict';
 
     function GHG_QA_QC() {
 
         this.CONFIG = {
-            lang: 'E',
-            placeholder_id: 'placeholder'
+            lang: 'en',
+            lang_faostat: 'E',
+            placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder'
         };
 
     }
@@ -22,7 +24,13 @@ define(['jquery',
         this.CONFIG = $.extend(true, {}, this.CONFIG, config);
 
         /* Fix the language, if needed. */
-        this.CONFIG.lang = this.CONFIG.lang != null ? this.CONFIG.lang : 'E';
+        this.CONFIG.lang = this.CONFIG.lang != null ? this.CONFIG.lang : 'en';
+
+        /* Store FAOSTAT language. */
+        this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
+
+        /* Clear the placeholder. */
+        $('#' + this.CONFIG.placeholder_id).empty();
 
     };
 
