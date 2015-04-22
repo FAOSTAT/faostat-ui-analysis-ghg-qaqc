@@ -3,8 +3,9 @@ define(['jquery',
         'text!faostat_ui_analysis_ghg_qa_qc/html/templates.html',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
         'FAOSTAT_UI_COMMONS',
+        'chosen',
         'bootstrap',
-        'sweetAlert'], function ($, Handlebars, templates, translate, Commons) {
+        'sweetAlert'], function ($, Handlebars, templates, translate, Commons, chosen) {
 
     'use strict';
 
@@ -30,14 +31,14 @@ define(['jquery',
         /* Store FAOSTAT language. */
         this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
 
-        /* Clear the placeholder. */
-        //$('#' + this.CONFIG.placeholder_id).empty();
-        //$('#' + this.CONFIG.placeholder_id).html('FAOSTAT UI ANALYSIS GHG QA/QC');
+        /* Load template. */
+        var source = $(templates).filter('#faostat_ui_analysis_ghg_qaqc').html();
+        var template = Handlebars.compile(source);
+        var dynamic_data = {};
+        var html = template(dynamic_data);
+        $('#' + this.CONFIG.placeholder_id).empty().html(html);
 
-        var _this = this;
-        Commons.wdsclient('groupsanddomains', this.CONFIG, function(json) {
-            $('#' + _this.CONFIG.placeholder_id).empty().html(json);
-        });
+        $('.chosen-select').chosen();
 
     };
 
