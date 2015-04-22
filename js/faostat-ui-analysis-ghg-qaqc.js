@@ -13,6 +13,7 @@ define(['jquery',
         this.CONFIG = {
             lang: 'en',
             lang_faostat: 'E',
+            datasource: 'faostatdb',
             placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder'
         };
 
@@ -30,8 +31,13 @@ define(['jquery',
         this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
 
         /* Clear the placeholder. */
-        $('#' + this.CONFIG.placeholder_id).empty();
-        $('#' + this.CONFIG.placeholder_id).html('FAOSTAT UI ANALYSIS GHG QA/QC');
+        //$('#' + this.CONFIG.placeholder_id).empty();
+        //$('#' + this.CONFIG.placeholder_id).html('FAOSTAT UI ANALYSIS GHG QA/QC');
+
+        var _this = this;
+        Commons.wdsclient('groupsanddomains', this.CONFIG, function(json) {
+            $('#' + _this.CONFIG.placeholder_id).empty().html(json);
+        });
 
     };
 
