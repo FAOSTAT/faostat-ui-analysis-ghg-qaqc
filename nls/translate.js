@@ -37,7 +37,7 @@ define({
         'ag_soils': 'Agricultural Soils',
         'charts': 'Charts',
         'tables': 'Tables',
-        'emissions': 'Emissions (Gg CO2eq)',
+        'emissions': 'Emissions (Gg CO<sub>2</sub>eq)',
         'emissions_activity': 'Activity data',
         'emissions_factor': 'Implied Emission Factor (Units)',
         'data_not_available': 'Data Not Available',

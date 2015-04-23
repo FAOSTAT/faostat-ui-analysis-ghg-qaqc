@@ -32,9 +32,20 @@ define(['jquery',
         this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
 
         /* Load template. */
-        var source = $(templates).filter('#faostat_ui_analysis_ghg_qaqc').html();
+        var source = $(templates).filter('#charts_structure_domain').html();
         var template = Handlebars.compile(source);
-        var dynamic_data = {};
+        var dynamic_data = {
+            item_label: translate.item,
+            emissions_label: translate.emissions,
+            activity_data_label: translate.emissions_activity,
+            chart_row: [
+                {
+                    item_label: 'Buffaloes',
+                    left_chart_id: 'Left',
+                    right_chart_id: 'Right'
+                }
+            ]
+        };
         var html = template(dynamic_data);
         $('#' + this.CONFIG.placeholder_id).empty().html(html);
 
