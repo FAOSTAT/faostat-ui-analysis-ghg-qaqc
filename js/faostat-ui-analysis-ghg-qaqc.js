@@ -49,7 +49,20 @@ define(['jquery',
         var html = template(dynamic_data);
         $('#' + this.CONFIG.placeholder_id).empty().html(html);
 
+        /* Initiate ChosenJS. */
         $('.chosen-select').chosen();
+
+        /* Test WDS Tables. */
+        var sql =   "SELECT Year, GItemNameE, GValue, GUNFValue, PerDiff, NormPerDiff, UNFCCCCode " +
+                    "FROM UNFCCC_GE " +
+                    "WHERE areacode = '10' " +
+                    "AND tabletype = 'emissions' " +
+                    "AND Year >= 1990 AND Year <= 2012";
+        Commons.wdstable(sql, function(json) {
+            for (var i = 0 ; i < json[0].length ; i++) {
+                console.debug(json[0][i]);
+            }
+        });
 
     };
 
