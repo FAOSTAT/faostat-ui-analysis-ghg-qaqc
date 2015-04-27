@@ -59,10 +59,11 @@ define(['jquery',
                     "AND tabletype = 'emissions' " +
                     "AND Year >= 1990 AND Year <= 2012";
         Commons.wdstable(sql, function(json) {
+            console.log(json[0]);
             for (var i = 0 ; i < json[0].length ; i++) {
-                console.debug(json[0][i]);
+                console.debug(json[0]);
             }
-        });
+        }, 'http://fenix.fao.org:30100/wds/rest');
 
     };
 
