@@ -43,6 +43,7 @@ define(['jquery',
                     "FROM UNFCCC_GAS " +
                     "WHERE areacode = '10' " +
                     "AND Year >= 1990 AND Year <= 2012 " +
+                    "AND tabletype = 'emissions' " +
                     "ORDER BY UNFCCCCode, Year DESC";
         Commons.wdstable(sql, function(json) {
 
