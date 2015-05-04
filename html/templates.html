@@ -18,77 +18,52 @@
                     <div role='tabpanel' class='tab-pane' id='qaqc'>
                         QA/QC
                     </div>
-                    <div role='tabpanel' class='tab-pane active' id='verification'>
-                        <div class='row'>
-                            <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-                                <h3>
-                                    geographic_area_label
-                                </h3>
-                                <select class='chosen-select' style='width: 100%;' id='geographic_areas'>
+                    {{> verification_structure}}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
 
-                                </select>
-                            </div>
-                            <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
-                                <h3>
-                                    domain_label
-                                </h3>
-                                <select class='chosen-select' style='width: 100%;'>
+<script type='text/x-handlebars-template' id='verification_structure'>
+    <div role='tabpanel' class='tab-pane active' id='verification'>
+        <div class='row'>
+            <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+                <h3>
+                    geographic_area_label
+                </h3>
+                <select class='chosen-select' style='width: 100%;' id='geographic_areas'>
 
-                                </select>
-                            </div>
+                </select>
+            </div>
+            <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+                <h3>
+                    domain_label
+                </h3>
+                <select class='chosen-select' style='width: 100%;'>
+
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div class='row'>
+            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                <div role='tabpanel'>
+                    <ul class='nav nav-tabs' role='tablist'>
+                        {{#each domains}}
+                        <li role='presentation'>
+                            <a href='#{{id}}' aria-controls='{{id}}' role='tab' data-toggle='tab'>
+                                {{label}}
+                            </a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                    <div class='tab-content'>
+                        {{#each domains}}
+                        <div role='tabpanel' class='tab-pane' id='{{id}}'>
+                            {{> charts_and_tables_tabs}}
                         </div>
-                        <div class='row'>
-                            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-                                <div role='tabpanel'>
-                                    <ul class='nav nav-tabs' role='tablist'>
-                                        <li role='presentation' class='active'>
-                                            <a href='#agriculture_total' aria-controls='agriculture_total' role='tab' data-toggle='tab'>
-                                                Agriculture Total
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class='tab-content'>
-                                        <div role='tabpanel' class='tab-pane active' id='agriculture_total'>
-                                            <div class='row'>
-                                                <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-                                                    <div role='tabpanel'>
-                                                        <ul class='nav nav-tabs' role='tablist'>
-                                                            <li role='presentation' class='active'>
-                                                                <a href='#agriculture_total_charts' aria-controls='agriculture_total_charts' role='tab' data-toggle='tab'>
-                                                                    charts_label
-                                                                </a>
-                                                            </li>
-                                                            <li role='presentation'>
-                                                                <a href='#agriculture_total_tables' aria-controls='agriculture_total_tables' role='tab' data-toggle='tab'>
-                                                                    tables_label
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class='tab-content'>
-                                                            <div role='tabpanel' class='tab-pane active' id='agriculture_total_charts'>
-                                                                Charts
-                                                            </div>
-                                                            <div role='tabpanel' class='tab-pane' id='agriculture_total_tables'>
-                                                                <div class='row'>
-                                                                    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-                                                                        <h3>
-                                                                            table_type_label
-                                                                        </h3>
-                                                                        <select class='chosen-select' style='width: 100%;'>
-
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
                 </div>
             </div>
@@ -96,66 +71,41 @@
     </div>
 </script>
 
-<script type='text/x-handlebars-template' id='charts_structure_domain'>
-    <div class='row'>
-        <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
-            <h3>
-                {{item_label}}
-            </h3>
-        </div>
-        <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
-            <h3>
-                {{{emissions_label}}}
-            </h3>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
-            <h3>
-                {{total_label}}
-            </h3>
-        </div>
-        <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
-            <div id='{{total_chart_id}}'>
-
-            </div>
-        </div>
-    </div>
+<script type='text/x-handlebars-template' id='charts_and_tables_tabs'>
     <hr>
     <div class='row'>
-        <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
-            <h3>
-                {{item_label}}
-            </h3>
-        </div>
-        <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
-            <h3>
-                {{{emissions_label}}}
-            </h3>
-        </div>
-        <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
-            <h3>
-                {{activity_data_label}}
-            </h3>
-        </div>
-    </div>
-    {{#each chart_row}}
-    <div class='row'>
-        <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
-            <h3>
-                {{item_label}}
-            </h3>
-        </div>
-        <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
-            <div id='{{left_chart_id}}'>
-
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div role='tabpanel'>
+                <ul class='nav nav-tabs' role='tablist'>
+                    <li role='presentation' class='active'>
+                        <a href='#agriculture_total_charts' aria-controls='agriculture_total_charts' role='tab' data-toggle='tab'>
+                            charts_label
+                        </a>
+                    </li>
+                    <li role='presentation'>
+                        <a href='#agriculture_total_tables' aria-controls='agriculture_total_tables' role='tab' data-toggle='tab'>
+                            tables_label
+                        </a>
+                    </li>
+                </ul>
+                <div class='tab-content'>
+                    <div role='tabpanel' class='tab-pane active' id='agriculture_total_charts'>
+                        Charts
+                    </div>
+                    <div role='tabpanel' class='tab-pane' id='agriculture_total_tables'>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                                <h3>
+                                    table_type_label
+                                </h3>
+                                <select class='chosen-select' style='width: 100%;'>
+                                    <option>asd</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
-            <div id='{{right_chart_id}}'>
-
-            </div>
-        </div>
     </div>
-    {{/each}}
 </script>

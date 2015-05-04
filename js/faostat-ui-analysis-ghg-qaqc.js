@@ -35,34 +35,55 @@ define(['jquery',
         /* This... */
         var _this = this;
 
+        Handlebars.registerPartial('verification_structure', $(templates).filter('#verification_structure').html());
+        Handlebars.registerPartial('charts_and_tables_tabs', $(templates).filter('#charts_and_tables_tabs').html());
+
+        /* Load template. */
+        var source = $(templates).filter('#faostat_ui_analysis_ghg_qaqc').html();
+        var template = Handlebars.compile(source);
+        var dynamic_data = {
+            domains: [
+                {
+                    id: 'pippo',
+                    label: 'Pippo'
+                },
+                {
+                    id: 'pluto',
+                    label: 'Pluto'
+                }
+            ]
+        };
+        var html = template(dynamic_data);
+        $('#' + this.CONFIG.placeholder_id).empty().html(html);
+
         /* Initiate ChosenJS. */
         $('.chosen-select').chosen();
 
         /* Test WDS Tables. */
-        var sql =   "SELECT * " +
-                    "FROM UNFCCC_GAS " +
-                    "WHERE areacode = '10' " +
-                    "AND Year >= 1990 AND Year <= 2012 " +
-                    "AND tabletype = 'emissions' " +
-                    "ORDER BY UNFCCCCode, Year DESC";
-        Commons.wdstable(sql, function(json) {
-
-            /* Initiate wide tables library. */
-            var wt_1 = new WIDE_TABLES();
-
-            /* Initiate the library. */
-            wt_1.init({
-                lang: _this.CONFIG.lang,
-                data: json,
-                placeholder_id: _this.CONFIG.placeholder_id,
-                show_row_code: true,
-                row_code: 'UNFCCCCode',
-                row_label: 'GUNFItemNameE',
-                cols_dimension: 'Year',
-                value_dimension: 'GUNFValue'
-            });
-
-        }, 'http://localhost:8080/wds/rest');
+        //var sql =   "SELECT * " +
+        //            "FROM UNFCCC_GAS " +
+        //            "WHERE areacode = '10' " +
+        //            "AND Year >= 1990 AND Year <= 2012 " +
+        //            "AND tabletype = 'emissions' " +
+        //            "ORDER BY UNFCCCCode, Year DESC";
+        //Commons.wdstable(sql, function(json) {
+        //
+        //    /* Initiate wide tables library. */
+        //    var wt_1 = new WIDE_TABLES();
+        //
+        //    /* Initiate the library. */
+        //    wt_1.init({
+        //        lang: _this.CONFIG.lang,
+        //        data: json,
+        //        placeholder_id: _this.CONFIG.placeholder_id,
+        //        show_row_code: true,
+        //        row_code: 'UNFCCCCode',
+        //        row_label: 'GUNFItemNameE',
+        //        cols_dimension: 'Year',
+        //        value_dimension: 'GUNFValue'
+        //    });
+        //
+        //}, 'http://localhost:8080/wds/rest');
 
     };
 
