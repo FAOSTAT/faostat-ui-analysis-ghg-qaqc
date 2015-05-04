@@ -47,12 +47,19 @@ define(['jquery',
                     "ORDER BY UNFCCCCode, Year DESC";
         Commons.wdstable(sql, function(json) {
 
-            /* Load wide tables library. */
+            /* Initiate wide tables library. */
             var wt_1 = new WIDE_TABLES();
+
+            /* Initiate the library. */
             wt_1.init({
                 lang: _this.CONFIG.lang,
                 data: json,
-                placeholder_id: _this.CONFIG.placeholder_id
+                placeholder_id: _this.CONFIG.placeholder_id,
+                show_row_code: true,
+                row_code: 'UNFCCCCode',
+                row_label: 'GUNFItemNameE',
+                cols_dimension: 'Year',
+                rows_dimension: 'GUNFItemNameE'
             });
 
         }, 'http://localhost:8080/wds/rest');
