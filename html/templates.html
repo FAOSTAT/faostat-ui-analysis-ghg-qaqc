@@ -30,7 +30,7 @@
         <div class='row'>
             <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
                 <h3>
-                    geographic_area_label
+                    {{geographic_area_label}}
                 </h3>
                 <select class='chosen-select' style='width: 100%;' id='geographic_areas'>
 
@@ -38,10 +38,12 @@
             </div>
             <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
                 <h3>
-                    domain_label
+                    {{domain_label}}
                 </h3>
-                <select class='chosen-select' style='width: 100%;'>
-
+                <select class='chosen-select' style='width: 100%;' id='domains'>
+                    <option value='null'></option>
+                    <option value='null'>{{agriculture_label}}</option>
+                    <option value='null' disabled>{{land_use_label}}</option>
                 </select>
             </div>
         </div>
@@ -61,48 +63,9 @@
                     <div class='tab-content'>
                         {{#each domains}}
                         <div role='tabpanel' class='tab-pane' id='{{id}}'>
-                            {{> charts_and_tables_tabs}}
+                            {{label}}
                         </div>
                         {{/each}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</script>
-
-<script type='text/x-handlebars-template' id='charts_and_tables_tabs'>
-    <hr>
-    <div class='row'>
-        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <div role='tabpanel'>
-                <ul class='nav nav-tabs' role='tablist'>
-                    <li role='presentation' class='active'>
-                        <a href='#agriculture_total_charts' aria-controls='agriculture_total_charts' role='tab' data-toggle='tab'>
-                            charts_label
-                        </a>
-                    </li>
-                    <li role='presentation'>
-                        <a href='#agriculture_total_tables' aria-controls='agriculture_total_tables' role='tab' data-toggle='tab'>
-                            tables_label
-                        </a>
-                    </li>
-                </ul>
-                <div class='tab-content'>
-                    <div role='tabpanel' class='tab-pane active' id='agriculture_total_charts'>
-                        Charts
-                    </div>
-                    <div role='tabpanel' class='tab-pane' id='agriculture_total_tables'>
-                        <div class='row'>
-                            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-                                <h3>
-                                    table_type_label
-                                </h3>
-                                <select class='chosen-select' style='width: 100%;'>
-                                    <option>asd</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

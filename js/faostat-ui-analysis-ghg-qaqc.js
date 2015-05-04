@@ -35,29 +35,51 @@ define(['jquery',
         /* This... */
         var _this = this;
 
+        /* Register partials. */
         Handlebars.registerPartial('verification_structure', $(templates).filter('#verification_structure').html());
-        Handlebars.registerPartial('charts_and_tables_tabs', $(templates).filter('#charts_and_tables_tabs').html());
 
         /* Load template. */
         var source = $(templates).filter('#faostat_ui_analysis_ghg_qaqc').html();
         var template = Handlebars.compile(source);
         var dynamic_data = {
+            geographic_area_label: translate.areas,
+            domain_label: translate.domains,
             domains: [
-                {
-                    id: 'pippo',
-                    label: 'Pippo'
-                },
-                {
-                    id: 'pluto',
-                    label: 'Pluto'
-                }
-            ]
+                {id: 'gt', label: translate.gt},
+                {id: 'ge', label: translate.ge},
+                {id: 'gm', label: translate.gm},
+                {id: 'gr', label: translate.gr},
+                {id: 'gas', label: translate.gas},
+                {id: 'gb', label: translate.gb},
+                {id: 'gh', label: translate.gh}
+            ],
+            agriculture_label: translate.agriculture,
+            land_use_label: translate.land_use
         };
         var html = template(dynamic_data);
         $('#' + this.CONFIG.placeholder_id).empty().html(html);
 
+        /* Populate countries. */
+        var rest_config = {
+            domain: 'GT',
+            tab_group: 1,
+            tab_index: 1,
+            datasource: this.CONFIG.datasource,
+            lang_faostat: this.CONFIG.lang_faostat
+        };
+        Commons.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
+
+            /* Populate the dropdown. */
+            var s = '<option value="null"></option>';
+            for (var i = 0 ; i < json.length ; i++)
+                s += '<option value="' + json[i][0] + '">' + json[i][1] + '</option>';
+            $('#geographic_areas').html(s).chosen();
+            //$('#geographic_areas').chosen();
+
+        }, 'http://localhost:8080/wds/rest');
+
         /* Initiate ChosenJS. */
-        $('.chosen-select').chosen();
+        $('#domains').chosen();
 
         /* Test WDS Tables. */
         //var sql =   "SELECT * " +
