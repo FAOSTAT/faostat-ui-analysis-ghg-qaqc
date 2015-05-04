@@ -59,7 +59,7 @@ define(['jquery',
                 row_code: 'UNFCCCCode',
                 row_label: 'GUNFItemNameE',
                 cols_dimension: 'Year',
-                rows_dimension: 'GUNFItemNameE'
+                value_dimension: 'GUNFValue'
             });
 
         }, 'http://localhost:8080/wds/rest');
