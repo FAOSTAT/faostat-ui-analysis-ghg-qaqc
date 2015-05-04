@@ -83,8 +83,8 @@ define(['jquery',
         };
         html = template(dynamic_data);
         $('#gt').empty().html(html);
-        //$('#gt_table_selector').chosen();
-        $('.chosen-container.chosen-container-single.chosen-container-single-nosearch').css('width', '100%');
+        $('#gt_table_selector').chosen();
+        $('.chosen-container.chosen-container-single').css('width', '100%');
 
 
         $('a[href="#gt"]').tab('show');
