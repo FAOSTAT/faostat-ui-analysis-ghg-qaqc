@@ -3,9 +3,10 @@ define(['jquery',
         'text!faostat_ui_analysis_ghg_qa_qc/html/templates.html',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
         'FAOSTAT_UI_COMMONS',
+        'FAOSTAT_UI_WIDE_TABLES',
         'chosen',
         'bootstrap',
-        'sweetAlert'], function ($, Handlebars, templates, translate, Commons, chosen) {
+        'sweetAlert'], function ($, Handlebars, templates, translate, Commons, WIDE_TABLES, chosen) {
 
     'use strict';
 
@@ -31,39 +32,29 @@ define(['jquery',
         /* Store FAOSTAT language. */
         this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
 
-        /* Load template. */
-        var source = $(templates).filter('#charts_structure_domain').html();
-        var template = Handlebars.compile(source);
-        var dynamic_data = {
-            item_label: translate.item,
-            emissions_label: translate.emissions,
-            activity_data_label: translate.emissions_activity,
-            chart_row: [
-                {
-                    item_label: 'Buffaloes',
-                    left_chart_id: 'Left',
-                    right_chart_id: 'Right'
-                }
-            ]
-        };
-        var html = template(dynamic_data);
-        $('#' + this.CONFIG.placeholder_id).empty().html(html);
+        /* This... */
+        var _this = this;
 
         /* Initiate ChosenJS. */
         $('.chosen-select').chosen();
 
         /* Test WDS Tables. */
-        var sql =   "SELECT Year, GItemNameE, GValue, GUNFValue, PerDiff, NormPerDiff, UNFCCCCode " +
-                    "FROM UNFCCC_GE " +
+        var sql =   "SELECT * " +
+                    "FROM UNFCCC_GAS " +
                     "WHERE areacode = '10' " +
-                    "AND tabletype = 'emissions' " +
-                    "AND Year >= 1990 AND Year <= 2012";
+                    "AND Year >= 1990 AND Year <= 2012 " +
+                    "ORDER BY UNFCCCCode, Year DESC";
         Commons.wdstable(sql, function(json) {
-            console.log(json[0]);
-            for (var i = 0 ; i < json[0].length ; i++) {
-                console.debug(json[0]);
-            }
-        }, 'http://fenix.fao.org:30100/wds/rest');
+
+            /* Load wide tables library. */
+            var wt_1 = new WIDE_TABLES();
+            wt_1.init({
+                lang: _this.CONFIG.lang,
+                data: json,
+                placeholder_id: _this.CONFIG.placeholder_id
+            });
+
+        }, 'http://localhost:8080/wds/rest');
 
     };
 
