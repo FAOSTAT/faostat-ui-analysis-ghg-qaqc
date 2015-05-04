@@ -16,7 +16,16 @@ define(['jquery',
             lang: 'en',
             lang_faostat: 'E',
             datasource: 'faostatdb',
-            placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder'
+            placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder',
+            domains: [
+                {id: 'gt', label: translate.gt},
+                {id: 'ge', label: translate.ge},
+                {id: 'gm', label: translate.gm},
+                {id: 'gr', label: translate.gr},
+                {id: 'gas', label: translate.gas},
+                {id: 'gb', label: translate.gb},
+                {id: 'gh', label: translate.gh}
+            ]
         };
 
     }
@@ -42,24 +51,48 @@ define(['jquery',
         var source = $(templates).filter('#faostat_ui_analysis_ghg_qaqc').html();
         var template = Handlebars.compile(source);
         var dynamic_data = {
-            geographic_area_label: translate.areas,
+            domains: this.CONFIG.domains,
             domain_label: translate.domains,
-            domains: [
-                {id: 'gt', label: translate.gt},
-                {id: 'ge', label: translate.ge},
-                {id: 'gm', label: translate.gm},
-                {id: 'gr', label: translate.gr},
-                {id: 'gas', label: translate.gas},
-                {id: 'gb', label: translate.gb},
-                {id: 'gh', label: translate.gh}
-            ],
-            agriculture_label: translate.agriculture,
-            land_use_label: translate.land_use
+            land_use_label: translate.land_use,
+            geographic_area_label: translate.areas,
+            agriculture_label: translate.agriculture
         };
         var html = template(dynamic_data);
         $('#' + this.CONFIG.placeholder_id).empty().html(html);
 
         /* Populate countries. */
+        this.populate_countries();
+
+        /* Initiate ChosenJS. */
+        $('#domains').chosen();
+
+        /* Load GT. */
+        source = $(templates).filter('#gt_structure').html();
+        template = Handlebars.compile(source);
+        dynamic_data = {
+            item_label: translate.item,
+            emissions_label: translate.emissions,
+            gt_label: translate.gt,
+            ge_label: translate.ge,
+            gm_label: translate.gm,
+            gr_label: translate.gr,
+            gas_label: translate.gas,
+            gb_label: translate.gb,
+            gh_label: translate.gh,
+            data_not_available_label: translate.data_not_available
+        };
+        html = template(dynamic_data);
+        $('#gt').empty().html(html);
+        //$('#gt_table_selector').chosen();
+        $('.chosen-container.chosen-container-single.chosen-container-single-nosearch').css('width', '100%');
+
+
+        $('a[href="#gt"]').tab('show');
+        $('a[href="#gt_charts"]').tab('show');
+
+    };
+
+    GHG_QA_QC.prototype.populate_countries = function() {
         var rest_config = {
             domain: 'GT',
             tab_group: 1,
@@ -68,45 +101,11 @@ define(['jquery',
             lang_faostat: this.CONFIG.lang_faostat
         };
         Commons.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
-
-            /* Populate the dropdown. */
             var s = '<option value="null"></option>';
             for (var i = 0 ; i < json.length ; i++)
                 s += '<option value="' + json[i][0] + '">' + json[i][1] + '</option>';
             $('#geographic_areas').html(s).chosen();
-            //$('#geographic_areas').chosen();
-
         }, 'http://localhost:8080/wds/rest');
-
-        /* Initiate ChosenJS. */
-        $('#domains').chosen();
-
-        /* Test WDS Tables. */
-        //var sql =   "SELECT * " +
-        //            "FROM UNFCCC_GAS " +
-        //            "WHERE areacode = '10' " +
-        //            "AND Year >= 1990 AND Year <= 2012 " +
-        //            "AND tabletype = 'emissions' " +
-        //            "ORDER BY UNFCCCCode, Year DESC";
-        //Commons.wdstable(sql, function(json) {
-        //
-        //    /* Initiate wide tables library. */
-        //    var wt_1 = new WIDE_TABLES();
-        //
-        //    /* Initiate the library. */
-        //    wt_1.init({
-        //        lang: _this.CONFIG.lang,
-        //        data: json,
-        //        placeholder_id: _this.CONFIG.placeholder_id,
-        //        show_row_code: true,
-        //        row_code: 'UNFCCCCode',
-        //        row_label: 'GUNFItemNameE',
-        //        cols_dimension: 'Year',
-        //        value_dimension: 'GUNFValue'
-        //    });
-        //
-        //}, 'http://localhost:8080/wds/rest');
-
     };
 
     return GHG_QA_QC;

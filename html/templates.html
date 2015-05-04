@@ -72,3 +72,140 @@
         </div>
     </div>
 </script>
+
+<script type='text/x-handlebars-template' id='gt_structure'>
+    <hr>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div role='tabpanel'>
+                <ul class='nav nav-tabs' role='tablist'>
+                    <li role='presentation'>
+                        <a href='#gt_charts' aria-controls='gt_charts' role='tab' data-toggle='tab'>
+                            <i class='fa fa-line-chart'></i> Charts
+                        </a>
+                    </li>
+                    <li role='presentation'>
+                        <a href='#gt_tables' aria-controls='gt_tables' role='tab' data-toggle='tab'>
+                            <i class='fa fa-table'></i> Tables
+                        </a>
+                    </li>
+                </ul>
+                <div class='tab-content'>
+                    <div role='tabpanel' class='tab-pane' id='gt_charts'>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <b>
+                                    {{item_label}}
+                                </b>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <b>
+                                    {{{emissions_label}}}
+                                </b>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{gt_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <div id='gt_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{ge_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <div id='ge_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{gm_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <div id='gm_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{gr_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <div id='gr_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{gas_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <div id='gas_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{gh_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <div id='gh_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{gb_label}}</a>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <div id='gb_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role='tabpanel' class='tab-pane' id='gt_tables'>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                Table Type
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <select class='chosen-select' id='gt_table_selector' style='width: 100%;'>
+                                    <option value="null"></option>
+                                    <option value="emissions">Emissions (Gg CO<sub>2</sub>Eq)</option>
+                                    <option value="activity">Activity Data</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
