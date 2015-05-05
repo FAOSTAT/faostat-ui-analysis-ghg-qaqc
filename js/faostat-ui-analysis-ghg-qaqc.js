@@ -63,19 +63,45 @@ define(['jquery',
         /* Populate countries. */
         this.populate_countries();
 
+        /* Domains selector. */
+        var domains_selector = $('#domains');
+
         /* Initiate ChosenJS. */
-        $('#domains').chosen();
+        domains_selector.chosen();
 
-        /* Load GT. */
-        this.load_gt(true);
-
-
-        $('a[href="#gt"]').tab('show');
-        $('a[href="#gt_charts"]').tab('show');
+        /* Chosen listener. */
+        domains_selector.change(function() {
+            _this.load_tabs();
+        });
 
     };
 
-    GHG_QA_QC.prototype.load_gt = function(showEmissionsTable) {
+    GHG_QA_QC.prototype.load_tabs = function() {
+
+        /* Load template. */
+        var source = $(templates).filter('#tabs').html();
+        var template = Handlebars.compile(source);
+        var dynamic_data = {
+            domains: this.CONFIG.domains
+        };
+        var html = template(dynamic_data);
+        $('#tabs_content').empty().html(html);
+
+        /* Select first tab. */
+        $('a[href="#gt"]').tab('show');
+
+        /* Load domains. */
+        for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
+            try {
+                eval('this.load_' + this.CONFIG.domains[i].id)();
+            } catch (e) {
+                
+            }
+        }
+
+    };
+
+    GHG_QA_QC.prototype.load_gt = function() {
 
         /* Load template. */
         var source = $(templates).filter('#gt_structure').html();
@@ -89,7 +115,8 @@ define(['jquery',
             gh_label: translate.gh,
             gas_label: translate.gas,
             item_label: translate.item,
-            emissions: showEmissionsTable,
+            charts_label: translate.charts,
+            tables_label: translate.tables,
             emissions_label: translate.emissions,
             activity_label: translate.emissions_activity,
             table_selector_label: translate.table_selector_label,
@@ -97,6 +124,9 @@ define(['jquery',
         };
         var html = template(dynamic_data);
         $('#gt').empty().html(html);
+
+        /* Select first tab. */
+        $('a[href="#gt_charts"]').tab('show');
 
         /* Table selector. */
         var table_selector = $('#gt_table_selector');

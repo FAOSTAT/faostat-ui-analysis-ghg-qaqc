@@ -48,25 +48,29 @@
             </div>
         </div>
         <hr>
-        <div class='row'>
-            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-                <div role='tabpanel'>
-                    <ul class='nav nav-tabs' role='tablist'>
-                        {{#each domains}}
-                        <li role='presentation'>
-                            <a href='#{{id}}' aria-controls='{{id}}' role='tab' data-toggle='tab'>
-                                {{label}}
-                            </a>
-                        </li>
-                        {{/each}}
-                    </ul>
-                    <div class='tab-content'>
-                        {{#each domains}}
-                        <div role='tabpanel' class='tab-pane' id='{{id}}'>
+        <div id='tabs_content'></div>
+    </div>
+</script>
+
+<script type='text/x-handlebars-template' id='tabs'>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div role='tabpanel'>
+                <ul class='nav nav-tabs' role='tablist'>
+                    {{#each domains}}
+                    <li role='presentation'>
+                        <a href='#{{id}}' aria-controls='{{id}}' role='tab' data-toggle='tab'>
                             {{label}}
-                        </div>
-                        {{/each}}
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+                <div class='tab-content'>
+                    {{#each domains}}
+                    <div role='tabpanel' class='tab-pane' id='{{id}}'>
+                        {{label}}
                     </div>
+                    {{/each}}
                 </div>
             </div>
         </div>
@@ -81,12 +85,12 @@
                 <ul class='nav nav-tabs' role='tablist'>
                     <li role='presentation'>
                         <a href='#gt_charts' aria-controls='gt_charts' role='tab' data-toggle='tab'>
-                            <i class='fa fa-line-chart'></i> Charts
+                            <i class='fa fa-line-chart'></i> {{charts_label}}
                         </a>
                     </li>
                     <li role='presentation'>
                         <a href='#gt_tables' aria-controls='gt_tables' role='tab' data-toggle='tab'>
-                            <i class='fa fa-table'></i> Tables
+                            <i class='fa fa-table'></i> {{tables_label}}
                         </a>
                     </li>
                 </ul>
@@ -199,7 +203,7 @@
                                     <select class='chosen-select' id='gt_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
                                         <option value="emissions">{{emissions_label}}</option>
-                                        <option value="activity">{{activity_label}}</option>
+                                        <option value="activity" disabled>{{activity_label}}</option>
                                     </select>
                                 </h3>
                             </div>
