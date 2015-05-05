@@ -77,6 +77,8 @@
     </div>
 </script>
 
+<!-- GT TEMPLATES: START -->
+
 <script type='text/x-handlebars-template' id='gt_structure'>
     <hr>
     <div class='row'>
@@ -217,20 +219,267 @@
     </div>
 </script>
 
-<script type='text/x-handlebars-template' id='gt_tables_emissions'>
+<!-- GT TEMPLATES: END -->
+
+<!-- GE TEMPLATES: START -->
+
+<script type='text/x-handlebars-template' id='ge_structure'>
+    <hr>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div role='tabpanel'>
+                <ul class='nav nav-tabs' role='tablist'>
+                    <li role='presentation'>
+                        <a href='#ge_charts' aria-controls='gt_charts' role='tab' data-toggle='tab'>
+                            <i class='fa fa-line-chart'></i> {{charts_label}}
+                        </a>
+                    </li>
+                    <li role='presentation'>
+                        <a href='#ge_tables' aria-controls='gt_tables' role='tab' data-toggle='tab'>
+                            <i class='fa fa-table'></i> {{tables_label}}
+                        </a>
+                    </li>
+                </ul>
+                <div class='tab-content'>
+                    <div role='tabpanel' class='tab-pane' id='ge_charts'>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <b>
+                                    {{item_label}}
+                                </b>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <b>
+                                    {{{emissions_label}}}
+                                </b>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{ge_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <div id='ge_total_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <b>
+                                    {{item_label}}
+                                </b>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <b>
+                                    {{{emissions_label}}}
+                                </b>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <b>
+                                    {{{activity_label}}}
+                                </b>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{buffaloes_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='buffaloes_chart_1'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='buffaloes_chart_2'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{cattle_dairy_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='cattle_dairy_chart_1'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='cattle_dairy_chart_2'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{cattle_non_dairy_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='cattle_non_dairy_chart_1'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='cattle_non_dairy_chart_2'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{goats_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='goats_chart_1'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='goats_chart_2'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{horses_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='horses_chart_1'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='horses_chart_2'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{sheep_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='sheep_chart_1'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='sheep_chart_2'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{camels_llamas_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='camels_llamas_chart_1'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='camels_llamas_chart_2'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{mules_asses_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='mules_asses_chart_1'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='mules_asses_chart_2'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <a>
+                                    {{swine_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='swine_chart_1'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                            <div class='col-xs-12 col-sm-5 col-md-5 col-lg-5'>
+                                <div id='swine_chart_2'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role='tabpanel' class='tab-pane' id='ge_tables'>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <h3>{{table_selector_label}}</h3>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <h3>
+                                    <select class='chosen-select' id='ge_table_selector' style='width: 100%;'>
+                                        <option value="null"></option>
+                                        <option value="emissions">{{emissions_label}}</option>
+                                        <option value="activity" disabled>{{activity_label}}</option>
+                                    </select>
+                                </h3>
+                            </div>
+                        </div>
+                        <hr>
+                        <div id='ge_tables_content'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- GE TEMPLATES: END -->
+
+<!-- TABLES TEMPLATES: START-->
+
+<script type='text/x-handlebars-template' id='tables_emissions'>
     <div class='row'>
         <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
             <h3>{{faostat_label}} {{{co2eq_label}}}</h3>
         </div>
         <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
             <h3 class='pull-right'>
-                <a id='gt_export_table_1'>
+                <a id='{{id}}_export_table_1'>
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
             </h3>
         </div>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <div id='gt_table_1'></div>
+            <div id='{{id}}_table_1'></div>
         </div>
     </div>
     <div class='row'>
@@ -239,13 +488,13 @@
         </div>
         <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
             <h3 class='pull-right'>
-                <a id='gt_export_table_2'>
+                <a id='{{id}}_export_table_2'>
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
             </h3>
         </div>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <div id='gt_table_2'></div>
+            <div id='{{id}}_table_2'></div>
         </div>
     </div>
     <div class='row'>
@@ -254,13 +503,13 @@
         </div>
         <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
             <h3 class='pull-right'>
-                <a id='gt_export_table_3'>
+                <a id='{{id}}_export_table_3'>
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
             </h3>
         </div>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <div id='gt_table_3'></div>
+            <div id='{{id}}_table_3'></div>
         </div>
     </div>
     <div class='row'>
@@ -269,17 +518,19 @@
         </div>
         <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
             <h3 class='pull-right'>
-                <a id='gt_export_table_4'>
+                <a id='{{id}}_export_table_4'>
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
             </h3>
         </div>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <div id='gt_table_4'></div>
+            <div id='{{id}}_table_4'></div>
         </div>
     </div>
 </script>
 
-<script type='text/x-handlebars-template' id='gt_tables_activity'>
+<script type='text/x-handlebars-template' id='tables_activity'>
     <h1>Activity Data</h1>
 </script>
+
+<!-- TABLES TEMPLATES: END-->

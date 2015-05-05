@@ -91,20 +91,19 @@ define(['jquery',
         $('a[href="#gt"]').tab('show');
 
         /* Load domains. */
-        for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
-            try {
-                eval('this.load_' + this.CONFIG.domains[i].id)();
-            } catch (e) {
-                
-            }
-        }
+        /* TODO: find something better. eval() doesn't work because this will be null then. */
+        for (var i = 0 ; i < this.CONFIG.domains.length ; i++)
+            this.load_domain(this.CONFIG.domains[i].id)
 
     };
 
-    GHG_QA_QC.prototype.load_gt = function() {
+    GHG_QA_QC.prototype.load_domain = function(domain_code) {
+
+        /* This... */
+        var _this = this;
 
         /* Load template. */
-        var source = $(templates).filter('#gt_structure').html();
+        var source = $(templates).filter('#' + domain_code + '_structure').html();
         var template = Handlebars.compile(source);
         var dynamic_data = {
             gt_label: translate.gt,
@@ -120,16 +119,25 @@ define(['jquery',
             emissions_label: translate.emissions,
             activity_label: translate.emissions_activity,
             table_selector_label: translate.table_selector_label,
-            data_not_available_label: translate.data_not_available
+            data_not_available_label: translate.data_not_available,
+            buffaloes_label: translate.buffaloes,
+            cattle_dairy_label: translate.cattle_dairy,
+            cattle_non_dairy_label: translate.cattle_non_dairy,
+            goats_label: translate.goats,
+            horses_label: translate.horses,
+            sheep_label: translate.sheep,
+            camels_llamas_label: translate.camels_llamas,
+            mules_asses_label: translate.mules_asses,
+            swine_label: translate.swine
         };
         var html = template(dynamic_data);
-        $('#gt').empty().html(html);
+        $('#' + domain_code).empty().html(html);
 
         /* Select first tab. */
-        $('a[href="#gt_charts"]').tab('show');
+        $('a[href="#' + domain_code + '_charts"]').tab('show');
 
         /* Table selector. */
-        var table_selector = $('#gt_table_selector');
+        var table_selector = $('#' + domain_code + '_table_selector');
 
         /* Load and fix Chosen. */
         table_selector.chosen();
@@ -137,20 +145,25 @@ define(['jquery',
 
         /* Chosen listener. */
         table_selector.change(function() {
-            var source = $(templates).filter('#gt_tables_' + this.value).html();
-            var template = Handlebars.compile(source);
-            var dynamic_data = {
-                nc_label: translate.nc,
-                co2eq_label: translate.co2eq,
-                faostat_label: translate.faostat,
-                difference_label: translate.difference,
-                export_data_label: translate.export_data_label,
-                norm_difference_label: translate.norm_difference
-            };
-            var html = template(dynamic_data);
-            $('#gt_tables_content').empty().html(html);
+            _this.table_selector(domain_code, this.value);
         });
 
+    };
+
+    GHG_QA_QC.prototype.table_selector = function(domain_code, table_type) {
+        var source = $(templates).filter('#tables_' + table_type).html();
+        var template = Handlebars.compile(source);
+        var dynamic_data = {
+            id: domain_code,
+            nc_label: translate.nc,
+            co2eq_label: translate.co2eq,
+            faostat_label: translate.faostat,
+            difference_label: translate.difference,
+            export_data_label: translate.export_data_label,
+            norm_difference_label: translate.norm_difference
+        };
+        var html = template(dynamic_data);
+        $('#' + domain_code + '_tables_content').empty().html(html);
     };
 
     GHG_QA_QC.prototype.populate_countries = function() {
