@@ -192,22 +192,90 @@
                     <div role='tabpanel' class='tab-pane' id='gt_tables'>
                         <div class='row'>
                             <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-                                <h3>Table Type</h3>
+                                <h3>{{table_selector_label}}</h3>
                             </div>
                             <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                                 <h3>
                                     <select class='chosen-select' id='gt_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
-                                        <option value="emissions">Emissions (Gg CO<sub>2</sub>Eq)</option>
-                                        <option value="activity" disabled>Activity Data</option>
+                                        <option value="emissions">{{emissions_label}}</option>
+                                        <option value="activity">{{activity_label}}</option>
                                     </select>
                                 </h3>
                             </div>
                         </div>
                         <hr>
+                        <div id='gt_tables_content'></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</script>
+
+<script type='text/x-handlebars-template' id='gt_tables_emissions'>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+            <h3>{{faostat_label}} {{{co2eq_label}}}</h3>
+        </div>
+        <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+            <h3 class='pull-right'>
+                <a id='gt_export_table_1'>
+                    <i class='fa fa-download'></i> {{export_data_label}}
+                </a>
+            </h3>
+        </div>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div id='gt_table_1'></div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+            <h3>{{nc_label}} {{{co2eq_label}}}</h3>
+        </div>
+        <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+            <h3 class='pull-right'>
+                <a id='gt_export_table_2'>
+                    <i class='fa fa-download'></i> {{export_data_label}}
+                </a>
+            </h3>
+        </div>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div id='gt_table_2'></div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+            <h3>{{difference_label}} {{{co2eq_label}}}</h3>
+        </div>
+        <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+            <h3 class='pull-right'>
+                <a id='gt_export_table_3'>
+                    <i class='fa fa-download'></i> {{export_data_label}}
+                </a>
+            </h3>
+        </div>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div id='gt_table_3'></div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+            <h3>{{norm_difference_label}} {{{co2eq_label}}}</h3>
+        </div>
+        <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+            <h3 class='pull-right'>
+                <a id='gt_export_table_4'>
+                    <i class='fa fa-download'></i> {{export_data_label}}
+                </a>
+            </h3>
+        </div>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div id='gt_table_4'></div>
+        </div>
+    </div>
+</script>
+
+<script type='text/x-handlebars-template' id='gt_tables_activity'>
+    <h1>Activity Data</h1>
 </script>

@@ -67,28 +67,59 @@ define(['jquery',
         $('#domains').chosen();
 
         /* Load GT. */
-        source = $(templates).filter('#gt_structure').html();
-        template = Handlebars.compile(source);
-        dynamic_data = {
-            item_label: translate.item,
-            emissions_label: translate.emissions,
-            gt_label: translate.gt,
-            ge_label: translate.ge,
-            gm_label: translate.gm,
-            gr_label: translate.gr,
-            gas_label: translate.gas,
-            gb_label: translate.gb,
-            gh_label: translate.gh,
-            data_not_available_label: translate.data_not_available
-        };
-        html = template(dynamic_data);
-        $('#gt').empty().html(html);
-        $('#gt_table_selector').chosen();
-        $('.chosen-container.chosen-container-single').css('width', '100%');
+        this.load_gt(true);
 
 
         $('a[href="#gt"]').tab('show');
         $('a[href="#gt_charts"]').tab('show');
+
+    };
+
+    GHG_QA_QC.prototype.load_gt = function(showEmissionsTable) {
+
+        /* Load template. */
+        var source = $(templates).filter('#gt_structure').html();
+        var template = Handlebars.compile(source);
+        var dynamic_data = {
+            gt_label: translate.gt,
+            ge_label: translate.ge,
+            gm_label: translate.gm,
+            gr_label: translate.gr,
+            gb_label: translate.gb,
+            gh_label: translate.gh,
+            gas_label: translate.gas,
+            item_label: translate.item,
+            emissions: showEmissionsTable,
+            emissions_label: translate.emissions,
+            activity_label: translate.emissions_activity,
+            table_selector_label: translate.table_selector_label,
+            data_not_available_label: translate.data_not_available
+        };
+        var html = template(dynamic_data);
+        $('#gt').empty().html(html);
+
+        /* Table selector. */
+        var table_selector = $('#gt_table_selector');
+
+        /* Load and fix Chosen. */
+        table_selector.chosen();
+        $('.chosen-container.chosen-container-single').css('width', '100%');
+
+        /* Chosen listener. */
+        table_selector.change(function() {
+            var source = $(templates).filter('#gt_tables_' + this.value).html();
+            var template = Handlebars.compile(source);
+            var dynamic_data = {
+                nc_label: translate.nc,
+                co2eq_label: translate.co2eq,
+                faostat_label: translate.faostat,
+                difference_label: translate.difference,
+                export_data_label: translate.export_data_label,
+                norm_difference_label: translate.norm_difference
+            };
+            var html = template(dynamic_data);
+            $('#gt_tables_content').empty().html(html);
+        });
 
     };
 
