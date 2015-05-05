@@ -14,8 +14,9 @@ define(['jquery',
 
         this.CONFIG = {
             lang: 'en',
+            data: null,
             lang_faostat: 'E',
-            datasource: 'faostatdb',
+            datasource: 'faostatdata',
             placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder',
             domains: [
                 {id: 'gt', label: translate.gt},
@@ -163,6 +164,11 @@ define(['jquery',
     };
 
     GHG_QA_QC.prototype.table_selector = function(domain_code, table_type) {
+
+        /* Query DB, if needed. */
+        _this.query_db(this.value);
+
+        /* Load template. */
         var source = $(templates).filter('#tables_' + table_type).html();
         var template = Handlebars.compile(source);
         var dynamic_data = {
@@ -176,9 +182,15 @@ define(['jquery',
         };
         var html = template(dynamic_data);
         $('#' + domain_code + '_tables_content').empty().html(html);
+        
     };
 
     GHG_QA_QC.prototype.populate_countries = function() {
+
+        /* This... */
+        var _this = this;
+
+        /* Config WDS. */
         var rest_config = {
             domain: 'GT',
             tab_group: 1,
@@ -186,12 +198,48 @@ define(['jquery',
             datasource: this.CONFIG.datasource,
             lang_faostat: this.CONFIG.lang_faostat
         };
+
+        /* Fetch data and populate the dropdown. */
         Commons.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
             var s = '<option value="null"></option>';
             for (var i = 0 ; i < json.length ; i++)
                 s += '<option value="' + json[i][0] + '">' + json[i][1] + '</option>';
             $('#geographic_areas').html(s).chosen();
         }, 'http://localhost:8080/wds/rest');
+
+        /* On change listener. */
+        $('#geographic_areas').change(function() {
+
+            /* Query DB, if needed. */
+            _this.query_db(this.value);
+
+        });
+
+    };
+
+    GHG_QA_QC.prototype.query_db = function(area_code) {
+
+        /* This... */
+        var _this = this;
+
+        /* Query DB, if needed. */
+        if (this.CONFIG.data == null) {
+
+            /* SQL Query. */
+            var sql = 'SELECT DomainCode, Year, GUNFValue, GValue, PerDiff, NormPerDiff, TableType ' +
+                      'FROM DataUNFCCC ' +
+                      'WHERE AreaCode = \'' + area_code + '\' ';
+
+            /* Query the DB. */
+            Commons.wdstable(sql, function (json) {
+
+                /* Do something with the output. */
+                _this.CONFIG.data = json;
+
+            }, 'http://localhost:8080/wds/rest', {datasource: this.CONFIG.datasource});
+
+        }
+
     };
 
     return GHG_QA_QC;
