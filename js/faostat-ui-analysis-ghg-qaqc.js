@@ -92,8 +92,13 @@ define(['jquery',
 
         /* Load domains. */
         /* TODO: find something better. eval() doesn't work because this will be null then. */
-        for (var i = 0 ; i < this.CONFIG.domains.length ; i++)
-            this.load_domain(this.CONFIG.domains[i].id)
+        for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
+            try {
+                this.load_domain(this.CONFIG.domains[i].id)
+            } catch (e) {
+
+            }
+        }
 
     };
 
@@ -128,7 +133,14 @@ define(['jquery',
             sheep_label: translate.sheep,
             camels_llamas_label: translate.camels_llamas,
             mules_asses_label: translate.mules_asses,
-            swine_label: translate.swine
+            swine_label: translate.swine,
+            direct_soils_label: translate.direct_soil_emissions,
+            fertilizers_label: translate.gy,
+            manure_soils_label: translate.gp,
+            crop_residues_label: translate.ga,
+            organic_soils_label: translate.gv,
+            pasture_label: translate.pasture_paddock_manure,
+            indirect_soils_label: translate.indirect_emissions
         };
         var html = template(dynamic_data);
         $('#' + domain_code).empty().html(html);

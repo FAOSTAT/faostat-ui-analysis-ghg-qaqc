@@ -99,96 +99,108 @@
                 <div class='tab-content'>
                     <div role='tabpanel' class='tab-pane' id='gt_charts'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                 <b>
                                     {{item_label}}
                                 </b>
                             </div>
-                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                                 <b>
                                     {{{emissions_label}}}
                                 </b>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                 <a>
                                     {{gt_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                                 <div id='gt_chart'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <b>
+                                    {{item_label}}
+                                </b>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <b>
+                                    {{{emissions_label}}}
+                                </b>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                 <a>
                                     {{ge_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                                 <div id='ge_chart'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                 <a>
                                     {{gm_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                                 <div id='gm_chart'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                 <a>
                                     {{gr_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                                 <div id='gr_chart'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                 <a>
                                     {{gas_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                                 <div id='gas_chart'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                 <a>
                                     {{gh_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                                 <div id='gh_chart'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
-
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                 <a>
                                     {{gb_label}}</a>
                             </div>
-                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                                 <div id='gb_chart'>
                                     {{data_not_available_label}}
                                 </div>
@@ -463,6 +475,174 @@
 </script>
 
 <!-- GE TEMPLATES: END -->
+
+<!-- GAS TEMPLATES: START -->
+
+<script type='text/x-handlebars-template' id='gas_structure'>
+    <hr>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div role='tabpanel'>
+                <ul class='nav nav-tabs' role='tablist'>
+                    <li role='presentation'>
+                        <a href='#gas_charts' aria-controls='gt_charts' role='tab' data-toggle='tab'>
+                            <i class='fa fa-line-chart'></i> {{charts_label}}
+                        </a>
+                    </li>
+                    <li role='presentation'>
+                        <a href='#gas_tables' aria-controls='gt_tables' role='tab' data-toggle='tab'>
+                            <i class='fa fa-table'></i> {{tables_label}}
+                        </a>
+                    </li>
+                </ul>
+                <div class='tab-content'>
+                    <div role='tabpanel' class='tab-pane' id='gas_charts'>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <b>
+                                    {{item_label}}
+                                </b>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <b>
+                                    {{{emissions_label}}}
+                                </b>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <a>
+                                    {{gas_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div id='gas_total_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <b>
+                                    {{item_label}}
+                                </b>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <b>
+                                    {{{emissions_label}}}
+                                </b>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <a>
+                                    {{direct_soils_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div id='direct_soils_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <a>
+                                    {{fertilizers_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div id='fertilizers_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <a>
+                                    {{manure_soils_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div id='manure_soils_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <a>
+                                    {{crop_residues_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div id='crop_residues_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <a>
+                                    {{organic_soils_label}}
+                                </a>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div id='organic_soils_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <a>
+                                    {{pasture_label}}</a>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div id='pasture_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <a>
+                                    {{indirect_soils_label}}</a>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div id='indirect_soils_chart'>
+                                    {{data_not_available_label}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role='tabpanel' class='tab-pane' id='gas_tables'>
+                        <div class='row'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <h3>{{table_selector_label}}</h3>
+                            </div>
+                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <h3>
+                                    <select class='chosen-select' id='gas_table_selector' style='width: 100%;'>
+                                        <option value="null"></option>
+                                        <option value="emissions">{{emissions_label}}</option>
+                                        <option value="activity" disabled>{{activity_label}}</option>
+                                    </select>
+                                </h3>
+                            </div>
+                        </div>
+                        <hr>
+                        <div id='gas_tables_content'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- GAS TEMPLATES: END -->
 
 <!-- TABLES TEMPLATES: START-->
 
