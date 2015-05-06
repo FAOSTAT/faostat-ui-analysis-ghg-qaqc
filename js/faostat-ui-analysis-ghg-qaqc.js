@@ -332,6 +332,15 @@ define(['jquery',
         wt_3.init(wt_3_config);
         wt_4.init(wt_4_config);
 
+        /* Synchronize scrollbars. */
+        for (i = 1 ; i < 5 ; i++) {
+            var id = '#gas_table_' + i +'_scroll';
+            $(id).scroll(function() {
+                $(".wide_tables_scroll").scrollLeft($('#' + this.id).scrollLeft());
+            });
+        }
+
+
     };
 
     return GHG_QA_QC;
