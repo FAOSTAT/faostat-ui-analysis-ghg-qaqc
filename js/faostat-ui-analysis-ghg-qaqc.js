@@ -14,7 +14,7 @@ define(['jquery',
 
         this.CONFIG = {
             lang: 'en',
-            data: null,
+            data: {},
             lang_faostat: 'E',
             datasource: 'faostatdata',
             placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder',
@@ -182,7 +182,7 @@ define(['jquery',
         };
         var html = template(dynamic_data);
         $('#' + domain_code + '_tables_content').empty().html(html);
-        
+
     };
 
     GHG_QA_QC.prototype.populate_countries = function() {
@@ -222,8 +222,10 @@ define(['jquery',
         /* This... */
         var _this = this;
 
+        console.log(area_code);
+
         /* Query DB, if needed. */
-        if (this.CONFIG.data == null) {
+        if (this.CONFIG.data[area_code] == null) {
 
             /* SQL Query. */
             var sql = 'SELECT DomainCode, Year, GUNFValue, GValue, PerDiff, NormPerDiff, TableType ' +
@@ -234,7 +236,7 @@ define(['jquery',
             Commons.wdstable(sql, function (json) {
 
                 /* Do something with the output. */
-                _this.CONFIG.data = json;
+                _this.CONFIG.data[area_code] = json;
 
             }, 'http://localhost:8080/wds/rest', {datasource: this.CONFIG.datasource});
 
