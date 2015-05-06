@@ -55,7 +55,7 @@
 <script type='text/x-handlebars-template' id='tabs'>
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <div role='tabpanel'>
+            <div role='tabpanel' id='domains_tab'>
                 <ul class='nav nav-tabs' role='tablist'>
                     {{#each domains}}
                     <li role='presentation'>
@@ -216,7 +216,7 @@
                                 <h3>
                                     <select class='chosen-select' id='gt_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
-                                        <option value="emissions">{{emissions_label}}</option>
+                                        <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity" disabled>{{activity_label}}</option>
                                     </select>
                                 </h3>
@@ -459,7 +459,7 @@
                                 <h3>
                                     <select class='chosen-select' id='ge_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
-                                        <option value="emissions">{{emissions_label}}</option>
+                                        <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity" disabled>{{activity_label}}</option>
                                     </select>
                                 </h3>
@@ -627,7 +627,7 @@
                                 <h3>
                                     <select class='chosen-select' id='gas_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
-                                        <option value="emissions">{{emissions_label}}</option>
+                                        <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity" disabled>{{activity_label}}</option>
                                     </select>
                                 </h3>
@@ -662,6 +662,7 @@
             <div id='{{id}}_table_1'></div>
         </div>
     </div>
+    <hr>
     <div class='row'>
         <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
             <h3>{{nc_label}} {{{co2eq_label}}}</h3>
@@ -677,6 +678,7 @@
             <div id='{{id}}_table_2'></div>
         </div>
     </div>
+    <hr>
     <div class='row'>
         <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
             <h3>{{difference_label}} {{{co2eq_label}}}</h3>
@@ -692,6 +694,7 @@
             <div id='{{id}}_table_3'></div>
         </div>
     </div>
+    <hr>
     <div class='row'>
         <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
             <h3>{{norm_difference_label}} {{{co2eq_label}}}</h3>
