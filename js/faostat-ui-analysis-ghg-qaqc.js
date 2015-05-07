@@ -5,6 +5,7 @@ define(['jquery',
         'FAOSTAT_UI_COMMONS',
         'FAOSTAT_UI_WIDE_TABLES',
         'chosen',
+        'highcharts',
         'bootstrap',
         'sweetAlert'], function ($, Handlebars, templates, translate, Commons, WIDE_TABLES, chosen) {
 
@@ -15,6 +16,7 @@ define(['jquery',
         this.CONFIG = {
             lang: 'en',
             data: {},
+            charts_data: {},
             lang_faostat: 'E',
             datasource: 'faostatdata',
             placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder',
@@ -26,7 +28,8 @@ define(['jquery',
                 {id: 'gas', label: translate.gas},
                 {id: 'gb', label: translate.gb},
                 {id: 'gh', label: translate.gh}
-            ]
+            ],
+            url_wds: 'http://localhost:8080/wds/rest'
         };
 
     }
@@ -61,26 +64,66 @@ define(['jquery',
         var html = template(dynamic_data);
         $('#' + this.CONFIG.placeholder_id).empty().html(html);
 
+        /* Store JQuery selectors. */
+        this.CONFIG.domains_selector = $('#domains');
+        this.CONFIG.geo_selector = $('#geographic_areas');
+
         /* Populate countries. */
         this.populate_countries();
 
+        /* On country change. */
+        this.CONFIG.geo_selector.change(function() {
+
+            /* Query DB, if needed. */
+            _this.load_data(_this.CONFIG.geo_selector.val(), _this.get_selected_domain());
+
+        });
+
         /* Domains selector. */
-        var domains_selector = $('#domains');
-
-        /* Initiate ChosenJS. */
-        domains_selector.chosen();
-
-        /* Chosen listener. */
-        domains_selector.change(function() {
+        this.CONFIG.domains_selector.chosen().change(function() {
             _this.load_tabs();
         });
 
     };
 
+    GHG_QA_QC.prototype.populate_countries = function() {
+
+        /* This... */
+        var _this = this;
+
+        /* Config WDS. */
+        var rest_config = {
+            domain: 'GT',
+            tab_group: 1,
+            tab_index: 1,
+            datasource: this.CONFIG.datasource,
+            lang_faostat: this.CONFIG.lang_faostat
+        };
+
+        /* Fetch data and populate the dropdown. */
+        Commons.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
+
+            /* Initiate options. */
+            var s = '<option value="null"></option>';
+
+            /* Iterate over results. */
+            for (var i = 0 ; i < json.length ; i++)
+                s += '<option value="' + json[i][0] + '">' + json[i][1] + '</option>';
+
+            /* Populate dropdown and define change listener. */
+            _this.CONFIG.geo_selector.html(s).chosen();
+
+        }, this.CONFIG.url_wds);
+
+    };
+
     GHG_QA_QC.prototype.load_tabs = function() {
 
+        /* Domain type. */
+        var domain_type = this.CONFIG.domains_selector.val();
+
         /* Load template. */
-        var source = $(templates).filter('#tabs').html();
+        var source = $(templates).filter('#tabs_' + domain_type).html();
         var template = Handlebars.compile(source);
         var dynamic_data = {
             domains: this.CONFIG.domains
@@ -92,7 +135,6 @@ define(['jquery',
         $('a[href="#gt"]').tab('show');
 
         /* Load domains. */
-        /* TODO: find something better. eval() doesn't work because this will be null then. */
         for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
             try {
                 this.load_domain(this.CONFIG.domains[i].id)
@@ -120,28 +162,28 @@ define(['jquery',
             gh_label: translate.gh,
             gas_label: translate.gas,
             item_label: translate.item,
+            goats_label: translate.goats,
+            sheep_label: translate.sheep,
+            swine_label: translate.swine,
             charts_label: translate.charts,
             tables_label: translate.tables,
-            emissions_label: translate.emissions,
-            activity_label: translate.emissions_activity,
-            table_selector_label: translate.table_selector_label,
-            data_not_available_label: translate.data_not_available,
-            buffaloes_label: translate.buffaloes,
-            cattle_dairy_label: translate.cattle_dairy,
-            cattle_non_dairy_label: translate.cattle_non_dairy,
-            goats_label: translate.goats,
             horses_label: translate.horses,
-            sheep_label: translate.sheep,
-            camels_llamas_label: translate.camels_llamas,
-            mules_asses_label: translate.mules_asses,
-            swine_label: translate.swine,
-            direct_soils_label: translate.direct_soil_emissions,
             fertilizers_label: translate.gy,
             manure_soils_label: translate.gp,
             crop_residues_label: translate.ga,
             organic_soils_label: translate.gv,
+            buffaloes_label: translate.buffaloes,
+            emissions_label: translate.emissions,
+            mules_asses_label: translate.mules_asses,
+            cattle_dairy_label: translate.cattle_dairy,
+            activity_label: translate.emissions_activity,
+            camels_llamas_label: translate.camels_llamas,
             pasture_label: translate.pasture_paddock_manure,
-            indirect_soils_label: translate.indirect_emissions
+            cattle_non_dairy_label: translate.cattle_non_dairy,
+            indirect_soils_label: translate.indirect_emissions,
+            direct_soils_label: translate.direct_soil_emissions,
+            table_selector_label: translate.table_selector_label,
+            data_not_available_label: translate.data_not_available
         };
         var html = template(dynamic_data);
         $('#' + domain_code).empty().html(html);
@@ -151,47 +193,10 @@ define(['jquery',
 
         /* Table selector. */
         var table_selector = $('#' + domain_code + '_table_selector');
-
-        /* Load and fix Chosen. */
-        table_selector.chosen();
+        table_selector.chosen().change(function() {
+            _this.load_data(_this.CONFIG.geo_selector.val(), _this.get_selected_domain());
+        });
         $('.chosen-container.chosen-container-single').css('width', '100%');
-
-        /* Chosen listener. */
-        table_selector.change(function() {
-            _this.load_data($('#geographic_areas').val(), _this.get_selected_domain());
-        });
-
-    };
-
-    GHG_QA_QC.prototype.populate_countries = function() {
-
-        /* This... */
-        var _this = this;
-
-        /* Config WDS. */
-        var rest_config = {
-            domain: 'GT',
-            tab_group: 1,
-            tab_index: 1,
-            datasource: this.CONFIG.datasource,
-            lang_faostat: this.CONFIG.lang_faostat
-        };
-
-        /* Fetch data and populate the dropdown. */
-        Commons.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
-            var s = '<option value="null"></option>';
-            for (var i = 0 ; i < json.length ; i++)
-                s += '<option value="' + json[i][0] + '">' + json[i][1] + '</option>';
-            $('#geographic_areas').html(s).chosen();
-        }, 'http://localhost:8080/wds/rest');
-
-        /* On change listener. */
-        $('#geographic_areas').change(function() {
-
-            /* Query DB, if needed. */
-            _this.load_data($('#geographic_areas').val(), _this.get_selected_domain());
-
-        });
 
     };
 
@@ -212,15 +217,70 @@ define(['jquery',
                 /* Store data. */
                 _this.CONFIG.data[area_code] = json;
 
+                /* Create charts data. */
+                _this.create_charts_data(area_code);
+
                 /* Render tables. */
                 _this.render_tables(domain_code);
 
-            }, 'http://localhost:8080/wds/rest', {datasource: this.CONFIG.datasource});
+            }, this.CONFIG.url_wds, {datasource: this.CONFIG.datasource});
 
         } else {
 
             /* Render tables. */
             this.render_tables(domain_code);
+
+        }
+
+    };
+
+    GHG_QA_QC.prototype.create_charts_data = function(area_code) {
+
+        /* Check whether data already exists. */
+        if (this.CONFIG.data[area_code] != null) {
+
+            /* Iterate over domains. */
+            for (var j = 0 ; j < this.CONFIG.domains.length ; j++) {
+
+                /* Data for charts. */
+                var c_series = [];
+
+                var code = this.CONFIG.data[area_code][0].GUNFCode;
+                for (var i = 0; i < this.CONFIG.data[area_code].length; i++) {
+                    if (this.CONFIG.data[area_code][i].GUNFCode == code) {
+                        if (this.CONFIG.data[area_code][i].DomainCode == this.CONFIG.domains[j].id.toUpperCase() &&
+                            this.CONFIG.data[area_code][i].TableType == 'emissions' &&
+                            this.CONFIG.data[area_code][i].GUNFCode == code) {
+                            c_series.push(this.CONFIG.data[area_code][i]);
+                        }
+                    } else {
+                        if (c_series.length > 0) {
+                            if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()] == null)
+                                this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()] = {};
+                            if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code] == null)
+                                this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code] = {};
+                            if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] == null)
+                                this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] = {};
+                            this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] = c_series;
+                        }
+                        c_series = [];
+                        code = this.CONFIG.data[area_code][i].GUNFCode;
+                    }
+                }
+
+                if (c_series.length > 0) {
+                    if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()] == null)
+                        this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()] = {};
+                    if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code] == null)
+                        this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code] = {};
+                    if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] == null)
+                        this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] = {};
+                    this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] = c_series;
+                }
+
+            }
+
+            console.log(this.CONFIG.charts_data);
 
         }
 
@@ -249,7 +309,7 @@ define(['jquery',
             $('#' + domain_code + '_tables_content').empty().html(html);
 
             /* Populate tables. */
-            this.populate_tables($('#geographic_areas').val());
+            this.populate_tables(this.CONFIG.geo_selector.val());
 
         } catch (e) {
 
@@ -259,10 +319,12 @@ define(['jquery',
 
     GHG_QA_QC.prototype.get_query = function(area_code) {
         return  'SELECT DomainCode, Year, UNFCCCCode, GUNFItemNameE, ' +
-                'GUNFValue, GValue, PerDiff, ' +
-                'NormPerDiff, TableType ' +
+                       'GUNFValue, GUNFCode, GValue, PerDiff, ' +
+                       'NormPerDiff, TableType ' +
                 'FROM DataUNFCCC ' +
                 'WHERE AreaCode = \'' + area_code + '\' ' +
+                'AND Year >= 1990 AND Year <= 2012 ' +
+                'AND GUNFCode IS NOT NULL ' +
                 'ORDER BY UNFCCCCode, Year DESC';
     };
 
@@ -339,7 +401,6 @@ define(['jquery',
                 $(".wide_tables_scroll").scrollLeft($('#' + this.id).scrollLeft());
             });
         }
-
 
     };
 
