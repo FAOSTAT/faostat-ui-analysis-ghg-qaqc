@@ -89,6 +89,22 @@ define(['jquery',
             _this.load_tabs();
         });
 
+        /* Create charts after domain has been rendered. */
+        amplify.subscribe('domain_rendered', function(event_data) {
+
+            /* Create charts. */
+            _this.create_charts(event_data.domain_code);
+
+        });
+
+        /* Create charts after domain has been rendered. */
+        amplify.subscribe('charts_data_loaded', function(event_data) {
+
+            /* Create charts. */
+            _this.create_charts(_this.get_selected_domain());
+
+        });
+
     };
 
     GHG_QA_QC.prototype.load_data = function(area_code, domain_code) {
@@ -199,15 +215,15 @@ define(['jquery',
         /* Select first tab. */
         $('a[href="#' + domain_code + '_charts"]').tab('show');
 
-        /* Create charts. */
-        this.create_charts(domain_code);
-
         /* Table selector. */
         var table_selector = $('#' + domain_code + '_table_selector');
         table_selector.chosen().change(function() {
             _this.load_data(_this.CONFIG.geo_selector.val(), _this.get_selected_domain());
         });
         $('.chosen-container.chosen-container-single').css('width', '100%');
+
+        /* Fire event after domain is rendered. */
+        amplify.publish('domain_rendered', {domain_code: domain_code});
 
     };
 
@@ -226,10 +242,10 @@ define(['jquery',
                 }]
             };
 
-            this.CONFIG = $.extend(true, {}, chart_template, config);
+            config = $.extend(true, {}, chart_template, config);
 
             /* Create chart. */
-            $('#gt_chart').highcharts(config);
+            $('#gt_chart').empty().highcharts(config);
 
         }
 
@@ -271,6 +287,9 @@ define(['jquery',
                 this.CONFIG.charts_data[area_code][domain_code][table_type][item_code].push(this.CONFIG.data[area_code][i]);
 
             }
+
+            /* Fire events on data loaded. */
+            amplify.publish('charts_data_loaded', {area_code: area_code});
 
         }
 
