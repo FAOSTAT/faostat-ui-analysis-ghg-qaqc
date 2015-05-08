@@ -87,34 +87,65 @@ define(['jquery',
 
     };
 
-    GHG_QA_QC.prototype.populate_countries = function() {
+    GHG_QA_QC.prototype.load_data = function(area_code, domain_code) {
 
         /* This... */
         var _this = this;
 
-        /* Config WDS. */
-        var rest_config = {
-            domain: 'GT',
-            tab_group: 1,
-            tab_index: 1,
-            datasource: this.CONFIG.datasource,
-            lang_faostat: this.CONFIG.lang_faostat
-        };
+        /* Query DB, if needed. */
+        if (this.CONFIG.data[area_code] == null) {
 
-        /* Fetch data and populate the dropdown. */
-        Commons.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
+            /* SQL Query. */
+            var sql = _this.get_query(area_code);
 
-            /* Initiate options. */
-            var s = '<option value="null"></option>';
+            /* Query the DB. */
+            Commons.wdstable(sql, function (json) {
 
-            /* Iterate over results. */
-            for (var i = 0 ; i < json.length ; i++)
-                s += '<option value="' + json[i][0] + '">' + json[i][1] + '</option>';
+                /* Store data. */
+                _this.CONFIG.data[area_code] = json;
 
-            /* Populate dropdown and define change listener. */
-            _this.CONFIG.geo_selector.html(s).chosen();
 
-        }, this.CONFIG.url_wds);
+
+                /* Domain type. */
+                var domain_type = this.CONFIG.domains_selector.val();
+
+                /* Load template. */
+                var source = $(templates).filter('#tabs_' + domain_type).html();
+                var template = Handlebars.compile(source);
+                var dynamic_data = {
+                    domains: this.CONFIG.domains
+                };
+                var html = template(dynamic_data);
+                $('#tabs_content').empty().html(html);
+
+                /* Select first tab. */
+                $('a[href="#gt"]').tab('show');
+
+                /* Load domains. */
+                for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
+                    try {
+                        this.load_domain(this.CONFIG.domains[i].id)
+                    } catch (e) {
+
+                    }
+                }
+
+
+
+                /* Create charts data. */
+                _this.create_charts_data(area_code);
+
+                /* Render tables. */
+                _this.render_tables(domain_code);
+
+            }, this.CONFIG.url_wds, {datasource: this.CONFIG.datasource});
+
+        } else {
+
+            /* Render tables. */
+            this.render_tables(domain_code);
+
+        }
 
     };
 
@@ -201,37 +232,7 @@ define(['jquery',
 
     };
 
-    GHG_QA_QC.prototype.load_data = function(area_code, domain_code) {
-
-        /* This... */
-        var _this = this;
-
-        /* Query DB, if needed. */
-        if (this.CONFIG.data[area_code] == null) {
-
-            /* SQL Query. */
-            var sql = _this.get_query(area_code);
-
-            /* Query the DB. */
-            Commons.wdstable(sql, function (json) {
-
-                /* Store data. */
-                _this.CONFIG.data[area_code] = json;
-
-                /* Create charts data. */
-                _this.create_charts_data(area_code);
-
-                /* Render tables. */
-                _this.render_tables(domain_code);
-
-            }, this.CONFIG.url_wds, {datasource: this.CONFIG.datasource});
-
-        } else {
-
-            /* Render tables. */
-            this.render_tables(domain_code);
-
-        }
+    GHG_QA_QC.prototype.create_charts = function(area_code) {
 
     };
 
@@ -273,8 +274,6 @@ define(['jquery',
             }
 
         }
-
-        this.create_series(area_code, 'GT', 'emissions', '1711', 'Year', 'GValue')
 
     };
 
@@ -349,6 +348,37 @@ define(['jquery',
                 'AND Year >= 1990 AND Year <= 2012 ' +
                 'AND GUNFCode IS NOT NULL ' +
                 'ORDER BY UNFCCCCode, Year DESC';
+    };
+
+    GHG_QA_QC.prototype.populate_countries = function() {
+
+        /* This... */
+        var _this = this;
+
+        /* Config WDS. */
+        var rest_config = {
+            domain: 'GT',
+            tab_group: 1,
+            tab_index: 1,
+            datasource: this.CONFIG.datasource,
+            lang_faostat: this.CONFIG.lang_faostat
+        };
+
+        /* Fetch data and populate the dropdown. */
+        Commons.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
+
+            /* Initiate options. */
+            var s = '<option value="null"></option>';
+
+            /* Iterate over results. */
+            for (var i = 0 ; i < json.length ; i++)
+                s += '<option value="' + json[i][0] + '">' + json[i][1] + '</option>';
+
+            /* Populate dropdown and define change listener. */
+            _this.CONFIG.geo_selector.html(s).chosen();
+
+        }, this.CONFIG.url_wds);
+
     };
 
     GHG_QA_QC.prototype.get_selected_domain = function() {
