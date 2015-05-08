@@ -29,6 +29,7 @@ define(['jquery',
                 {id: 'gb', label: translate.gb},
                 {id: 'gh', label: translate.gh}
             ],
+            table_types: ['emissions', 'activity'],
             url_wds: 'http://localhost:8080/wds/rest'
         };
 
@@ -236,47 +237,59 @@ define(['jquery',
 
     GHG_QA_QC.prototype.create_charts_data = function(area_code) {
 
+        console.log(this.get_query(area_code));
+
+        var isDomain;
+        var isType;
+        var isCode;
+
         /* Check whether data already exists. */
         if (this.CONFIG.data[area_code] != null) {
 
             /* Iterate over domains. */
             for (var j = 0 ; j < this.CONFIG.domains.length ; j++) {
 
-                /* Data for charts. */
-                var c_series = [];
+                /* Current domain code. */
+                var domain_code = this.CONFIG.domains[j].id.toUpperCase();
 
-                var code = this.CONFIG.data[area_code][0].GUNFCode;
-                for (var i = 0; i < this.CONFIG.data[area_code].length; i++) {
-                    if (this.CONFIG.data[area_code][i].GUNFCode == code) {
-                        if (this.CONFIG.data[area_code][i].DomainCode == this.CONFIG.domains[j].id.toUpperCase() &&
-                            this.CONFIG.data[area_code][i].TableType == 'emissions' &&
-                            this.CONFIG.data[area_code][i].GUNFCode == code) {
-                            c_series.push(this.CONFIG.data[area_code][i]);
+                for (var z = 0 ; z < this.CONFIG.table_types.length ; z++) {
+
+                    /* Table type: 'emissions' or 'activity'. */
+                    var table_type = this.CONFIG.table_types[z];
+
+                    /* Data for charts. */
+                    var c_series = [];
+
+                    var item_code = this.CONFIG.data[area_code][0].GUNFCode;
+
+                    for (var i = 0; i < this.CONFIG.data[area_code].length; i++) {
+
+                        if (domain_code == 'GE' && item_code == '1016')
+                            console.log(this.CONFIG.data[area_code][i].GUNFCode +'=='+ item_code + ' ? ' + (this.CONFIG.data[area_code][i].GUNFCode == item_code));
+
+                        if (this.CONFIG.data[area_code][i].GUNFCode == item_code) {
+
+                            isDomain = this.CONFIG.data[area_code][i].DomainCode == domain_code;
+                            isType = this.CONFIG.data[area_code][i].TableType == table_type;
+                            isCode = this.CONFIG.data[area_code][i].GUNFCode == item_code;
+
+                            if (isDomain && isType && isCode) {
+                                c_series.push(this.CONFIG.data[area_code][i]);
+                            }
+
+                        } else {
+                            this.register_chart_series(c_series, domain_code, item_code, table_type);
+                            c_series = [];
+                            item_code = this.CONFIG.data[area_code][i].GUNFCode;
                         }
-                    } else {
-                        if (c_series.length > 0) {
-                            if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()] == null)
-                                this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()] = {};
-                            if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code] == null)
-                                this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code] = {};
-                            if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] == null)
-                                this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] = {};
-                            this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] = c_series;
-                        }
-                        c_series = [];
-                        code = this.CONFIG.data[area_code][i].GUNFCode;
                     }
+
+
+
                 }
 
-                if (c_series.length > 0) {
-                    if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()] == null)
-                        this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()] = {};
-                    if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code] == null)
-                        this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code] = {};
-                    if (this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] == null)
-                        this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] = {};
-                    this.CONFIG.charts_data[this.CONFIG.domains[j].id.toUpperCase()][code]['emissions'] = c_series;
-                }
+                /* Last iteration. */
+                this.register_chart_series(c_series, domain_code, item_code, table_type);
 
             }
 
@@ -284,6 +297,18 @@ define(['jquery',
 
         }
 
+    };
+
+    GHG_QA_QC.prototype.register_chart_series = function(chart_series, domain_code, item_code, table_type) {
+        if (chart_series.length > 0) {
+            if (this.CONFIG.charts_data[domain_code] == null)
+                this.CONFIG.charts_data[domain_code] = {};
+            if (this.CONFIG.charts_data[domain_code][item_code] == null)
+                this.CONFIG.charts_data[domain_code][item_code] = {};
+            if (this.CONFIG.charts_data[domain_code][item_code][table_type] == null)
+                this.CONFIG.charts_data[domain_code][item_code][table_type] = {};
+            this.CONFIG.charts_data[domain_code][item_code][table_type] = chart_series;
+        }
     };
 
     GHG_QA_QC.prototype.render_tables = function(domain_code) {
