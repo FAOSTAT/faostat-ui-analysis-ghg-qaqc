@@ -235,68 +235,66 @@ define(['jquery',
 
     };
 
+    /**
+     * @param area_code Code of the selected country, e.g. '10'
+     *
+     * This function reorganize the data to be used by charts,
+     * as demonstrated in /resources/json/charts_data_example.json
+     */
     GHG_QA_QC.prototype.create_charts_data = function(area_code) {
 
-        console.log(this.get_query(area_code));
-
-        var isDomain;
-        var isType;
-        var isCode;
-
         /* Check whether data already exists. */
-        if (this.CONFIG.data[area_code] != null) {
+        if (this.CONFIG.charts_data[area_code] == null) {
 
-            /* Iterate over domains. */
-            for (var j = 0 ; j < this.CONFIG.domains.length ; j++) {
+            /* Create the structure for the given country. */
+            this.CONFIG.charts_data[area_code] = {};
 
-                /* Current domain code. */
-                var domain_code = this.CONFIG.domains[j].id.toUpperCase();
+            /* Iterate over data. */
+            for (var i = 0 ; i < this.CONFIG.data[area_code].length ; i++) {
 
-                for (var z = 0 ; z < this.CONFIG.table_types.length ; z++) {
+                /* Create domain object. */
+                var domain_code = this.CONFIG.data[area_code][i].DomainCode;
+                if (this.CONFIG.charts_data[area_code][domain_code] == null)
+                    this.CONFIG.charts_data[area_code][domain_code] = {};
 
-                    /* Table type: 'emissions' or 'activity'. */
-                    var table_type = this.CONFIG.table_types[z];
+                /* Create table type object. */
+                var table_type = this.CONFIG.data[area_code][i].TableType;
+                if (this.CONFIG.charts_data[area_code][domain_code][table_type] == null)
+                    this.CONFIG.charts_data[area_code][domain_code][table_type] = {};
 
-                    /* Data for charts. */
-                    var c_series = [];
+                /* Create item code object. */
+                var item_code = this.CONFIG.data[area_code][i].GUNFCode;
+                if (this.CONFIG.charts_data[area_code][domain_code][table_type][item_code] == null)
+                    this.CONFIG.charts_data[area_code][domain_code][table_type][item_code] = [];
 
-                    var item_code = this.CONFIG.data[area_code][0].GUNFCode;
-
-                    for (var i = 0; i < this.CONFIG.data[area_code].length; i++) {
-
-                        if (domain_code == 'GE' && item_code == '1016')
-                            console.log(this.CONFIG.data[area_code][i].GUNFCode +'=='+ item_code + ' ? ' + (this.CONFIG.data[area_code][i].GUNFCode == item_code));
-
-                        if (this.CONFIG.data[area_code][i].GUNFCode == item_code) {
-
-                            isDomain = this.CONFIG.data[area_code][i].DomainCode == domain_code;
-                            isType = this.CONFIG.data[area_code][i].TableType == table_type;
-                            isCode = this.CONFIG.data[area_code][i].GUNFCode == item_code;
-
-                            if (isDomain && isType && isCode) {
-                                c_series.push(this.CONFIG.data[area_code][i]);
-                            }
-
-                        } else {
-                            this.register_chart_series(c_series, domain_code, item_code, table_type);
-                            c_series = [];
-                            item_code = this.CONFIG.data[area_code][i].GUNFCode;
-                        }
-                    }
-
-
-
-                }
-
-                /* Last iteration. */
-                this.register_chart_series(c_series, domain_code, item_code, table_type);
+                /* Push value. */
+                this.CONFIG.charts_data[area_code][domain_code][table_type][item_code].push(this.CONFIG.data[area_code][i]);
 
             }
 
-            console.log(this.CONFIG.charts_data);
-
         }
 
+        this.create_series(area_code, 'GT', 'emissions', '1711', 'Year', 'GValue')
+
+    };
+
+    /**
+     * @param area_code
+     * @param domain_code
+     * @param table_type
+     * @param item_code
+     * @param x_dimension   Dimension to be plotted on the X axis
+     * @param y_dimension   Dimension to be plotted on the Y axis
+     * @returns {Array}
+     *
+     * This function creates an array of arrays to be plotted.
+     */
+    GHG_QA_QC.prototype.create_series = function(area_code, domain_code, table_type, item_code, x_dimension, y_dimension) {
+        var s = [];
+        var d = this.CONFIG.charts_data[area_code][domain_code][table_type][item_code];
+        for (var i = d.length - 1 ; i >= 0 ; i--)
+            s.push([d[i][x_dimension], d[i][y_dimension]]);
+        return s;
     };
 
     GHG_QA_QC.prototype.register_chart_series = function(chart_series, domain_code, item_code, table_type) {
