@@ -249,6 +249,49 @@ define(['jquery',
 
         }
 
+        if (domain_code == 'ge') {
+
+            /* Create series. */
+            var series_1 = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', '946', 'Year', 'GValue');
+            var series_2 = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', '946', 'Year', 'GUNFValue');
+            var config = {
+                series: [
+                    {
+                        data: series_1,
+                        name: translate.faostat,
+                        type: 'line'
+                    },
+                    {
+                        data: series_2,
+                        name: translate.nc,
+                        type: 'scatter'
+                    }
+                ]
+            };
+            config = $.extend(true, {}, chart_template, config);
+            $('#buffaloes_chart_1').empty().highcharts(config);
+
+            series_1 = this.create_series(area_code, domain_code.toUpperCase(), 'activity', '946', 'Year', 'GValue');
+            series_2 = this.create_series(area_code, domain_code.toUpperCase(), 'activity', '946', 'Year', 'GUNFValue');
+            config = {
+                series: [
+                    {
+                        data: series_1,
+                        name: translate.faostat,
+                        type: 'spline'
+                    },
+                    {
+                        data: series_2,
+                        name: translate.nc,
+                        type: 'line'
+                    }
+                ]
+            };
+            config = $.extend(true, {}, chart_template, config);
+            $('#buffaloes_chart_2').empty().highcharts(config);
+
+        }
+
     };
 
     /**
@@ -309,8 +352,10 @@ define(['jquery',
     GHG_QA_QC.prototype.create_series = function(area_code, domain_code, table_type, item_code, x_dimension, y_dimension) {
         var s = [];
         var d = this.CONFIG.charts_data[area_code][domain_code][table_type][item_code];
-        for (var i = d.length - 1 ; i >= 0 ; i--)
-            s.push([d[i][x_dimension], parseFloat(d[i][y_dimension]) ]);
+        for (var i = d.length - 1 ; i >= 0 ; i--) {
+            var y = isNaN(parseFloat(d[i][y_dimension])) ? null : parseFloat(d[i][y_dimension]);
+            s.push([d[i][x_dimension], y]);
+        }
         return s;
     };
 
