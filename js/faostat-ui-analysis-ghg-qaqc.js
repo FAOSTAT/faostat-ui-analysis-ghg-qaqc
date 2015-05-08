@@ -2,12 +2,13 @@ define(['jquery',
         'handlebars',
         'text!faostat_ui_analysis_ghg_qa_qc/html/templates.html',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
+        'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
         'FAOSTAT_UI_COMMONS',
         'FAOSTAT_UI_WIDE_TABLES',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert'], function ($, Handlebars, templates, translate, Commons, WIDE_TABLES, chosen) {
+        'sweetAlert'], function ($, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, chosen) {
 
     'use strict';
 
@@ -31,7 +32,7 @@ define(['jquery',
             ],
             table_types: ['emissions', 'activity'],
             url_wds: 'http://localhost:8080/wds/rest'
-        };
+        }
 
     }
 
@@ -45,6 +46,9 @@ define(['jquery',
 
         /* Store FAOSTAT language. */
         this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
+
+        /* Cast chart configuration to JSON object. */
+        chart_template = $.parseJSON(chart_template);
 
         /* This... */
         var _this = this;
@@ -103,34 +107,6 @@ define(['jquery',
 
                 /* Store data. */
                 _this.CONFIG.data[area_code] = json;
-
-
-
-                /* Domain type. */
-                var domain_type = this.CONFIG.domains_selector.val();
-
-                /* Load template. */
-                var source = $(templates).filter('#tabs_' + domain_type).html();
-                var template = Handlebars.compile(source);
-                var dynamic_data = {
-                    domains: this.CONFIG.domains
-                };
-                var html = template(dynamic_data);
-                $('#tabs_content').empty().html(html);
-
-                /* Select first tab. */
-                $('a[href="#gt"]').tab('show');
-
-                /* Load domains. */
-                for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
-                    try {
-                        this.load_domain(this.CONFIG.domains[i].id)
-                    } catch (e) {
-
-                    }
-                }
-
-
 
                 /* Create charts data. */
                 _this.create_charts_data(area_code);
@@ -223,6 +199,9 @@ define(['jquery',
         /* Select first tab. */
         $('a[href="#' + domain_code + '_charts"]').tab('show');
 
+        /* Create charts. */
+        this.create_charts(domain_code);
+
         /* Table selector. */
         var table_selector = $('#' + domain_code + '_table_selector');
         table_selector.chosen().change(function() {
@@ -232,7 +211,27 @@ define(['jquery',
 
     };
 
-    GHG_QA_QC.prototype.create_charts = function(area_code) {
+    GHG_QA_QC.prototype.create_charts = function(domain_code) {
+
+        /* Fetch selected area code. */
+        var area_code = this.CONFIG.geo_selector.val();
+
+        if (domain_code == 'gt') {
+
+            /* Create series. */
+            var series = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', '1711', 'Year', 'GValue');
+            var config = {
+                series: [{
+                    data: series
+                }]
+            };
+
+            this.CONFIG = $.extend(true, {}, chart_template, config);
+
+            /* Create chart. */
+            $('#gt_chart').highcharts(config);
+
+        }
 
     };
 
@@ -292,7 +291,7 @@ define(['jquery',
         var s = [];
         var d = this.CONFIG.charts_data[area_code][domain_code][table_type][item_code];
         for (var i = d.length - 1 ; i >= 0 ; i--)
-            s.push([d[i][x_dimension], d[i][y_dimension]]);
+            s.push([d[i][x_dimension], parseFloat(d[i][y_dimension]) ]);
         return s;
     };
 
