@@ -63,7 +63,8 @@ define({
         sheep: 'Sheep',
         camels_llamas: 'Camels and Llamas',
         mules_asses: 'Mules and Asses',
-        swine: 'Swine'
+        swine: 'Swine',
+        poultry_birds: 'Poultry Birds'
     },
     fr : true,
     es : true

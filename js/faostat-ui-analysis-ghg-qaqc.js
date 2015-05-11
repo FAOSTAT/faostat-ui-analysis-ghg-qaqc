@@ -204,6 +204,7 @@ define(['jquery',
             mules_asses_label: translate.mules_asses,
             cattle_dairy_label: translate.cattle_dairy,
             activity_label: translate.emissions_activity,
+            poultry_birds_label: translate.poultry_birds,
             camels_llamas_label: translate.camels_llamas,
             pasture_label: translate.pasture_paddock_manure,
             cattle_non_dairy_label: translate.cattle_non_dairy,
@@ -280,7 +281,7 @@ define(['jquery',
                     ]
                 };
                 config = $.extend(true, {}, chart_template, config);
-                $('#' + keys[i] + '_emissions').empty().highcharts(config);
+                $('#' + keys[i] + '_' + domain_code + '_emissions').empty().highcharts(config);
             }
 
             domain_data = this.CONFIG.charts_data[area_code]['GE']['activity'];
@@ -309,7 +310,7 @@ define(['jquery',
                     ]
                 };
                 config = $.extend(true, {}, chart_template, config);
-                $('#' + keys[i] + '_activity').empty().highcharts(config);
+                $('#' + keys[i] + '_' + domain_code + '_activity').empty().highcharts(config);
             }
 
         }
