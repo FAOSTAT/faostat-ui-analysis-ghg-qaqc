@@ -350,8 +350,6 @@ define(['jquery',
 
             }
 
-            console.log(this.CONFIG.charts_data[area_code]);
-
             /* Fire events on data loaded. */
             amplify.publish('charts_data_loaded', {area_code: area_code});
 
@@ -472,11 +470,73 @@ define(['jquery',
 
     GHG_QA_QC.prototype.populate_tables = function(area_code) {
 
-        /* Table type. */
-        var table_type = $('#gas_table_selector').val();
-
         /* Populate GAS tables. */
-        this.populate_gas(area_code, table_type);
+        this.populate_gas(area_code, $('#gas_table_selector').val());
+
+        /* Populate GE tables. */
+        this.populate_ge(area_code, $('#ge_table_selector').val());
+
+    };
+
+    GHG_QA_QC.prototype.populate_ge = function(area_code, table_type) {
+
+        /* Common configuration. */
+        var wt_config = {
+            show_row_code: false,
+            lang: this.CONFIG.lang,
+            cols_dimension: 'Year',
+            row_label: 'GUNFItemNameE',
+            row_code: 'GUNFCode'
+        };
+
+        /* Data for tables. */
+        var gas_table_1 = [];
+        for (var i = 0 ; i < this.CONFIG.data[area_code].length ; i++) {
+            if (this.CONFIG.data[area_code][i].DomainCode == 'GE' && this.CONFIG.data[area_code][i].TableType == table_type)
+                gas_table_1.push(this.CONFIG.data[area_code][i]);
+        }
+
+        /* Initiate wide tables library. */
+        var wt_1 = new WIDE_TABLES();
+        var wt_2 = new WIDE_TABLES();
+        var wt_3 = new WIDE_TABLES();
+        var wt_4 = new WIDE_TABLES();
+
+        /* Configure tables. */
+        var wt_1_config = $.extend(true, {}, wt_config, {
+            data: gas_table_1,
+            value_dimension: 'GValue',
+            placeholder_id: 'ge_table_1'
+        });
+        var wt_2_config = $.extend(true, {}, wt_config, {
+            data: gas_table_1,
+            value_dimension: 'GUNFValue',
+            placeholder_id: 'ge_table_2'
+        });
+        var wt_3_config = $.extend(true, {}, wt_config, {
+            data: gas_table_1,
+            value_dimension: 'PerDiff',
+            placeholder_id: 'ge_table_3'
+        });
+        var wt_4_config = $.extend(true, {}, wt_config, {
+            data: gas_table_1,
+            value_dimension: 'NormPerDiff',
+            placeholder_id: 'ge_table_4'
+        });
+
+        /* Render tables. */
+        wt_1.init(wt_1_config);
+        wt_2.init(wt_2_config);
+        wt_3.init(wt_3_config);
+        wt_4.init(wt_4_config);
+
+        /* Synchronize scrollbars. */
+        for (i = 1 ; i < 5 ; i++) {
+            var id = '#ge_table_' + i +'_scroll';
+            $(id).scroll(function() {
+                $(".wide_tables_scroll").scrollLeft($('#' + this.id).scrollLeft());
+            });
+        }
 
     };
 
