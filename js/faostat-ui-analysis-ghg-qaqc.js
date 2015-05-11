@@ -103,6 +103,9 @@ define(['jquery',
             /* Create charts. */
             _this.create_charts(_this.get_selected_domain());
 
+            /* Render tables. */
+            _this.render_tables(_this.get_selected_domain());
+
         });
 
     };
@@ -516,12 +519,14 @@ define(['jquery',
         var wt_3_config = $.extend(true, {}, wt_config, {
             data: gas_table_1,
             value_dimension: 'PerDiff',
-            placeholder_id: 'ge_table_3'
+            placeholder_id: 'ge_table_3',
+            color_values: true
         });
         var wt_4_config = $.extend(true, {}, wt_config, {
             data: gas_table_1,
             value_dimension: 'NormPerDiff',
-            placeholder_id: 'ge_table_4'
+            placeholder_id: 'ge_table_4',
+            color_values: true
         });
 
         /* Render tables. */
@@ -578,12 +583,14 @@ define(['jquery',
         var wt_3_config = $.extend(true, {}, wt_config, {
             data: gas_table_1,
             value_dimension: 'PerDiff',
-            placeholder_id: 'gas_table_3'
+            placeholder_id: 'gas_table_3',
+            color_values: true
         });
         var wt_4_config = $.extend(true, {}, wt_config, {
             data: gas_table_1,
             value_dimension: 'NormPerDiff',
-            placeholder_id: 'gas_table_4'
+            placeholder_id: 'gas_table_4',
+            color_values: true
         });
 
         /* Render tables. */
