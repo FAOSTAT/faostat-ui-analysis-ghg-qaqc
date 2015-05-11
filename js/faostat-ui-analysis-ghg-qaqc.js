@@ -251,44 +251,63 @@ define(['jquery',
 
         if (domain_code == 'ge') {
 
-            /* Create series. */
-            var series_1 = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', '946', 'Year', 'GValue');
-            var series_2 = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', '946', 'Year', 'GUNFValue');
-            var config = {
-                series: [
-                    {
-                        data: series_1,
-                        name: translate.faostat,
-                        type: 'line'
-                    },
-                    {
-                        data: series_2,
-                        name: translate.nc,
-                        type: 'scatter'
-                    }
-                ]
-            };
-            config = $.extend(true, {}, chart_template, config);
-            $('#buffaloes_chart_1').empty().highcharts(config);
+            var domain_data = this.CONFIG.charts_data[area_code]['GE']['emissions'];
+            var keys = Object.keys(domain_data);
+            for (var i = 0 ; i < keys.length ; i++) {
+                var series_1 = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', keys[i], 'Year', 'GValue');
+                var series_2 = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', '946', 'Year', 'GUNFValue');
+                var config = {
+                    series: [
+                        {
+                            data: series_1,
+                            name: translate.faostat,
+                            type: 'line',
+                            marker: {
+                                enabled: false
+                            }
+                        },
+                        {
+                            data: series_2,
+                            name: translate.nc,
+                            type: 'scatter',
+                            marker: {
+                                radius: 4
+                            }
+                        }
+                    ]
+                };
+                config = $.extend(true, {}, chart_template, config);
+                $('#' + keys[i] + '_emissions').empty().highcharts(config);
+            }
 
-            series_1 = this.create_series(area_code, domain_code.toUpperCase(), 'activity', '946', 'Year', 'GValue');
-            series_2 = this.create_series(area_code, domain_code.toUpperCase(), 'activity', '946', 'Year', 'GUNFValue');
-            config = {
-                series: [
-                    {
-                        data: series_1,
-                        name: translate.faostat,
-                        type: 'spline'
-                    },
-                    {
-                        data: series_2,
-                        name: translate.nc,
-                        type: 'line'
-                    }
-                ]
-            };
-            config = $.extend(true, {}, chart_template, config);
-            $('#buffaloes_chart_2').empty().highcharts(config);
+            domain_data = this.CONFIG.charts_data[area_code]['GE']['activity'];
+            keys = Object.keys(domain_data);
+            for (i = 0 ; i < keys.length ; i++) {
+                series_1 = this.create_series(area_code, domain_code.toUpperCase(), 'activity', keys[i], 'Year', 'GValue');
+                series_2 = this.create_series(area_code, domain_code.toUpperCase(), 'activity', '946', 'Year', 'GUNFValue');
+                config = {
+                    series: [
+                        {
+                            data: series_1,
+                            name: translate.faostat,
+                            type: 'line',
+                            marker: {
+                                enabled: false
+                            }
+                        },
+                        {
+                            data: series_2,
+                            name: translate.nc,
+                            type: 'scatter',
+                            marker: {
+                                radius: 4
+                            }
+                        }
+                    ]
+                };
+                config = $.extend(true, {}, chart_template, config);
+                $('#' + keys[i] + '_activity').empty().highcharts(config);
+            }
 
         }
 
@@ -331,6 +350,8 @@ define(['jquery',
 
             }
 
+            console.log(this.CONFIG.charts_data[area_code]);
+
             /* Fire events on data loaded. */
             amplify.publish('charts_data_loaded', {area_code: area_code});
 
@@ -353,8 +374,9 @@ define(['jquery',
         var s = [];
         var d = this.CONFIG.charts_data[area_code][domain_code][table_type][item_code];
         for (var i = d.length - 1 ; i >= 0 ; i--) {
+            var x = isNaN(parseInt(d[i][x_dimension])) ? null : parseInt(d[i][x_dimension]);
             var y = isNaN(parseFloat(d[i][y_dimension])) ? null : parseFloat(d[i][y_dimension]);
-            s.push([d[i][x_dimension], y]);
+            s.push([x, y]);
         }
         return s;
     };
