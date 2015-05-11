@@ -473,15 +473,13 @@ define(['jquery',
 
     GHG_QA_QC.prototype.populate_tables = function(area_code) {
 
-        /* Populate GAS tables. */
-        this.populate_gas(area_code, $('#gas_table_selector').val());
-
-        /* Populate GE tables. */
-        this.populate_ge(area_code, $('#ge_table_selector').val());
+        /* Populate tables. */
+        for (var i = 0 ; i < this.CONFIG.domains.length ; i++)
+            this.populate_domain(this.CONFIG.domains[i].id, area_code, $('#' + this.CONFIG.domains[i].id + '_table_selector').val())
 
     };
 
-    GHG_QA_QC.prototype.populate_ge = function(area_code, table_type) {
+    GHG_QA_QC.prototype.populate_domain = function(domain_code, area_code, table_type) {
 
         /* Common configuration. */
         var wt_config = {
@@ -494,10 +492,11 @@ define(['jquery',
         };
 
         /* Data for tables. */
-        var gas_table_1 = [];
+        var table_values = [];
         for (var i = 0 ; i < this.CONFIG.data[area_code].length ; i++) {
-            if (this.CONFIG.data[area_code][i].DomainCode == 'GE' && this.CONFIG.data[area_code][i].TableType == table_type)
-                gas_table_1.push(this.CONFIG.data[area_code][i]);
+            if (this.CONFIG.data[area_code][i].DomainCode == domain_code.toUpperCase() &&
+                this.CONFIG.data[area_code][i].TableType == table_type)
+                table_values.push(this.CONFIG.data[area_code][i]);
         }
 
         /* Initiate wide tables library. */
@@ -508,25 +507,25 @@ define(['jquery',
 
         /* Configure tables. */
         var wt_1_config = $.extend(true, {}, wt_config, {
-            data: gas_table_1,
+            data: table_values,
             value_dimension: 'GValue',
-            placeholder_id: 'ge_table_1'
+            placeholder_id: domain_code + '_table_1'
         });
         var wt_2_config = $.extend(true, {}, wt_config, {
-            data: gas_table_1,
+            data: table_values,
             value_dimension: 'GUNFValue',
-            placeholder_id: 'ge_table_2'
+            placeholder_id: domain_code + '_table_2'
         });
         var wt_3_config = $.extend(true, {}, wt_config, {
-            data: gas_table_1,
+            data: table_values,
             value_dimension: 'PerDiff',
-            placeholder_id: 'ge_table_3',
+            placeholder_id: domain_code + '_table_3',
             color_values: true
         });
         var wt_4_config = $.extend(true, {}, wt_config, {
-            data: gas_table_1,
+            data: table_values,
             value_dimension: 'NormPerDiff',
-            placeholder_id: 'ge_table_4',
+            placeholder_id: domain_code + '_table_4',
             color_values: true
         });
 
@@ -538,89 +537,25 @@ define(['jquery',
 
         /* Synchronize scrollbars. */
         for (i = 1 ; i < 5 ; i++) {
-            var id = '#ge_table_' + i +'_scroll';
+            var id = '#' + domain_code + '_table_' + i +'_scroll';
             $(id).scroll(function() {
                 $(".wide_tables_scroll").scrollLeft($('#' + this.id).scrollLeft());
             });
         }
 
         /* Bind export buttons. */
-        $('#ge_export_table_1').click(function() {
-            wt_1.export_table(translate.ge + ' (' + translate.faostat + ')', translate.faostat);
+        $('#' + domain_code + '_export_table_1').click(function() {
+            wt_1.export_table(translate[domain_code] + ' (' + translate.faostat + ')', translate.faostat);
         });
-        $('#ge_export_table_2').click(function() {
-            wt_2.export_table(translate.ge + ' (' + translate.nc + ')', translate.nc);
+        $('#' + domain_code + '_export_table_2').click(function() {
+            wt_2.export_table(translate[domain_code] + ' (' + translate.nc + ')', translate.nc);
         });
-        $('#ge_export_table_3').click(function() {
-            wt_3.export_table(translate.ge + ' (' + translate.diff + ')', translate.diff);
+        $('#' + domain_code + '_export_table_3').click(function() {
+            wt_3.export_table(translate[domain_code] + ' (' + translate.diff + ')', translate.diff);
         });
-        $('#ge_export_table_4').click(function() {
-            wt_4.export_table(translate.ge + ' (' + translate.norm_difference + ')', translate.norm_difference);
+        $('#' + domain_code + '_export_table_4').click(function() {
+            wt_4.export_table(translate[domain_code] + ' (' + translate.norm_difference + ')', translate.norm_difference);
         });
-
-    };
-
-    GHG_QA_QC.prototype.populate_gas = function(area_code, table_type) {
-
-        /* Common configuration. */
-        var wt_config = {
-            show_row_code: true,
-            row_code: 'UNFCCCCode',
-            lang: this.CONFIG.lang,
-            cols_dimension: 'Year',
-            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat
-        };
-
-        /* Data for tables. */
-        var gas_table_1 = [];
-        for (var i = 0 ; i < this.CONFIG.data[area_code].length ; i++) {
-            if (this.CONFIG.data[area_code][i].DomainCode == 'GAS' && this.CONFIG.data[area_code][i].TableType == table_type)
-                gas_table_1.push(this.CONFIG.data[area_code][i]);
-        }
-
-        /* Initiate wide tables library. */
-        var wt_1 = new WIDE_TABLES();
-        var wt_2 = new WIDE_TABLES();
-        var wt_3 = new WIDE_TABLES();
-        var wt_4 = new WIDE_TABLES();
-
-        /* Configure tables. */
-        var wt_1_config = $.extend(true, {}, wt_config, {
-            data: gas_table_1,
-            value_dimension: 'GValue',
-            placeholder_id: 'gas_table_1'
-        });
-        var wt_2_config = $.extend(true, {}, wt_config, {
-            data: gas_table_1,
-            value_dimension: 'GUNFValue',
-            placeholder_id: 'gas_table_2'
-        });
-        var wt_3_config = $.extend(true, {}, wt_config, {
-            data: gas_table_1,
-            value_dimension: 'PerDiff',
-            placeholder_id: 'gas_table_3',
-            color_values: true
-        });
-        var wt_4_config = $.extend(true, {}, wt_config, {
-            data: gas_table_1,
-            value_dimension: 'NormPerDiff',
-            placeholder_id: 'gas_table_4',
-            color_values: true
-        });
-
-        /* Render tables. */
-        wt_1.init(wt_1_config);
-        wt_2.init(wt_2_config);
-        wt_3.init(wt_3_config);
-        wt_4.init(wt_4_config);
-
-        /* Synchronize scrollbars. */
-        for (i = 1 ; i < 5 ; i++) {
-            var id = '#gas_table_' + i +'_scroll';
-            $(id).scroll(function() {
-                $(".wide_tables_scroll").scrollLeft($('#' + this.id).scrollLeft());
-            });
-        }
 
     };
 
