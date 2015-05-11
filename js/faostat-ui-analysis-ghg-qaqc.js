@@ -544,6 +544,20 @@ define(['jquery',
             });
         }
 
+        /* Bind export buttons. */
+        $('#ge_export_table_1').click(function() {
+            wt_1.export_table(translate.ge + ' (' + translate.faostat + ')', translate.faostat);
+        });
+        $('#ge_export_table_2').click(function() {
+            wt_2.export_table(translate.ge + ' (' + translate.nc + ')', translate.nc);
+        });
+        $('#ge_export_table_3').click(function() {
+            wt_3.export_table(translate.ge + ' (' + translate.diff + ')', translate.diff);
+        });
+        $('#ge_export_table_4').click(function() {
+            wt_4.export_table(translate.ge + ' (' + translate.norm_difference + ')', translate.norm_difference);
+        });
+
     };
 
     GHG_QA_QC.prototype.populate_gas = function(area_code, table_type) {
