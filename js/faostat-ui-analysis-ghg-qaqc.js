@@ -426,7 +426,7 @@ define(['jquery',
     };
 
     GHG_QA_QC.prototype.get_query = function(area_code) {
-        return  'SELECT DomainCode, Year, UNFCCCCode, GUNFItemNameE, ' +
+        return  'SELECT DomainCode, Year, UNFCCCCode, GUNFItemName' + this.CONFIG.lang_faostat + ', ' +
                        'GUNFValue, GUNFCode, GValue, PerDiff, ' +
                        'NormPerDiff, TableType ' +
                 'FROM DataUNFCCC ' +
@@ -485,10 +485,10 @@ define(['jquery',
 
         /* Common configuration. */
         var wt_config = {
-            show_row_code: true,
+            show_row_code: false,
             lang: this.CONFIG.lang,
             cols_dimension: 'Year',
-            row_label: 'GUNFItemNameE',
+            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat,
             row_code: 'GUNFCode',
             blacklist: ['5058']
         };
@@ -554,7 +554,7 @@ define(['jquery',
             row_code: 'UNFCCCCode',
             lang: this.CONFIG.lang,
             cols_dimension: 'Year',
-            row_label: 'GUNFItemNameE'
+            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat
         };
 
         /* Data for tables. */
