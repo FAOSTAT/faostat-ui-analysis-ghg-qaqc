@@ -65,7 +65,10 @@ define({
         mules_asses: 'Mules and Asses',
         swine: 'Swine',
         poultry_birds: 'Poultry Birds',
-        rice: 'Rice, Paddy'
+        rice: 'Rice, Paddy',
+        maize: 'Maize',
+        sugar_cane: 'Sugar Cane',
+        wheat: 'Wheat'
     },
     fr : true,
     es : true
