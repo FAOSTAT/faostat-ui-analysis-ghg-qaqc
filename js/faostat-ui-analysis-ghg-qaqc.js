@@ -485,11 +485,12 @@ define(['jquery',
 
         /* Common configuration. */
         var wt_config = {
-            show_row_code: false,
+            show_row_code: true,
             lang: this.CONFIG.lang,
             cols_dimension: 'Year',
             row_label: 'GUNFItemNameE',
-            row_code: 'GUNFCode'
+            row_code: 'GUNFCode',
+            blacklist: ['5058']
         };
 
         /* Data for tables. */
