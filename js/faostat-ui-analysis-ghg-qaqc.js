@@ -93,7 +93,7 @@ define(['jquery',
         amplify.subscribe('domain_rendered', function(event_data) {
 
             /* Create charts. */
-            _this.create_charts(event_data.domain_code);
+            _this.create_charts();
 
         });
 
@@ -101,7 +101,7 @@ define(['jquery',
         amplify.subscribe('charts_data_loaded', function(event_data) {
 
             /* Create charts. */
-            _this.create_charts(_this.get_selected_domain());
+            _this.create_charts();
 
             /* Render tables. */
             _this.render_tables(_this.get_selected_domain());
@@ -170,6 +170,9 @@ define(['jquery',
             }
         }
 
+        /* Fire event after domain is rendered. */
+        amplify.publish('domain_rendered', {domain_code: 'NOT USED ANYMORE'});
+
     };
 
     GHG_QA_QC.prototype.load_domain = function(domain_code) {
@@ -230,40 +233,34 @@ define(['jquery',
         });
         $('.chosen-container.chosen-container-single').css('width', '100%');
 
-        /* Fire event after domain is rendered. */
-        amplify.publish('domain_rendered', {domain_code: domain_code});
-
     };
 
-    GHG_QA_QC.prototype.create_charts = function(domain_code) {
+    GHG_QA_QC.prototype.create_charts = function() {
+
+        console.log('create_charts');
 
         /* Fetch selected area code. */
         var area_code = this.CONFIG.geo_selector.val();
 
-        if (domain_code == 'gt') {
+        /* Iterate over domains. */
+        for (var z = 0 ; z < this.CONFIG.domains.length ; z++) {
 
-            /* Create series. */
-            var series = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', '1711', 'Year', 'GValue');
-            var config = {
-                series: [{
-                    data: series
-                }]
-            };
+            /* Domain. */
+            var domain_code = this.CONFIG.domains[z].id;
 
-            config = $.extend(true, {}, chart_template, config);
+            /* Find all the chart divs: emissions. */
+            var divs = $('[id$=' + '_' + domain_code + '_emissions' + ']');
+            for (var i = 0; i < divs.length; i++) {
 
-            /* Create chart. */
-            $('#gt_chart').empty().highcharts(config);
+                /* Fetch item code and table type from the template ID's. */
+                var item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
+                var table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
 
-        }
+                /* Create series. */
+                var series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
+                var series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
 
-        if (domain_code == 'ge') {
-
-            var domain_data = this.CONFIG.charts_data[area_code]['GE']['emissions'];
-            var keys = Object.keys(domain_data);
-            for (var i = 0 ; i < keys.length ; i++) {
-                var series_1 = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', keys[i], 'Year', 'GValue');
-                var series_2 = this.create_series(area_code, domain_code.toUpperCase(), 'emissions', '946', 'Year', 'GUNFValue');
+                /* Configure Highcharts. */
                 var config = {
                     series: [
                         {
@@ -285,14 +282,25 @@ define(['jquery',
                     ]
                 };
                 config = $.extend(true, {}, chart_template, config);
-                $('#' + keys[i] + '_' + domain_code + '_emissions').empty().highcharts(config);
+
+                /* Render the chart. */
+                $('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
+
             }
 
-            domain_data = this.CONFIG.charts_data[area_code]['GE']['activity'];
-            keys = Object.keys(domain_data);
-            for (i = 0 ; i < keys.length ; i++) {
-                series_1 = this.create_series(area_code, domain_code.toUpperCase(), 'activity', keys[i], 'Year', 'GValue');
-                series_2 = this.create_series(area_code, domain_code.toUpperCase(), 'activity', '946', 'Year', 'GUNFValue');
+            /* Find all the chart divs: activity. */
+            divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
+            for (i = 0; i < divs.length; i++) {
+
+                /* Fetch item code and table type from the template ID's. */
+                item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
+                table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
+
+                /* Create series. */
+                series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
+                series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
+
+                /* Configure Highcharts. */
                 config = {
                     series: [
                         {
@@ -314,7 +322,10 @@ define(['jquery',
                     ]
                 };
                 config = $.extend(true, {}, chart_template, config);
-                $('#' + keys[i] + '_' + domain_code + '_activity').empty().highcharts(config);
+
+                /* Render the chart. */
+                $('#' + item_code + '_' + domain_code + '_activity').empty().highcharts(config);
+
             }
 
         }
@@ -378,11 +389,15 @@ define(['jquery',
      */
     GHG_QA_QC.prototype.create_series = function(area_code, domain_code, table_type, item_code, x_dimension, y_dimension) {
         var s = [];
-        var d = this.CONFIG.charts_data[area_code][domain_code][table_type][item_code];
-        for (var i = d.length - 1 ; i >= 0 ; i--) {
-            var x = isNaN(parseInt(d[i][x_dimension])) ? null : parseInt(d[i][x_dimension]);
-            var y = isNaN(parseFloat(d[i][y_dimension])) ? null : parseFloat(d[i][y_dimension]);
-            s.push([x, y]);
+        try {
+            var d = this.CONFIG.charts_data[area_code][domain_code][table_type][item_code];
+            for (var i = d.length - 1; i >= 0; i--) {
+                var x = isNaN(parseInt(d[i][x_dimension])) ? null : parseInt(d[i][x_dimension]);
+                var y = isNaN(parseFloat(d[i][y_dimension])) ? null : parseFloat(d[i][y_dimension]);
+                s.push([x, y]);
+            }
+        } catch (e) {
+            
         }
         return s;
     };
