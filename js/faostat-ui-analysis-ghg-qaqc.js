@@ -492,8 +492,7 @@ define(['jquery',
             lang: this.CONFIG.lang,
             cols_dimension: 'Year',
             row_label: 'GUNFItemName' + this.CONFIG.lang_faostat,
-            row_code: 'GUNFCode',
-            blacklist: ['5058']
+            row_code: 'GUNFCode'
         };
 
         /* Data for tables. */
