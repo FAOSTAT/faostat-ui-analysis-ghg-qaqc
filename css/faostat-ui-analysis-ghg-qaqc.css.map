@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,gBAAiB;EACf,KAAK,EAAE,IAAI;;AAGb,YAAa;EACX,KAAK,EAAE,OAAO;;AAGhB,UAAW;EACT,KAAK,EAAE,OAAO",
+"mappings": "AAAA,gBAAiB;EACf,KAAK,EAAE,IAAI",
 "sources": ["faostat-ui-analysis-ghg-qaqc.scss"],
 "names": [],
 "file": "faostat-ui-analysis-ghg-qaqc.css"

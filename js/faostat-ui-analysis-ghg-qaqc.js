@@ -492,7 +492,8 @@ define(['jquery',
             lang: this.CONFIG.lang,
             cols_dimension: 'Year',
             row_label: 'GUNFItemName' + this.CONFIG.lang_faostat,
-            row_code: 'GUNFCode'
+            row_code: 'GUNFCode',
+            bottom_row_codes: ['5058']
         };
 
         /* Data for tables. */
