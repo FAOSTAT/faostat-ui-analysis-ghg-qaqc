@@ -23,12 +23,12 @@ define(['jquery',
             placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder',
             domains: [
                 {id: 'gt', label: translate.gt},
-                {id: 'ge', label: translate.ge},
-                {id: 'gm', label: translate.gm},
-                {id: 'gr', label: translate.gr},
-                {id: 'gas', label: translate.gas},
-                {id: 'gh', label: translate.gh},
-                {id: 'gb', label: translate.gb}
+                {id: 'ge', label: translate.ge, totals: ['5058']},
+                {id: 'gm', label: translate.gm, totals: ['5059']},
+                {id: 'gr', label: translate.gr, totals: ['5060']},
+                {id: 'gas', label: translate.gas, totals: ['1709']},
+                {id: 'gh', label: translate.gh, totals: ['6736']},
+                {id: 'gb', label: translate.gb, totals: ['6731']}
             ],
             table_types: ['emissions', 'activity'],
             url_wds: 'http://localhost:8080/wds/rest'
@@ -486,19 +486,27 @@ define(['jquery',
 
     GHG_QA_QC.prototype.populate_domain = function(domain_code, area_code, table_type) {
 
+        /* Find codes for the bottom row, if any. */
+        var bottom_row_codes;
+        for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
+            if (this.CONFIG.domains[i].id == domain_code) {
+                bottom_row_codes = this.CONFIG.domains[i].totals;
+                break;
+            }
+        }
+
         /* Common configuration. */
         var wt_config = {
-            show_row_code: false,
-            lang: this.CONFIG.lang,
-            cols_dimension: 'Year',
-            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat,
             row_code: 'GUNFCode',
-            bottom_row_codes: ['5058']
+            show_row_code: false,
+            cols_dimension: 'Year',
+            lang: this.CONFIG.lang,
+            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat
         };
 
         /* Data for tables. */
         var table_values = [];
-        for (var i = 0 ; i < this.CONFIG.data[area_code].length ; i++) {
+        for (i = 0 ; i < this.CONFIG.data[area_code].length ; i++) {
             if (this.CONFIG.data[area_code][i].DomainCode == domain_code.toUpperCase() &&
                 this.CONFIG.data[area_code][i].TableType == table_type)
                 table_values.push(this.CONFIG.data[area_code][i]);
@@ -514,12 +522,14 @@ define(['jquery',
         var wt_1_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'GValue',
-            placeholder_id: domain_code + '_table_1'
+            placeholder_id: domain_code + '_table_1',
+            bottom_row_codes: bottom_row_codes
         });
         var wt_2_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'GUNFValue',
-            placeholder_id: domain_code + '_table_2'
+            placeholder_id: domain_code + '_table_2',
+            bottom_row_codes: bottom_row_codes
         });
         var wt_3_config = $.extend(true, {}, wt_config, {
             data: table_values,
