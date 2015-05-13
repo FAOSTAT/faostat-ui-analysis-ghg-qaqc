@@ -33,7 +33,7 @@ define(['jquery',
             table_types: ['emissions', 'activity'],
             url_wds: 'http://localhost:8080/wds/rest',
             chart_width_big: 950,
-            chart_width_small: 487
+            chart_width_small: 450
         }
 
     }
@@ -184,6 +184,29 @@ define(['jquery',
             }
         }
 
+        /* Resize charts on tab change. */
+        $('#domains_tab').on('shown.bs.tab', function (e) {
+
+            var target = $(e.target).attr('href');
+            var domain_code = target.substring(1, target.length);
+            var doAnimation = false;
+
+            /* Find all the chart divs: emissions. */
+            var divs = $('[id$=' + '_' + domain_code + '_emissions' + ']');
+            for (var i = 0; i < divs.length; i++) {
+                var id = divs[i].id;
+                $('#' + id).highcharts().setSize($('#' + id).width(), 250, doAnimation);
+            }
+
+            /* Find all the chart divs: activity. */
+            divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
+            for (i = 0; i < divs.length; i++) {
+                id = divs[i].id;
+                $('#' + id).highcharts().setSize($('#' + id).width(), 250, doAnimation);
+            }
+
+        });
+
         /* Fire event after domain is rendered. */
         amplify.publish('domain_rendered', {domain_code: 'NOT USED ANYMORE'});
 
@@ -305,9 +328,6 @@ define(['jquery',
 
                 /* Configure Highcharts. */
                 var config = {
-                    chart: {
-                        width: chart_width
-                    },
                     series: [
                         {
                             data: series_1,
