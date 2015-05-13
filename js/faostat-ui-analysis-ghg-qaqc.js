@@ -22,13 +22,13 @@ define(['jquery',
             datasource: 'faostatdata',
             placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder',
             domains: [
-                {id: 'gt', label: translate.gt, totals: ['1711', '1709', '5058', '6731', '5059', '6736', '5060']},
-                {id: 'ge', label: translate.ge, totals: ['5058']},
-                {id: 'gm', label: translate.gm, totals: ['5059']},
-                {id: 'gr', label: translate.gr, totals: ['5060']},
-                {id: 'gas', label: translate.gas, totals: ['1709', '6722', '5064', '6734', '5056', '5057', '6735', '5061']},
-                {id: 'gh', label: translate.gh, totals: ['6736']},
-                {id: 'gb', label: translate.gb, totals: ['6731']}
+                {id: 'gt', label: translate.gt, totals: ['1711', '1709', '5058', '6731', '5059', '6736', '5060'], color: '#009B77'},
+                {id: 'ge', label: translate.ge, totals: ['5058'], color: '#9B2335'},
+                {id: 'gm', label: translate.gm, totals: ['5059'], color: '#E15D44'},
+                {id: 'gr', label: translate.gr, totals: ['5060'], color: '#EFC050'},
+                {id: 'gas', label: translate.gas, totals: ['1709', '6722', '5064', '6734', '5056', '5057', '6735', '5061'], color: '#5B5EA6'},
+                {id: 'gh', label: translate.gh, totals: ['6736'], color: '#009B77'},
+                {id: 'gb', label: translate.gb, totals: ['6731'], color: '#E15D44'}
             ],
             table_types: ['emissions', 'activity'],
             url_wds: 'http://localhost:8080/wds/rest',
@@ -332,6 +332,7 @@ define(['jquery',
 
             /* Domain. */
             var domain_code = this.CONFIG.domains[z].id;
+            var color = this.CONFIG.domains[z].color;
 
             /* Find all the chart divs: emissions. */
             var divs = $('[id$=' + '_' + domain_code + '_emissions' + ']');
@@ -354,18 +355,14 @@ define(['jquery',
                         {
                             data: series_1,
                             name: translate.faostat,
-                            type: 'line',
-                            marker: {
-                                enabled: false
-                            }
+                            type: 'spline',
+                            color: color
                         },
                         {
                             data: series_2,
                             name: translate.nc,
                             type: 'scatter',
-                            marker: {
-                                radius: 4
-                            }
+                            color: color
                         }
                     ]
                 };
@@ -394,18 +391,14 @@ define(['jquery',
                         {
                             data: series_1,
                             name: translate.faostat,
-                            type: 'line',
-                            marker: {
-                                enabled: false
-                            }
+                            type: 'spline',
+                            color: color
                         },
                         {
                             data: series_2,
                             name: translate.nc,
                             type: 'scatter',
-                            marker: {
-                                radius: 4
-                            }
+                            color: color
                         }
                     ]
                 };
