@@ -237,8 +237,6 @@ define(['jquery',
 
     GHG_QA_QC.prototype.create_charts = function() {
 
-        console.log('create_charts');
-
         /* Fetch selected area code. */
         var area_code = this.CONFIG.geo_selector.val();
 
@@ -397,7 +395,7 @@ define(['jquery',
                 s.push([x, y]);
             }
         } catch (e) {
-            
+
         }
         return s;
     };
