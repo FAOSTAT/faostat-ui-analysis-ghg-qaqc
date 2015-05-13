@@ -22,16 +22,18 @@ define(['jquery',
             datasource: 'faostatdata',
             placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder',
             domains: [
-                {id: 'gt', label: translate.gt},
+                {id: 'gt', label: translate.gt, totals: ['1711', '1709', '5058', '6731', '5059', '6736', '5060']},
                 {id: 'ge', label: translate.ge, totals: ['5058']},
                 {id: 'gm', label: translate.gm, totals: ['5059']},
                 {id: 'gr', label: translate.gr, totals: ['5060']},
-                {id: 'gas', label: translate.gas, totals: ['1709']},
+                {id: 'gas', label: translate.gas, totals: ['1709', '6722', '5064', '6734', '5056', '5057', '6735', '5061']},
                 {id: 'gh', label: translate.gh, totals: ['6736']},
                 {id: 'gb', label: translate.gb, totals: ['6731']}
             ],
             table_types: ['emissions', 'activity'],
-            url_wds: 'http://localhost:8080/wds/rest'
+            url_wds: 'http://localhost:8080/wds/rest',
+            chart_width_big: 950,
+            chart_width_small: 487
         }
 
     }
@@ -92,6 +94,9 @@ define(['jquery',
         /* Create charts after domain has been rendered. */
         amplify.subscribe('domain_rendered', function(event_data) {
 
+            /* Clear charts. */
+            _this.clear_charts();
+
             /* Create charts. */
             _this.create_charts();
 
@@ -99,6 +104,9 @@ define(['jquery',
 
         /* Create charts after domain has been rendered. */
         amplify.subscribe('charts_data_loaded', function(event_data) {
+
+            /* Clear charts. */
+            _this.clear_charts();
 
             /* Create charts. */
             _this.create_charts();
@@ -114,6 +122,9 @@ define(['jquery',
 
         /* This... */
         var _this = this;
+
+        /* Clear charts. */
+        this.clear_charts();
 
         /* Query DB, if needed. */
         if (this.CONFIG.data[area_code] == null) {
@@ -136,6 +147,9 @@ define(['jquery',
             }, this.CONFIG.url_wds, {datasource: this.CONFIG.datasource});
 
         } else {
+
+            /* Create charts. */
+            this.create_charts();
 
             /* Render tables. */
             this.render_tables(domain_code);
@@ -235,6 +249,34 @@ define(['jquery',
 
     };
 
+    GHG_QA_QC.prototype.clear_charts = function() {
+
+        /* Fetch selected area code. */
+        var area_code = this.CONFIG.geo_selector.val();
+
+        /* Iterate over domains. */
+        for (var z = 0 ; z < this.CONFIG.domains.length ; z++) {
+
+            /* Domain. */
+            var domain_code = this.CONFIG.domains[z].id;
+
+            /* Find all the chart divs: emissions. */
+            var divs = $('[id$=' + '_' + domain_code + '_emissions' + ']');
+            for (var i = 0; i < divs.length; i++) {
+
+                /* Fetch item code and table type from the template ID's. */
+                var item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
+                var table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
+
+                /* Clear previous charts. */
+                $('#' + item_code + '_' + domain_code + '_emissions').empty().html('<i class="fa fa-spinner fa-spin fs-chart-row"></i>');
+
+            }
+
+        }
+
+    };
+
     GHG_QA_QC.prototype.create_charts = function() {
 
         /* Fetch selected area code. */
@@ -254,12 +296,18 @@ define(['jquery',
                 var item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
                 var table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
 
+                /* Set chart width. */
+                var chart_width = $.inArray(item_code, this.CONFIG.domains[z].totals) > -1 ? this.CONFIG.chart_width_big : this.CONFIG.chart_width_small;
+
                 /* Create series. */
                 var series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
                 var series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
 
                 /* Configure Highcharts. */
                 var config = {
+                    chart: {
+                        width: chart_width
+                    },
                     series: [
                         {
                             data: series_1,
@@ -503,7 +551,8 @@ define(['jquery',
         var bottom_row_codes;
         for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
             if (this.CONFIG.domains[i].id == domain_code) {
-                bottom_row_codes = this.CONFIG.domains[i].totals;
+                /* Add only ONE total for tables, the first. Other values are used for charts width. */
+                bottom_row_codes = [this.CONFIG.domains[i].totals[0]];
                 break;
             }
         }
