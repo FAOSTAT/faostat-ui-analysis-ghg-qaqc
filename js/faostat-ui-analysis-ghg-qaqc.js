@@ -8,7 +8,8 @@ define(['jquery',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert'], function ($, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, chosen) {
+        'sweetAlert',
+        'stickyjs'], function ($, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, chosen) {
 
     'use strict';
 
@@ -70,6 +71,16 @@ define(['jquery',
         };
         var html = template(dynamic_data);
         $('#' + this.CONFIG.placeholder_id).empty().html(html);
+
+        /* Make selectors 'sticky. */
+        var affix_width = $('#selectors_holder').width();
+        $('#selectors_holder').affix({
+            offset: {
+                top: 100
+            }
+        }).on('affixed.bs.affix', function (e) {
+            $('#selectors_holder').width(affix_width);
+        });
 
         /* Store JQuery selectors. */
         this.CONFIG.domains_selector = $('#domains');

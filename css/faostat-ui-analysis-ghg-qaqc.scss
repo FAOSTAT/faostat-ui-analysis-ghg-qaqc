@@ -1,3 +1,15 @@
 .chart-container {
   width: 100%;
 }
+
+.affix#selectors_holder {
+  top: 0;
+  padding: 10px;
+  position: fixed;
+  background: #379bce;
+  z-index: 999;
+}
+
+.affix-top#selectors_holder {
+  position: static;
+}
