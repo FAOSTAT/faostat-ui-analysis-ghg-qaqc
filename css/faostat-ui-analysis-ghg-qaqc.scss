@@ -7,9 +7,23 @@
   padding: 10px;
   position: fixed;
   background: #379bce;
+  color: #fff;
   z-index: 999;
 }
 
 .affix-top#selectors_holder {
+  position: static;
+}
+
+.affix {
+  top: 94px;
+  padding: 10px;
+  position: fixed;
+  background-color: #174c74;
+  color: #fff;
+  z-index: 999;
+}
+
+.affix-top {
   position: static;
 }

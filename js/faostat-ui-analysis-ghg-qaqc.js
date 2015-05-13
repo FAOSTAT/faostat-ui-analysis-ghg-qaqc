@@ -8,8 +8,7 @@ define(['jquery',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert',
-        'stickyjs'], function ($, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, chosen) {
+        'sweetAlert'], function ($, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, chosen) {
 
     'use strict';
 
@@ -266,10 +265,22 @@ define(['jquery',
             indirect_soils_label: translate.indirect_emissions,
             direct_soils_label: translate.direct_soil_emissions,
             table_selector_label: translate.table_selector_label,
-            data_not_available_label: translate.data_not_available
+            data_not_available_label: translate.data_not_available,
+            sticky_header_id: domain_code + '_sticky'
         };
         var html = template(dynamic_data);
         $('#' + domain_code).empty().html(html);
+
+        /* Make selectors 'sticky. */
+        var affix_width = $('.' + domain_code + '_sticky').width();
+        var affix_width = '1140px';
+        $('.' + domain_code + '_sticky').affix({
+            offset: {
+                top: 350
+            }
+        }).on('affixed.bs.affix', function (e) {
+            $('.' + domain_code + '_sticky').width(affix_width);
+        });
 
         /* Select first tab. */
         $('a[href="#' + domain_code + '_charts"]').tab('show');
