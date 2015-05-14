@@ -65,6 +65,7 @@ define(['jquery',
             domains: this.CONFIG.domains,
             domain_label: translate.domains,
             land_use_label: translate.land_use,
+            please_select: translate.please_select,
             geographic_area_label: translate.areas,
             agriculture_label: translate.agriculture
         };
@@ -662,16 +663,16 @@ define(['jquery',
 
         /* Bind export buttons. */
         $('#' + domain_code + '_export_table_1').click(function() {
-            wt_1.export_table(translate[domain_code] + ' (' + translate.faostat + ')', translate.faostat);
+            wt_1.export_table(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat);
         });
         $('#' + domain_code + '_export_table_2').click(function() {
-            wt_2.export_table(translate[domain_code] + ' (' + translate.nc + ')', translate.nc);
+            wt_2.export_table(translate[domain_code] + ' (' + translate.nc + ' [' + table_type + '])', translate.nc);
         });
         $('#' + domain_code + '_export_table_3').click(function() {
-            wt_3.export_table(translate[domain_code] + ' (' + translate.diff + ')', translate.diff);
+            wt_3.export_table(translate[domain_code] + ' (' + translate.difference + ' [' + table_type + '])', translate.diff);
         });
         $('#' + domain_code + '_export_table_4').click(function() {
-            wt_4.export_table(translate[domain_code] + ' (' + translate.norm_difference + ')', translate.norm_difference);
+            wt_4.export_table(translate[domain_code] + ' (' + translate.norm_difference + '[' + table_type + '])', translate.norm_difference);
         });
 
     };
