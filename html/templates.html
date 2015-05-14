@@ -1261,11 +1261,15 @@
 <!-- GH TEMPLATES: END -->
 
 
-<!-- TABLES TEMPLATES: START-->
+<!-- TABLES TEMPLATES: START -->
 <script type='text/x-handlebars-template' id='tables_emissions'>
     <div class='row'>
         <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+            {{#if isEmissions}}
             <h3>{{faostat_label}} {{{co2eq_label}}}</h3>
+            {{else}}
+            <h3>{{faostat_label}} {{{mu_label}}}</h3>
+            {{/if}}
         </div>
         <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
             <h3 class='pull-right'>
@@ -1281,7 +1285,11 @@
     <hr>
     <div class='row'>
         <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+            {{#if isEmissions}}
             <h3>{{nc_label}} {{{co2eq_label}}}</h3>
+            {{else}}
+            <h3>{{nc_label}} {{{mu_label}}}</h3>
+            {{/if}}
         </div>
         <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
             <h3 class='pull-right'>
@@ -1297,7 +1305,11 @@
     <hr>
     <div class='row'>
         <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+            {{#if isEmissions}}
             <h3>{{difference_label}} {{{co2eq_label}}}</h3>
+            {{else}}
+            <h3>{{difference_label}} {{{mu_label}}}</h3>
+            {{/if}}
         </div>
         <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
             <h3 class='pull-right'>
@@ -1310,6 +1322,7 @@
             <div id='{{id}}_table_3'></div>
         </div>
     </div>
+    {{#if isEmissions}}
     <hr>
     <div class='row'>
         <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
@@ -1326,8 +1339,6 @@
             <div id='{{id}}_table_4'></div>
         </div>
     </div>
+    {{/if}}
 </script>
-<script type='text/x-handlebars-template' id='tables_activity'>
-    <h1>Activity Data</h1>
-</script>
-<!-- TABLES TEMPLATES: END-->
+<!-- TABLES TEMPLATES: END -->

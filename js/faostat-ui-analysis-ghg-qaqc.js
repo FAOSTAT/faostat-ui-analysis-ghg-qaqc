@@ -49,6 +49,9 @@ define(['jquery',
         /* Store FAOSTAT language. */
         this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
 
+        console.log(this.CONFIG.lang);
+        console.log(translate.mu);
+
         /* Cast chart configuration to JSON object. */
         chart_template = $.parseJSON(chart_template);
 
@@ -499,20 +502,23 @@ define(['jquery',
 
         /* Table type. */
         var table_type = $('#' + domain_code + '_table_selector').val();
+        var isEmissions = table_type == 'emissions';
 
         try {
 
-            /* Load template. */
-            var source = $(templates).filter('#tables_' + table_type).html();
+            /* Load template (same template for both emissions and activity). */
+            var source = $(templates).filter('#tables_emissions').html();
             var template = Handlebars.compile(source);
             var dynamic_data = {
                 id: domain_code,
                 nc_label: translate.nc,
                 co2eq_label: translate.co2eq,
                 faostat_label: translate.faostat,
+                mu_label: translate.mu[domain_code],
                 difference_label: translate.difference,
                 export_data_label: translate.export_data_label,
-                norm_difference_label: translate.norm_difference
+                norm_difference_label: translate.norm_difference,
+                isEmissions: isEmissions
             };
             var html = template(dynamic_data);
             $('#' + domain_code + '_tables_content').empty().html(html);

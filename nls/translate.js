@@ -68,7 +68,14 @@ define({
         rice: 'Rice, Paddy',
         maize: 'Maize',
         sugar_cane: 'Sugar Cane',
-        wheat: 'Wheat'
+        wheat: 'Wheat',
+        mu: {
+            ge: '(Stocks [Head])',
+            gm: '(Manure [Kg])',
+            gr: '(Area harvested [Ha])',
+            gh: '(Burned area [Ha])',
+            gb: '(Biomass burned [tonnes])'
+        }
     },
     fr : true,
     es : true
