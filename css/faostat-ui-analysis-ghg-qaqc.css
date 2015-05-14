@@ -19,6 +19,8 @@
   background-color: #174c74;
   color: #fff;
   z-index: 999; }
+  .affix h3 {
+    color: #fff; }
 
 .affix-top {
   position: static; }

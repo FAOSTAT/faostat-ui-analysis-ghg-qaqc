@@ -273,6 +273,7 @@ define(['jquery',
 
         /* Make selectors 'sticky. */
         var affix_width = $('.' + domain_code + '_sticky').width();
+        /* TODO Make it adaptive. */
         var affix_width = '1140px';
         $('.' + domain_code + '_sticky').affix({
             offset: {
@@ -509,13 +510,14 @@ define(['jquery',
             var dynamic_data = {
                 id: domain_code,
                 nc_label: translate.nc,
+                isEmissions: isEmissions,
                 co2eq_label: translate.co2eq,
                 faostat_label: translate.faostat,
                 mu_label: translate.mu[domain_code],
                 difference_label: translate.difference,
+                sticky_header_id: domain_code + '_sticky',
                 export_data_label: translate.export_data_label,
-                norm_difference_label: translate.norm_difference,
-                isEmissions: isEmissions
+                norm_difference_label: translate.norm_difference
             };
             var html = template(dynamic_data);
             $('#' + domain_code + '_tables_content').empty().html(html);
