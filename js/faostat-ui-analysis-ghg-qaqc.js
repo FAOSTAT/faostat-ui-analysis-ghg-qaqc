@@ -49,9 +49,6 @@ define(['jquery',
         /* Store FAOSTAT language. */
         this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
 
-        console.log(this.CONFIG.lang);
-        console.log(translate.mu);
-
         /* Cast chart configuration to JSON object. */
         chart_template = $.parseJSON(chart_template);
 
