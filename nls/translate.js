@@ -78,5 +78,7 @@ define({
         }
     },
     fr : true,
-    es : true
+    es : true,
+    S : true,
+    F : true
 });
