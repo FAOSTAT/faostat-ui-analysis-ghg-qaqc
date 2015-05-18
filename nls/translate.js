@@ -70,11 +70,11 @@ define({
         sugar_cane: 'Sugar Cane',
         wheat: 'Wheat',
         mu: {
-            ge: '(Stocks [Head])',
-            gm: '(Manure [Kg])',
-            gr: '(Area harvested [Ha])',
-            gh: '(Burned area [Ha])',
-            gb: '(Biomass burned [tonnes])'
+            ge: 'Stocks [Head]',
+            gm: 'Manure [Kg]',
+            gr: 'Area harvested [Ha]',
+            gh: 'Burned area [Ha]',
+            gb: 'Biomass burned [tonnes]'
         },
         page_under_construction: 'Page under construction. We apologies for any inconvenience.'
     },

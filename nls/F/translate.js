@@ -69,10 +69,10 @@ define({
     sugar_cane: 'Sucre, canne',
     wheat: 'Blé',
     mu: {
-        ge: '(Réserves [Tête])',
-        gm: '(Fumier [Kg])',
-        gr: '(Surface cultivée [Ha])',
-        gh: '(Superficie brûlé [Ha])',
-        gb: '(Biomasse brûlé [tonnes])'
+        ge: 'Réserves [Tête]',
+        gm: 'Fumier [Kg]',
+        gr: 'Surface cultivée [Ha]',
+        gh: 'Superficie brûlé [Ha]',
+        gb: 'Biomasse brûlé [tonnes]'
     }
 });

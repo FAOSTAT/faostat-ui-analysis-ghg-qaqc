@@ -69,10 +69,10 @@ define({
     sugar_cane: 'Azucar, caña',
     wheat: 'Trigo',
     mu: {
-        ge: '(Existencias [Cabeza])',
-        gm: '(Estiércol [Kg])',
-        gr: '(Área cosechada [Ha])',
-        gh: '(Superficie quemada [Ha])',
-        gb: '(Biomasa quemada [tonnes])'
+        ge: 'Existencias [Cabeza]',
+        gm: 'Estiércol [Kg]',
+        gr: 'Área cosechada [Ha]',
+        gh: 'Superficie quemada [Ha]',
+        gb: 'Biomasa quemada [tonnes]'
     }
 });
