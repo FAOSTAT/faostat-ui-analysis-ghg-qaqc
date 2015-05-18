@@ -615,7 +615,8 @@ define(['handlebars',
             show_row_code: true,
             cols_dimension: 'Year',
             lang: this.CONFIG.lang,
-            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat
+            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat,
+            sort_by: 'code'
         };
 
         /* Data for tables. */
