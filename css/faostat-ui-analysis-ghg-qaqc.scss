@@ -2,13 +2,19 @@
   width: 100%;
 }
 
+#selectors_holder {
+  width: 1000px !important;
+}
+
 .affix#selectors_holder {
-  top: 0;
+  top: 33px;
   padding: 10px;
   position: fixed;
   background: #379bce;
   color: #fff;
   z-index: 999;
+//  margin-left: 15px;
+  width: 1000px;
 }
 
 .affix-top#selectors_holder {
@@ -16,7 +22,7 @@
 }
 
 .affix {
-  top: 94px;
+  top: 139px;
   padding: 10px;
   position: fixed;
   background-color: #174c74;
@@ -24,6 +30,15 @@
   z-index: 999;
   h3 {
     color: #fff;
+  }
+  width: 1000px !important;
+//  margin-left: 15px;
+  .chosen-container-single .chosen-single span {
+    color: #000;
+    background-color: #fff;
+  }
+  .chosen-container-single .chosen-single {
+    background: #fff !important;
   }
 }
 

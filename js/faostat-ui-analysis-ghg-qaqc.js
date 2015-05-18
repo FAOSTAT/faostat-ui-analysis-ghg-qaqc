@@ -1,5 +1,4 @@
-define(['jquery',
-        'handlebars',
+define(['handlebars',
         'text!faostat_ui_analysis_ghg_qa_qc/html/templates.html',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
         'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
@@ -8,7 +7,7 @@ define(['jquery',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert'], function ($, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, chosen) {
+        'sweetAlert'], function (Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES) {
 
     'use strict';
 
@@ -70,10 +69,11 @@ define(['jquery',
             agriculture_label: translate.agriculture
         };
         var html = template(dynamic_data);
-        $('#' + this.CONFIG.placeholder_id).empty().html(html);
+        $('#' + this.CONFIG.placeholder_id).empty().html(html).css('padding', '15px');
 
         /* Make selectors 'sticky. */
         var affix_width = $('#selectors_holder').width();
+        affix_width = '1000px';
         $('#selectors_holder').affix({
             offset: {
                 top: 100
@@ -275,7 +275,7 @@ define(['jquery',
         /* Make selectors 'sticky. */
         var affix_width = $('.' + domain_code + '_sticky').width();
         /* TODO Make it adaptive. */
-        var affix_width = '1140px';
+        var affix_width = '1000px';
         $('.' + domain_code + '_sticky').affix({
             offset: {
                 top: 350
