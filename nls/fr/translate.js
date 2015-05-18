@@ -6,7 +6,7 @@ define({
     subdomains: 'Sub-Domaine',
     areas: 'Zone Geographique',
     items: 'Articles',
-    item: 'Article',
+    item: 'Artículo',
     elements: 'Elements',
     ghg: 'Gaz a Effet de Serre',
     ghg_overview: 'Aperçu Regional',

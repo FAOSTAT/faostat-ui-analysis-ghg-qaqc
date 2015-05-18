@@ -1,5 +1,5 @@
 define(['handlebars',
-        'text!faostat_ui_analysis_ghg_qa_qc/html/templates.html',
+        'text!faostat_ui_analysis_ghg_qa_qc/html/templates.hbs',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
         'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
         'FAOSTAT_UI_COMMONS',
@@ -62,11 +62,14 @@ define(['handlebars',
         var template = Handlebars.compile(source);
         var dynamic_data = {
             domains: this.CONFIG.domains,
+            qa_qc_label: translate.qa_qc,
             domain_label: translate.domains,
             land_use_label: translate.land_use,
             please_select: translate.please_select,
             geographic_area_label: translate.areas,
-            agriculture_label: translate.agriculture
+            agriculture_label: translate.agriculture,
+            verification_label: translate.verification,
+            page_under_construction_label: translate.page_under_construction
         };
         var html = template(dynamic_data);
         $('#' + this.CONFIG.placeholder_id).empty().html(html).css('padding', '15px');
@@ -580,9 +583,108 @@ define(['handlebars',
 
     GHG_QA_QC.prototype.populate_tables = function(area_code) {
 
+        /* GT, GAS. */
+        var a = ['gt', 'gas'];
+
         /* Populate tables. */
-        for (var i = 0 ; i < this.CONFIG.domains.length ; i++)
-            this.populate_domain(this.CONFIG.domains[i].id, area_code, $('#' + this.CONFIG.domains[i].id + '_table_selector').val())
+        for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
+            if ($.inArray(this.CONFIG.domains[i].id, a) < 0) {
+                this.populate_domain(this.CONFIG.domains[i].id, area_code, $('#' + this.CONFIG.domains[i].id + '_table_selector').val())
+            } else {
+                this.populate_domain_gt_gas(this.CONFIG.domains[i].id, area_code, $('#' + this.CONFIG.domains[i].id + '_table_selector').val())
+            }
+        }
+
+    };
+
+    GHG_QA_QC.prototype.populate_domain_gt_gas = function(domain_code, area_code, table_type) {
+
+        /* Find codes for the bottom row, if any. */
+        var bottom_row_codes;
+        for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
+            if (this.CONFIG.domains[i].id == domain_code) {
+                /* Add only ONE total for tables, the first. Other values are used for charts width. */
+                bottom_row_codes = [this.CONFIG.domains[i].totals[0]];
+                break;
+            }
+        }
+
+        /* Common configuration. */
+        var wt_config = {
+            row_code: 'UNFCCCCode',
+            show_row_code: true,
+            cols_dimension: 'Year',
+            lang: this.CONFIG.lang,
+            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat
+        };
+
+        /* Data for tables. */
+        var table_values = [];
+        for (i = 0 ; i < this.CONFIG.data[area_code].length ; i++) {
+            if (this.CONFIG.data[area_code][i].DomainCode == domain_code.toUpperCase() &&
+                this.CONFIG.data[area_code][i].TableType == table_type)
+                table_values.push(this.CONFIG.data[area_code][i]);
+        }
+
+        /* Initiate wide tables library. */
+        var wt_1 = new WIDE_TABLES();
+        var wt_2 = new WIDE_TABLES();
+        var wt_3 = new WIDE_TABLES();
+        var wt_4 = new WIDE_TABLES();
+
+        /* Configure tables. */
+        var wt_1_config = $.extend(true, {}, wt_config, {
+            data: table_values,
+            value_dimension: 'GValue',
+            placeholder_id: domain_code + '_table_1',
+            bottom_row_codes: bottom_row_codes
+        });
+        var wt_2_config = $.extend(true, {}, wt_config, {
+            data: table_values,
+            value_dimension: 'GUNFValue',
+            placeholder_id: domain_code + '_table_2',
+            bottom_row_codes: bottom_row_codes
+        });
+        var wt_3_config = $.extend(true, {}, wt_config, {
+            data: table_values,
+            value_dimension: 'PerDiff',
+            placeholder_id: domain_code + '_table_3',
+            color_values: true
+        });
+        var wt_4_config = $.extend(true, {}, wt_config, {
+            data: table_values,
+            value_dimension: 'NormPerDiff',
+            placeholder_id: domain_code + '_table_4',
+            color_values: true
+        });
+
+        /* Render tables. */
+        wt_1.init(wt_1_config);
+        wt_2.init(wt_2_config);
+        wt_3.init(wt_3_config);
+        wt_4.init(wt_4_config);
+
+        /* Synchronize scrollbars. */
+        for (i = 1 ; i < 5 ; i++) {
+            var id = '#' + domain_code + '_table_' + i +'_scroll';
+            $(id).scroll(function() {
+                $(".wide_tables_scroll").scrollLeft($('#' + this.id).scrollLeft());
+            });
+        }
+
+        /* Bind export buttons. */
+        $('#' + domain_code + '_export_table_1').click(function() {
+            wt_1.export_table(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat);
+        });
+        $('#' + domain_code + '_export_table_2').click(function() {
+            wt_2.export_table(translate[domain_code] + ' (' + translate.nc + ' [' + table_type + '])', translate.nc);
+        });
+        $('#' + domain_code + '_export_table_3').click(function() {
+            wt_3.export_table(translate[domain_code] + ' (' + translate.difference + ' [' + table_type + '])', translate.diff);
+        });
+        $('#' + domain_code + '_export_table_4').click(function() {
+            wt_4.export_table(translate[domain_code] + ' (' + translate.norm_difference + '[' + table_type + '])', translate.norm_difference);
+        });
 
     };
 
@@ -601,7 +703,7 @@ define(['handlebars',
         /* Common configuration. */
         var wt_config = {
             row_code: 'GUNFCode',
-            show_row_code: false,
+            show_row_code: domain_code == 'gt' || domain_code == 'gas',
             cols_dimension: 'Year',
             lang: this.CONFIG.lang,
             row_label: 'GUNFItemName' + this.CONFIG.lang_faostat
