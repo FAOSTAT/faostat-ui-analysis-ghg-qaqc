@@ -26,8 +26,8 @@ define(['handlebars',
                 {id: 'gm', label: translate.gm, totals: ['5059'], color: '#E15D44'},
                 {id: 'gr', label: translate.gr, totals: ['5060'], color: '#EFC050'},
                 {id: 'gas', label: translate.gas, totals: ['1709', '6722', '5064', '6734', '5056', '5057', '6735', '5061'], color: '#5B5EA6'},
-                {id: 'gh', label: translate.gh, totals: ['6736'], color: '#009B77'},
-                {id: 'gb', label: translate.gb, totals: ['6731'], color: '#E15D44'}
+                {id: 'gh', label: translate.gh, totals: ['6736'], color: '#C3447A'},
+                {id: 'gb', label: translate.gb, totals: ['6731'], color: '#DD4124'}
             ],
             table_types: ['emissions', 'activity'],
             url_wds: 'http://localhost:8080/wds/rest',
@@ -339,6 +339,12 @@ define(['handlebars',
 
     };
 
+    GHG_QA_QC.prototype.get_custom_chart_color = function(item_code) {
+        for (var i = 0 ; i < this.CONFIG.domains.length ; i++)
+            if (this.CONFIG.domains[i].totals[0] == item_code)
+                return this.CONFIG.domains[i].color;
+    };
+
     GHG_QA_QC.prototype.create_charts = function() {
 
         /* Fetch selected area code. */
@@ -359,8 +365,9 @@ define(['handlebars',
                 var item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
                 var table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
 
-                /* Set chart width. */
-                var chart_width = $.inArray(item_code, this.CONFIG.domains[z].totals) > -1 ? this.CONFIG.chart_width_big : this.CONFIG.chart_width_small;
+                /* Custom charts color for GT. */
+                if (domain_code == 'gt')
+                    color = this.get_custom_chart_color(item_code);
 
                 /* Create series. */
                 var series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
