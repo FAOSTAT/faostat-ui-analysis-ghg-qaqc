@@ -31,8 +31,8 @@ define(['handlebars',
             ],
             table_types: ['emissions', 'activity'],
             url_wds: 'http://localhost:8080/wds/rest',
-            chart_width_big: 950,
-            chart_width_small: 450
+            chart_width_big: 720,
+            chart_width_small: 386
         }
 
     }
@@ -174,6 +174,9 @@ define(['handlebars',
 
     GHG_QA_QC.prototype.load_tabs = function() {
 
+        /* This... */
+        var _this = this;
+
         /* Domain type. */
         var domain_type = this.CONFIG.domains_selector.val();
 
@@ -212,22 +215,29 @@ define(['handlebars',
         /* Resize charts on tab change. */
         $('#domains_tab').on('shown.bs.tab', function (e) {
 
-            var target = $(e.target).attr('href');
-            var domain_code = target.substring(1, target.length);
-            var doAnimation = false;
+            for (var z = 0 ; z < _this.CONFIG.domains.length ; z++) {
 
-            /* Find all the chart divs: emissions. */
-            var divs = $('[id$=' + '_' + domain_code + '_emissions' + ']');
-            for (var i = 0; i < divs.length; i++) {
-                var id = divs[i].id;
-                $('#' + id).highcharts().setSize($('#' + id).width(), 250, doAnimation);
-            }
+                /* Domain code. */
+                var domain_code = _this.CONFIG.domains[z].id;
+                var doAnimation = false;
+                var chart_width;
 
-            /* Find all the chart divs: activity. */
-            divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
-            for (i = 0; i < divs.length; i++) {
-                id = divs[i].id;
-                $('#' + id).highcharts().setSize($('#' + id).width(), 250, doAnimation);
+                /* Find all the chart divs: emissions. */
+                var divs = $('[id$=' + '_' + domain_code + '_emissions' + ']');
+                for (var i = 0; i < divs.length; i++) {
+                    var id = divs[i].id;
+                    chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
+                    $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                }
+
+                /* Find all the chart divs: activity. */
+                divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
+                for (i = 0; i < divs.length; i++) {
+                    id = divs[i].id;
+                    chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
+                    $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                }
+
             }
 
         });
