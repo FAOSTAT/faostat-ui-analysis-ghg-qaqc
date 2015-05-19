@@ -186,6 +186,17 @@ define(['handlebars',
         var html = template(dynamic_data);
         $('#tabs_content').empty().html(html);
 
+        /* Make the header sticky. */
+        var affix_width = $('#sticky_tabs_header').width();
+        affix_width = '1000px';
+        $('#sticky_tabs_header').affix({
+            offset: {
+                top: 100
+            }
+        }).on('affixed.bs.affix', function (e) {
+            $('#sticky_tabs_header').width(affix_width);
+        });
+
         /* Select first tab. */
         $('a[href="#gt"]').tab('show');
 

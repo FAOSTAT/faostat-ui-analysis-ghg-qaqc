@@ -4,6 +4,20 @@
 #selectors_holder {
   width: 1000px !important; }
 
+.affix#sticky_tabs_header {
+  top: 139px;
+  padding: 10px;
+  position: fixed;
+  background: #174c74;
+  color: #fff;
+  z-index: 999;
+  width: 1000px;
+  right: 132px; }
+  .affix#sticky_tabs_header li.active a {
+    color: #174c74 !important; }
+  .affix#sticky_tabs_header li a {
+    color: #fff !important; }
+
 .affix#selectors_holder {
   top: 33px;
   padding: 10px;
@@ -17,7 +31,7 @@
   position: static; }
 
 .affix {
-  top: 139px;
+  top: 195px;
   padding: 10px;
   position: fixed;
   background-color: #174c74;

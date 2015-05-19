@@ -64,20 +64,20 @@
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel' id='domains_tab'>
-                <ul class='nav nav-tabs' role='tablist'>
+                <ul class='nav nav-tabs' role='tablist' data-spy='affix' data-offset-top='0' data-offset-bottom='200' id='sticky_tabs_header'>
                     {{#each domains}}
-                    <li role='presentation'>
-                        <a href='#{{id}}' aria-controls='{{id}}' role='tab' data-toggle='tab'>
-                            {{label}}
-                        </a>
-                    </li>
+                        <li role='presentation'>
+                            <a href='#{{id}}' aria-controls='{{id}}' role='tab' data-toggle='tab'>
+                                {{label}}
+                            </a>
+                        </li>
                     {{/each}}
                 </ul>
                 <div class='tab-content'>
                     {{#each domains}}
-                    <div role='tabpanel' class='tab-pane' id='{{id}}'>
-                        {{label}}
-                    </div>
+                        <div role='tabpanel' class='tab-pane' id='{{id}}'>
+                            {{label}}
+                        </div>
                     {{/each}}
                 </div>
             </div>
