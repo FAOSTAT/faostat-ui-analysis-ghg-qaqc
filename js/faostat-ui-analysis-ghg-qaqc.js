@@ -4,10 +4,11 @@ define(['handlebars',
         'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
         'FAOSTAT_UI_COMMONS',
         'FAOSTAT_UI_WIDE_TABLES',
+        'FENIX_UI_CHART_CREATOR',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert'], function (Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES) {
+        'sweetAlert'], function (Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, CHART) {
 
     'use strict';
 
@@ -32,7 +33,8 @@ define(['handlebars',
             table_types: ['emissions', 'activity'],
             url_wds: 'http://localhost:8080/wds/rest',
             chart_width_big: 720,
-            chart_width_small: 386
+            chart_width_small: 386,
+            chart_creator: new CHART()
         }
 
     }
@@ -151,11 +153,27 @@ define(['handlebars',
             /* Query the DB. */
             Commons.wdstable(sql, function (json) {
 
+                /* Initiate chart creator. */
+                _this.CONFIG.chart_creator.init({
+                    model: json,
+                    adapter: {
+                        filters: ['AreaCode', 'DomainCode', 'TableType', 'GUNFCode'],
+                        x_dimension: 'Year',
+                        x_dimension_label: 'Year',
+                        value: 'GValue'
+                    },
+                    template: {},
+                    creator: chart_template
+                });
+
+                /* Create charts. */
+                _this.create_charts();
+
                 /* Store data. */
-                _this.CONFIG.data[area_code] = json;
+                //_this.CONFIG.data[area_code] = json;
 
                 /* Create charts data. */
-                _this.create_charts_data(area_code);
+                //_this.create_charts_data(area_code);
 
                 /* Render tables. */
                 _this.render_tables(domain_code);
@@ -382,68 +400,99 @@ define(['handlebars',
                     color = this.get_custom_chart_color(item_code);
 
                 /* Create series. */
-                var series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
-                var series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
+                //var series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
+                //var series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
 
-                /* Configure Highcharts. */
-                var config = {
+                /* Create series. */
+                this.CONFIG.chart_creator.render({
+                    container: '#' + item_code + '_' + domain_code + '_emissions',
                     series: [
                         {
-                            data: series_1,
-                            name: translate.faostat,
+                            filters: {
+                                'AreaCode': area_code,
+                                'DomainCode': domain_code.toUpperCase(),
+                                'TableType': table_type,
+                                'GUNFCode': item_code
+                            },
                             type: 'spline',
-                            color: color
+                            name: translate.faostat,
+                            color: color,
+                            value: 'GUNFValue'
                         },
                         {
-                            data: series_2,
+                            filters: {
+                                'AreaCode': area_code,
+                                'DomainCode': domain_code.toUpperCase(),
+                                'TableType': table_type,
+                                'GUNFCode': item_code
+                            },
+                            type: 'column',
                             name: translate.nc,
-                            type: 'line',
-                            color: color
+                            color: color,
+                            value: 'GValue'
                         }
                     ]
-                };
-                config = $.extend(true, {}, chart_template, config);
+                });
+
+                /* Configure Highcharts. */
+                //var config = {
+                //    series: [
+                //        {
+                //            data: series_1,
+                //            name: translate.faostat,
+                //            type: 'spline',
+                //            color: color
+                //        },
+                //        {
+                //            data: series_2,
+                //            name: translate.nc,
+                //            type: 'line',
+                //            color: color
+                //        }
+                //    ]
+                //};
+                //config = $.extend(true, {}, chart_template, config);
 
                 /* Render the chart. */
-                $('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
+                //$('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
 
             }
 
             /* Find all the chart divs: activity. */
-            divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
-            for (i = 0; i < divs.length; i++) {
-
-                /* Fetch item code and table type from the template ID's. */
-                item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
-                table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
-
-                /* Create series. */
-                series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
-                series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
-
-                /* Configure Highcharts. */
-                config = {
-                    series: [
-                        {
-                            data: series_1,
-                            name: translate.faostat,
-                            type: 'spline',
-                            color: color
-                        },
-                        {
-                            data: series_2,
-                            name: translate.nc,
-                            type: 'scatter',
-                            color: color
-                        }
-                    ]
-                };
-                config = $.extend(true, {}, chart_template, config);
-
-                /* Render the chart. */
-                $('#' + item_code + '_' + domain_code + '_activity').empty().highcharts(config);
-
-            }
+            //divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
+            //for (i = 0; i < divs.length; i++) {
+            //
+            //    /* Fetch item code and table type from the template ID's. */
+            //    item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
+            //    table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
+            //
+            //    /* Create series. */
+            //    series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
+            //    series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
+            //
+            //    /* Configure Highcharts. */
+            //    config = {
+            //        series: [
+            //            {
+            //                data: series_1,
+            //                name: translate.faostat,
+            //                type: 'spline',
+            //                color: color
+            //            },
+            //            {
+            //                data: series_2,
+            //                name: translate.nc,
+            //                type: 'scatter',
+            //                color: color
+            //            }
+            //        ]
+            //    };
+            //    config = $.extend(true, {}, chart_template, config);
+            //
+            //    /* Render the chart. */
+            //    $('#' + item_code + '_' + domain_code + '_activity').empty().highcharts(config);
+            //
+            //}
 
         }
 
@@ -567,7 +616,7 @@ define(['handlebars',
     };
 
     GHG_QA_QC.prototype.get_query = function(area_code) {
-        return  'SELECT DomainCode, Year, UNFCCCCode, GUNFItemName' + this.CONFIG.lang_faostat + ', ' +
+        return  'SELECT AreaCode, DomainCode, Year, UNFCCCCode, GUNFItemName' + this.CONFIG.lang_faostat + ', ' +
                        'GUNFValue, GUNFCode, GValue, PerDiff, ' +
                        'NormPerDiff, TableType ' +
                 'FROM DataUNFCCC ' +
