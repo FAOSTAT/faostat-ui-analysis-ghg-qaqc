@@ -125,7 +125,8 @@
          "enabled": true,
          "rotation": -45
       },
-      "tickInterval": 2
+      "tickInterval": 2,
+      "crosshair": true
    },
    "yAxis": {
       "gridLineWidth": 1,
@@ -150,17 +151,13 @@
          }
       ]
    },
+   "plotOptions": {
+      "line": {
+         "lineWidth": 0
+      }
+   },
    "tooltip": {
-      "backgroundColor": "rgba(255, 255, 255, 0.95)",
-      "borderWidth": 1,
-      "shadow": false,
-      "shared ": true,
-      "crosshairs": [
-         true,
-         true
-      ],
-      "valueDecimals": 2,
-      "valuePrefix": "",
-      "valueSuffix": ""
+      "crosshairs": true,
+      "shared": true
    }
 }

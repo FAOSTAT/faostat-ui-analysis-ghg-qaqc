@@ -385,7 +385,7 @@ define(['handlebars',
                         {
                             data: series_2,
                             name: translate.nc,
-                            type: 'scatter',
+                            type: 'line',
                             color: color
                         }
                     ]
