@@ -53,6 +53,9 @@
          "marker": {
             "enabled": false
          }
+      },
+      "line": {
+         "lineWidth": 0
       }
    },
    "navigation": {
@@ -150,11 +153,6 @@
             "width": 1
          }
       ]
-   },
-   "plotOptions": {
-      "line": {
-         "lineWidth": 0
-      }
    },
    "tooltip": {
       "crosshairs": true,
