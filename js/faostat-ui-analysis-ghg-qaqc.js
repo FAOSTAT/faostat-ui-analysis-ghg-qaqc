@@ -716,6 +716,17 @@ define(['handlebars',
             wt_4.export_table(translate[domain_code] + ' (' + translate.norm_difference + '[' + table_type + '])', translate.norm_difference);
         });
 
+        /* Indent GAS labels. */
+        if (domain_code == 'gas') {
+            $("td[id='4.D.1']").html('<div class="single-margin">4.D.1</div>');
+            $("td[id='4.D.1.1']").html('<div class="double-margin">4.D.1.1</div>');
+            $("td[id='4.D.1.2']").html('<div class="double-margin">4.D.1.2</div>');
+            $("td[id='4.D.1.4']").html('<div class="double-margin">4.D.1.4</div>');
+            $("td[id='4.D.1.5']").html('<div class="double-margin">4.D.1.5</div>');
+            $("td[id='4.D.2']").html('<div class="single-margin">4.D.2</div>');
+            $("td[id='4.D.3']").html('<div class="single-margin">4.D.3</div>');
+        }
+
     };
 
     GHG_QA_QC.prototype.populate_domain = function(domain_code, area_code, table_type) {

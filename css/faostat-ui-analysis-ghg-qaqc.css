@@ -58,4 +58,10 @@
 hr.heavy {
   border: 1px solid #666; }
 
+.single-margin {
+  margin-left: 16px; }
+
+.double-margin {
+  margin-left: 32px; }
+
 /*# sourceMappingURL=faostat-ui-analysis-ghg-qaqc.css.map */
