@@ -74,5 +74,8 @@ define({
         gr: 'Área cosechada [Ha]',
         gh: 'Superficie quemada [Ha]',
         gb: 'Biomasa quemada [tonnes]'
-    }
+    },
+    page_under_construction: 'Pagina en construcción. Nos disculpas por las molestias.',
+    instructions: 'Seleccione el país y el sector.<br>La herramienta mostrará una serie de resultados en formato gráfico y tabular.<br>Para obtener más información, una guía del usuario está disponible',
+    here: 'aquí'
 });

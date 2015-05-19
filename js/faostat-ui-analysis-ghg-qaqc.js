@@ -61,10 +61,12 @@ define(['handlebars',
         var source = $(templates).filter('#faostat_ui_analysis_ghg_qaqc').html();
         var template = Handlebars.compile(source);
         var dynamic_data = {
+            here_label: translate.here,
             domains: this.CONFIG.domains,
             qa_qc_label: translate.qa_qc,
             domain_label: translate.domains,
             land_use_label: translate.land_use,
+            instructions: translate.instructions,
             please_select: translate.please_select,
             geographic_area_label: translate.areas,
             agriculture_label: translate.agriculture,

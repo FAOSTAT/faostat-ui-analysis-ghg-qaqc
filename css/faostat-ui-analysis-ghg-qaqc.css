@@ -64,4 +64,9 @@ hr.heavy {
 .double-margin {
   margin-left: 32px; }
 
+#instructions {
+  font: normal normal 400 16px/normal "Roboto Condensed", sans-serif !important;
+  text-decoration: underline;
+  cursor: pointer; }
+
 /*# sourceMappingURL=faostat-ui-analysis-ghg-qaqc.css.map */
