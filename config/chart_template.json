@@ -49,13 +49,42 @@
       "enabled": true
    },
    "plotOptions": {
-      "spline": {
+      "line": {
+         "lineWidth": 1,
          "marker": {
-            "enabled": false
+            "enabled": true,
+            "symbol": "circle",
+            "radius": 2,
+            "lineWidth": 1,
+            "fillColor": "#FFFFFF",
+            "states": {
+               "hover": {
+                  "enabled": true,
+                  "symbol": "circle",
+                  "fillColor": "#FFFFFF",
+                  "radius": 3,
+                  "lineWidth": 2
+               }
+            }
          }
       },
-      "line": {
-         "lineWidth": 0
+      "spline": {
+         "lineWidth": 0,
+         "marker": {
+            "enabled": true,
+            "symbol": "circle",
+            "radius": 2,
+            "fillColor": "#FFFFFF",
+            "states": {
+               "hover": {
+                  "enabled": true,
+                  "symbol": "circle",
+                  "fillColor": "#FFFFFF",
+                  "radius": 3,
+                  "lineWidth": 2
+               }
+            }
+         }
       }
    },
    "navigation": {

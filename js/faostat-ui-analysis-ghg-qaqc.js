@@ -68,6 +68,7 @@ define(['require',
             qa_qc_label: translate.qa_qc,
             domain_label: translate.domains,
             land_use_label: translate.land_use,
+            module_label: translate.ghg_quality,
             instructions: translate.instructions,
             please_select: translate.please_select,
             geographic_area_label: translate.areas,
@@ -402,14 +403,21 @@ define(['require',
                         {
                             data: series_1,
                             name: translate.faostat,
-                            type: 'spline',
-                            color: color
+                            type: 'line',
+                            color: color,
+                            marker: {
+                                lineColor: color
+                            }
                         },
                         {
                             data: series_2,
                             name: translate.nc,
-                            type: 'line',
-                            color: color
+                            type: 'spline',
+                            color: color,
+                            marker: {
+                                lineColor: color,
+                                fillColor: color
+                            }
                         }
                     ]
                 };

@@ -5,7 +5,7 @@
   width: 1000px !important; }
 
 .affix#sticky_tabs_header {
-  top: 139px;
+  top: 120px;
   padding: 10px;
   position: fixed;
   background: #174c74;
@@ -31,7 +31,7 @@
   position: static; }
 
 .affix {
-  top: 195px;
+  top: 176px;
   padding: 10px;
   position: fixed;
   background-color: #174c74;
@@ -63,15 +63,5 @@ hr.heavy {
 
 .double-margin {
   margin-left: 32px; }
-
-.instructions {
-  font: normal normal 400 16px/normal "Roboto Condensed", sans-serif !important;
-  text-decoration: underline;
-  cursor: pointer; }
-
-.user-manual-link {
-  margin-top: 0;
-  position: relative;
-  top: 18px; }
 
 /*# sourceMappingURL=faostat-ui-analysis-ghg-qaqc.css.map */

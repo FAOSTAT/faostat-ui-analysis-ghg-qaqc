@@ -5,7 +5,7 @@ define({
         groups : 'Groups',
         domains : 'Sector',
         subdomains : 'Sub-Sectors',
-        areas : 'Geographic Areas',
+        areas : 'Country',
         items : 'Items',
         item : 'Item',
         elements : 'Elements',
