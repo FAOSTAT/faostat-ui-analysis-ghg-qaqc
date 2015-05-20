@@ -397,34 +397,51 @@ define(['require',
                 var series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
                 var series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
 
-                /* Configure Highcharts. */
-                var config = {
-                    series: [
-                        {
-                            data: series_1,
-                            name: translate.faostat,
-                            type: 'line',
-                            color: color,
-                            marker: {
-                                lineColor: color
-                            }
-                        },
-                        {
-                            data: series_2,
-                            name: translate.nc,
-                            type: 'spline',
-                            color: color,
-                            marker: {
-                                lineColor: color,
-                                fillColor: color
-                            }
+                /* Add series with values only. */
+                var series = [];
+                if (series_1.length > 0 && !this.is_null_series(series_1)) {
+                    series.push({
+                        data: series_1,
+                        name: translate.faostat,
+                        type: 'line',
+                        color: color,
+                        marker: {
+                            lineColor: color
                         }
-                    ]
-                };
-                config = $.extend(true, {}, chart_template, config);
+                    });
+                }
+                if (series_2.length > 0 && !this.is_null_series(series_2)) {
+                    series.push({
+                        data: series_2,
+                        name: translate.nc,
+                        type: 'spline',
+                        color: color,
+                        marker: {
+                            lineColor: color,
+                            fillColor: color
+                        }
+                    });
+                }
 
-                /* Render the chart. */
-                $('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
+                /* Show chart if at least one series is not null. */
+                if (series.length > 0) {
+
+                    /* Configure Highcharts. */
+                    var config = {
+                        series: series
+                    };
+                    config = $.extend(true, {}, chart_template, config);
+
+                    /* Render the chart. */
+                    $('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
+
+                }
+
+                /* Or a courtesy message otherwise. */
+                else {
+                    var msg = "<div class='text-center fs-chart-row'>" + translate.data_not_available + "</div>";
+                    $('#' + item_code + '_' + domain_code + '_emissions').empty().html(msg);
+                }
 
             }
 
@@ -440,32 +457,66 @@ define(['require',
                 series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
                 series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
 
-                /* Configure Highcharts. */
-                config = {
-                    series: [
-                        {
-                            data: series_1,
-                            name: translate.faostat,
-                            type: 'spline',
-                            color: color
-                        },
-                        {
-                            data: series_2,
-                            name: translate.nc,
-                            type: 'scatter',
-                            color: color
+                /* Add series with values only. */
+                series = [];
+                if (series_1.length > 0 && !this.is_null_series(series_1)) {
+                    series.push({
+                        data: series_1,
+                        name: translate.faostat,
+                        type: 'line',
+                        color: color,
+                        marker: {
+                            lineColor: color
                         }
-                    ]
-                };
-                config = $.extend(true, {}, chart_template, config);
+                    });
+                }
+                if (series_2.length > 0 && !this.is_null_series(series_2)) {
+                    series.push({
+                        data: series_2,
+                        name: translate.nc,
+                        type: 'spline',
+                        color: color,
+                        marker: {
+                            lineColor: color,
+                            fillColor: color
+                        }
+                    });
+                }
 
-                /* Render the chart. */
-                $('#' + item_code + '_' + domain_code + '_activity').empty().highcharts(config);
+                /* Show chart if at least one series is not null. */
+                if (series.length > 0) {
+
+                    /* Configure Highcharts. */
+                    config = {
+                        series: series
+                    };
+                    config = $.extend(true, {}, chart_template, config);
+
+                    /* Render the chart. */
+                    $('#' + item_code + '_' + domain_code + '_activity').empty().highcharts(config);
+
+                }
+
+                /* Or a courtesy message otherwise. */
+                else {
+                    msg = "<div class='text-center fs-chart-row'>" + translate.data_not_available + "</div>";
+                    $('#' + item_code + '_' + domain_code + '_activity').empty().html(msg);
+                }
 
             }
 
         }
 
+    };
+
+    GHG_QA_QC.prototype.is_null_series = function(series) {
+        var nulls = 0;
+        for (var i = 0 ; i < series.length ; i++)
+            if (series[i][1] == null)
+                nulls++;
+        if (series.length == nulls)
+            return true;
+        return false;
     };
 
     /**
