@@ -241,7 +241,11 @@ define(['require',
                 for (var i = 0; i < divs.length; i++) {
                     var id = divs[i].id;
                     chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
-                    $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                    try {
+                        $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                    } catch (e) {
+
+                    }
                 }
 
                 /* Find all the chart divs: activity. */
@@ -249,7 +253,11 @@ define(['require',
                 for (i = 0; i < divs.length; i++) {
                     id = divs[i].id;
                     chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
-                    $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                    try {
+                        $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                    } catch (e) {
+
+                    }
                 }
 
             }
