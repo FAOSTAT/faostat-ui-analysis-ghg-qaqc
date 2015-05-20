@@ -71,10 +71,13 @@ define(['handlebars',
             geographic_area_label: translate.areas,
             agriculture_label: translate.agriculture,
             verification_label: translate.verification,
+            user_guide_label: translate.user_guide,
             page_under_construction_label: translate.page_under_construction
         };
         var html = template(dynamic_data);
-        $('#' + this.CONFIG.placeholder_id).empty().html(html).css('padding', '15px');
+        $('#' + this.CONFIG.placeholder_id).empty().html(html).css('padding', '0 15px 15px 15px');
+
+        console.log(translate.user_guide_label);
 
         /* Make selectors 'sticky. */
         var affix_width = $('#selectors_holder').width();
@@ -647,7 +650,8 @@ define(['handlebars',
             cols_dimension: 'Year',
             lang: this.CONFIG.lang,
             row_label: 'GUNFItemName' + this.CONFIG.lang_faostat,
-            sort_by: 'code'
+            sort_by: 'code',
+            prefix: domain_code + '_'
         };
 
         /* Data for tables. */
@@ -749,7 +753,8 @@ define(['handlebars',
             show_row_code: domain_code == 'gt' || domain_code == 'gas',
             cols_dimension: 'Year',
             lang: this.CONFIG.lang,
-            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat
+            row_label: 'GUNFItemName' + this.CONFIG.lang_faostat,
+            prefix: domain_code + '_'
         };
 
         /* Data for tables. */

@@ -88,8 +88,14 @@ hr.heavy {
   margin-left: 32px;
 }
 
-#instructions {
+.instructions {
   font: normal normal 400 16px/normal "Roboto Condensed", sans-serif !important;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.user-manual-link {
+  margin-top: 0;
+  position: relative;
+  top: 18px;
 }
