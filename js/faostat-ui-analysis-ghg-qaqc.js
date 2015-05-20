@@ -1,4 +1,5 @@
-define(['handlebars',
+define(['require',
+        'handlebars',
         'text!faostat_ui_analysis_ghg_qa_qc/html/templates.hbs',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
         'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
@@ -7,7 +8,7 @@ define(['handlebars',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert'], function (Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES) {
+        'sweetAlert'], function (Require, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES) {
 
     'use strict';
 
@@ -32,7 +33,8 @@ define(['handlebars',
             table_types: ['emissions', 'activity'],
             url_wds: 'http://localhost:8080/wds/rest',
             chart_width_big: 720,
-            chart_width_small: 386
+            chart_width_small: 386,
+            url_pdf: Require.toUrl('FAOSTAT_UI_ANALYSIS_GHG_QAQC_PDF')
         }
 
     }
@@ -77,7 +79,13 @@ define(['handlebars',
         var html = template(dynamic_data);
         $('#' + this.CONFIG.placeholder_id).empty().html(html).css('padding', '0 15px 15px 15px');
 
-        console.log(translate.user_guide_label);
+        /* Bind user manual. */
+        $('#user_guide_top').click(function() {
+            _this.download_user_guide();
+        });
+        $('#user_guide_bottom').click(function() {
+            _this.download_user_guide();
+        });
 
         /* Make selectors 'sticky. */
         var affix_width = $('#selectors_holder').width();
@@ -825,6 +833,11 @@ define(['handlebars',
             wt_4.export_table(translate[domain_code] + ' (' + translate.norm_difference + '[' + table_type + '])', translate.norm_difference);
         });
 
+    };
+
+    GHG_QA_QC.prototype.download_user_guide = function() {
+        var pdf_url = this.CONFIG.url_pdf + this.CONFIG.lang_faostat + '/user_guide.pdf';
+        window.open(pdf_url, '_blank');
     };
 
     return GHG_QA_QC;

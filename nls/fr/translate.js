@@ -77,5 +77,6 @@ define({
     },
     page_under_construction: 'Page en construction. Nous excusons pour tout inconvénient.',
     instructions: 'Sélectionnez un pays et le secteur.<br>L\'outil fournira une série de résultats au format graphique et tabulaire.<br>Pour plus d\'informations, un guide de l\'utilisateur est disponible',
-    here: 'ici'
+    here: 'ici',
+    user_guide: 'Guide de l\'utilisateur'
 });
