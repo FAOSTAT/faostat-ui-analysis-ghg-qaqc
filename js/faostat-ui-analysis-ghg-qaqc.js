@@ -420,7 +420,7 @@ define(['require',
                         creator: {
                             chartObj: chart_template
                         },
-  /*                      adapter: {
+                        adapter: {
                             xAxis: {
                                 order: "ASC"
                             },
@@ -455,39 +455,7 @@ define(['require',
                                     }
                                 }
                             ]
-                        },
-                        */
-                        series: [
-                            {
-                                filters: {
-                                    'DomainCode': domain_code.toUpperCase(),
-                                    'TableType': table_type,
-                                    'GUNFCode': item_code
-                                },
-                                value: 'GValue',
-                                type: 'line',
-                                color: color,
-                                name: translate.faostat,
-                                marker: {
-                                    lineColor: color
-                                }
-                            },
-                            {
-                                filters: {
-                                    'DomainCode': domain_code.toUpperCase(),
-                                    'TableType': table_type,
-                                    'GUNFCode': item_code
-                                },
-                                value: 'GUNFValue',
-                                type: 'spline',
-                                color: color,
-                                name: translate.nc,
-                                marker: {
-                                    lineColor: color,
-                                    fillColor: color
-                                }
-                            }
-                        ]
+                        }
                     });
                 } catch (e) {
 
