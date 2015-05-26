@@ -167,21 +167,19 @@ define(['require',
 
                 /* Initiate charts creator. */
                 _this.CONFIG.charts_creator = new CHARTS_CREATOR();
-                console.log(_this.CONFIG.charts_creator);
                 _this.CONFIG.charts_creator.init({
                     model: json,
                     adapter: {
                         filters: ['AreaCode', 'DomainCode', 'TableType', 'GUNFCode'],
                         x_dimension: 'Year'
+                    },
+                    onReady: function(creator) {
+                        _this.CONFIG.charts_data = creator.adapter.chartObj;
                     }
                 });
-                console.log(_this.CONFIG.charts_creator);
 
                 /* Store data. */
                 _this.CONFIG.data[area_code] = json;
-
-                /* Create charts data. */
-                _this.create_charts_data(area_code);
 
                 /* Render tables. */
                 _this.render_tables(domain_code);
@@ -416,155 +414,138 @@ define(['require',
                     color = this.get_custom_chart_color(item_code);
 
                 /* Create series. */
-                //var series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
-                //var series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
-
-                /* Create series. */
-                this.CONFIG.charts_creator.render({
-                    container: '#' + item_code + '_' + domain_code + '_emissions',
-                    creator: {
-                        chartObj: chart_template
-                    },
-                    series: [
-                        {
-                            filters: {
-                                'DomainCode': domain_code.toUpperCase(),
-                                'TableType': table_type,
-                                'GUNFCode': item_code
-                            },
-                            value: 'GValue',
-                            type: 'line',
-                            color: color,
-                            name: translate.faostat,
-                            marker: {
-                                lineColor: color
-                            }
+                try {
+                    this.CONFIG.charts_creator.render({
+                        container: '#' + item_code + '_' + domain_code + '_emissions',
+                        creator: {
+                            chartObj: chart_template
                         },
-                        {
-                            filters: {
-                                'DomainCode': domain_code.toUpperCase(),
-                                'TableType': table_type,
-                                'GUNFCode': item_code
+  /*                      adapter: {
+                            xAxis: {
+                                order: "ASC"
                             },
-                            value: 'GUNFValue',
-                            type: 'spline',
-                            color: color,
-                            name: translate.nc,
-                            marker: {
-                                lineColor: color,
-                                fillColor: color
+                            series: [
+                                {
+                                    filters: {
+                                        'DomainCode': domain_code.toUpperCase(),
+                                        'TableType': table_type,
+                                        'GUNFCode': item_code
+                                    },
+                                    value: 'GValue',
+                                    type: 'line',
+                                    color: color,
+                                    name: translate.faostat,
+                                    marker: {
+                                        lineColor: color
+                                    }
+                                },
+                                {
+                                    filters: {
+                                        'DomainCode': domain_code.toUpperCase(),
+                                        'TableType': table_type,
+                                        'GUNFCode': item_code
+                                    },
+                                    value: 'GUNFValue',
+                                    type: 'spline',
+                                    color: color,
+                                    name: translate.nc,
+                                    marker: {
+                                        lineColor: color,
+                                        fillColor: color
+                                    }
+                                }
+                            ]
+                        },
+                        */
+                        series: [
+                            {
+                                filters: {
+                                    'DomainCode': domain_code.toUpperCase(),
+                                    'TableType': table_type,
+                                    'GUNFCode': item_code
+                                },
+                                value: 'GValue',
+                                type: 'line',
+                                color: color,
+                                name: translate.faostat,
+                                marker: {
+                                    lineColor: color
+                                }
+                            },
+                            {
+                                filters: {
+                                    'DomainCode': domain_code.toUpperCase(),
+                                    'TableType': table_type,
+                                    'GUNFCode': item_code
+                                },
+                                value: 'GUNFValue',
+                                type: 'spline',
+                                color: color,
+                                name: translate.nc,
+                                marker: {
+                                    lineColor: color,
+                                    fillColor: color
+                                }
                             }
-                        }
-                    ]
-                });
+                        ]
+                    });
+                } catch (e) {
 
-                /* Add series with values only. */
-                //var series = [];
-                //if (series_1.length > 0 && !this.is_null_series(series_1)) {
-                //    series.push({
-                //        data: series_1,
-                //        name: translate.faostat,
-                //        type: 'line',
-                //        color: color,
-                //        marker: {
-                //            lineColor: color
-                //        }
-                //    });
-                //}
-                //if (series_2.length > 0 && !this.is_null_series(series_2)) {
-                //    series.push({
-                //        data: series_2,
-                //        name: translate.nc,
-                //        type: 'spline',
-                //        color: color,
-                //        marker: {
-                //            lineColor: color,
-                //            fillColor: color
-                //        }
-                //    });
-                //}
-
-                /* Show chart if at least one series is not null. */
-                //if (series.length > 0) {
-                //
-                //    /* Configure Highcharts. */
-                //    var config = {
-                //        series: series
-                //    };
-                //    config = $.extend(true, {}, chart_template, config);
-                //
-                //    /* Render the chart. */
-                //    $('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
-                //
-                //}
-                //
-                ///* Or a courtesy message otherwise. */
-                //else {
-                //    var msg = "<div class='text-center fs-chart-row'>" + translate.data_not_available + "</div>";
-                //    $('#' + item_code + '_' + domain_code + '_emissions').empty().html(msg);
-                //}
+                }
 
             }
 
             /* Find all the chart divs: activity. */
-            //divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
-            //for (i = 0; i < divs.length; i++) {
-            //
-            //    /* Fetch item code and table type from the template ID's. */
-            //    item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
-            //    table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
-            //
-            //    /* Create series. */
-            //    series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
-            //    series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
-            //
-            //    /* Add series with values only. */
-            //    series = [];
-            //    if (series_1.length > 0 && !this.is_null_series(series_1)) {
-            //        series.push({
-            //            data: series_1,
-            //            name: translate.faostat,
-            //            type: 'line',
-            //            color: color,
-            //            marker: {
-            //                lineColor: color
-            //            }
-            //        });
-            //    }
-            //    if (series_2.length > 0 && !this.is_null_series(series_2)) {
-            //        series.push({
-            //            data: series_2,
-            //            name: translate.nc,
-            //            type: 'spline',
-            //            color: color,
-            //            marker: {
-            //                lineColor: color,
-            //                fillColor: color
-            //            }
-            //        });
-            //    }
-            //
-            //    /* Show chart if at least one series is not null. */
-            //    if (series.length > 0) {
-            //
-            //        /* Configure Highcharts. */
-            //        config = {
-            //            series: series
-            //        };
-            //        config = $.extend(true, {}, chart_template, config);
-            //
-            //        /* Render the chart. */
-            //        $('#' + item_code + '_' + domain_code + '_activity').empty().highcharts(config);
-            //
-            //    }
-            //
-            //    /* Or a courtesy message otherwise. */
-            //    else {
-            //        msg = "<div class='text-center fs-chart-row'>" + translate.data_not_available + "</div>";
-            //        $('#' + item_code + '_' + domain_code + '_activity').empty().html(msg);
-            //    }
-            //
-            //}
+            divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
+            for (i = 0; i < divs.length; i++) {
+
+                /* Fetch item code and table type from the template ID's. */
+                item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
+                table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
+
+                try {
+                    this.CONFIG.charts_creator.render({
+                        container: '#' + item_code + '_' + domain_code + '_activity',
+                        creator: {
+                            chartObj: chart_template
+                        },
+                        series: [
+                            {
+                                filters: {
+                                    'DomainCode': domain_code.toUpperCase(),
+                                    'TableType': table_type,
+                                    'GUNFCode': item_code
+                                },
+                                value: 'GValue',
+                                type: 'line',
+                                color: color,
+                                name: translate.faostat,
+                                marker: {
+                                    lineColor: color
+                                }
+                            },
+                            {
+                                filters: {
+                                    'DomainCode': domain_code.toUpperCase(),
+                                    'TableType': table_type,
+                                    'GUNFCode': item_code
+                                },
+                                value: 'GUNFValue',
+                                type: 'spline',
+                                color: color,
+                                name: translate.nc,
+                                marker: {
+                                    lineColor: color,
+                                    fillColor: color
+                                }
+                            }
+                        ]
+                    });
+                } catch (e) {
+
+                }
+
+            }
 
         }
 
@@ -578,50 +559,6 @@ define(['require',
         if (series.length == nulls)
             return true;
         return false;
-    };
-
-    /**
-     * @param area_code Code of the selected country, e.g. '10'
-     *
-     * This function reorganize the data to be used by charts,
-     * as demonstrated in /resources/json/charts_data_example.json
-     */
-    GHG_QA_QC.prototype.create_charts_data = function(area_code) {
-
-        /* Check whether data already exists. */
-        if (this.CONFIG.charts_data[area_code] == null) {
-
-            /* Create the structure for the given country. */
-            this.CONFIG.charts_data[area_code] = {};
-
-            /* Iterate over data. */
-            for (var i = 0 ; i < this.CONFIG.data[area_code].length ; i++) {
-
-                /* Create domain object. */
-                var domain_code = this.CONFIG.data[area_code][i].DomainCode;
-                if (this.CONFIG.charts_data[area_code][domain_code] == null)
-                    this.CONFIG.charts_data[area_code][domain_code] = {};
-
-                /* Create table type object. */
-                var table_type = this.CONFIG.data[area_code][i].TableType;
-                if (this.CONFIG.charts_data[area_code][domain_code][table_type] == null)
-                    this.CONFIG.charts_data[area_code][domain_code][table_type] = {};
-
-                /* Create item code object. */
-                var item_code = this.CONFIG.data[area_code][i].GUNFCode;
-                if (this.CONFIG.charts_data[area_code][domain_code][table_type][item_code] == null)
-                    this.CONFIG.charts_data[area_code][domain_code][table_type][item_code] = [];
-
-                /* Push value. */
-                this.CONFIG.charts_data[area_code][domain_code][table_type][item_code].push(this.CONFIG.data[area_code][i]);
-
-            }
-
-            /* Fire events on data loaded. */
-            amplify.publish('charts_data_loaded', {area_code: area_code});
-
-        }
-
     };
 
     /**
