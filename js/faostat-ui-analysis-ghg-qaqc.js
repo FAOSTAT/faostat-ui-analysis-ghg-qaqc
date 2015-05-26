@@ -5,10 +5,11 @@ define(['require',
         'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
         'FAOSTAT_UI_COMMONS',
         'FAOSTAT_UI_WIDE_TABLES',
+        'FENIX_UI_CHART_CREATOR',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert'], function (Require, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES) {
+        'sweetAlert'], function (Require, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, CHARTS_CREATOR) {
 
     'use strict';
 
@@ -34,7 +35,8 @@ define(['require',
             url_wds: 'http://localhost:8080/wds/rest',
             chart_width_big: 720,
             chart_width_small: 386,
-            url_pdf: Require.toUrl('FAOSTAT_UI_ANALYSIS_GHG_QAQC_PDF')
+            url_pdf: Require.toUrl('FAOSTAT_UI_ANALYSIS_GHG_QAQC_PDF'),
+            charts_creator: null
         }
 
     }
@@ -162,6 +164,18 @@ define(['require',
 
             /* Query the DB. */
             Commons.wdstable(sql, function (json) {
+
+                /* Initiate charts creator. */
+                _this.CONFIG.charts_creator = new CHARTS_CREATOR();
+                console.log(_this.CONFIG.charts_creator);
+                _this.CONFIG.charts_creator.init({
+                    model: json,
+                    adapter: {
+                        filters: ['AreaCode', 'DomainCode', 'TableType', 'GUNFCode'],
+                        x_dimension: 'Year'
+                    }
+                });
+                console.log(_this.CONFIG.charts_creator);
 
                 /* Store data. */
                 _this.CONFIG.data[area_code] = json;
@@ -402,116 +416,155 @@ define(['require',
                     color = this.get_custom_chart_color(item_code);
 
                 /* Create series. */
-                var series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
-                var series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
+                //var series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
+                //var series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
+
+                /* Create series. */
+                this.CONFIG.charts_creator.render({
+                    container: '#' + item_code + '_' + domain_code + '_emissions',
+                    creator: {
+                        chartObj: chart_template
+                    },
+                    series: [
+                        {
+                            filters: {
+                                'DomainCode': domain_code.toUpperCase(),
+                                'TableType': table_type,
+                                'GUNFCode': item_code
+                            },
+                            value: 'GValue',
+                            type: 'line',
+                            color: color,
+                            name: translate.faostat,
+                            marker: {
+                                lineColor: color
+                            }
+                        },
+                        {
+                            filters: {
+                                'DomainCode': domain_code.toUpperCase(),
+                                'TableType': table_type,
+                                'GUNFCode': item_code
+                            },
+                            value: 'GUNFValue',
+                            type: 'spline',
+                            color: color,
+                            name: translate.nc,
+                            marker: {
+                                lineColor: color,
+                                fillColor: color
+                            }
+                        }
+                    ]
+                });
 
                 /* Add series with values only. */
-                var series = [];
-                if (series_1.length > 0 && !this.is_null_series(series_1)) {
-                    series.push({
-                        data: series_1,
-                        name: translate.faostat,
-                        type: 'line',
-                        color: color,
-                        marker: {
-                            lineColor: color
-                        }
-                    });
-                }
-                if (series_2.length > 0 && !this.is_null_series(series_2)) {
-                    series.push({
-                        data: series_2,
-                        name: translate.nc,
-                        type: 'spline',
-                        color: color,
-                        marker: {
-                            lineColor: color,
-                            fillColor: color
-                        }
-                    });
-                }
+                //var series = [];
+                //if (series_1.length > 0 && !this.is_null_series(series_1)) {
+                //    series.push({
+                //        data: series_1,
+                //        name: translate.faostat,
+                //        type: 'line',
+                //        color: color,
+                //        marker: {
+                //            lineColor: color
+                //        }
+                //    });
+                //}
+                //if (series_2.length > 0 && !this.is_null_series(series_2)) {
+                //    series.push({
+                //        data: series_2,
+                //        name: translate.nc,
+                //        type: 'spline',
+                //        color: color,
+                //        marker: {
+                //            lineColor: color,
+                //            fillColor: color
+                //        }
+                //    });
+                //}
 
                 /* Show chart if at least one series is not null. */
-                if (series.length > 0) {
-
-                    /* Configure Highcharts. */
-                    var config = {
-                        series: series
-                    };
-                    config = $.extend(true, {}, chart_template, config);
-
-                    /* Render the chart. */
-                    $('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
-
-                }
-
-                /* Or a courtesy message otherwise. */
-                else {
-                    var msg = "<div class='text-center fs-chart-row'>" + translate.data_not_available + "</div>";
-                    $('#' + item_code + '_' + domain_code + '_emissions').empty().html(msg);
-                }
+                //if (series.length > 0) {
+                //
+                //    /* Configure Highcharts. */
+                //    var config = {
+                //        series: series
+                //    };
+                //    config = $.extend(true, {}, chart_template, config);
+                //
+                //    /* Render the chart. */
+                //    $('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
+                //
+                //}
+                //
+                ///* Or a courtesy message otherwise. */
+                //else {
+                //    var msg = "<div class='text-center fs-chart-row'>" + translate.data_not_available + "</div>";
+                //    $('#' + item_code + '_' + domain_code + '_emissions').empty().html(msg);
+                //}
 
             }
 
             /* Find all the chart divs: activity. */
-            divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
-            for (i = 0; i < divs.length; i++) {
-
-                /* Fetch item code and table type from the template ID's. */
-                item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
-                table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
-
-                /* Create series. */
-                series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
-                series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
-
-                /* Add series with values only. */
-                series = [];
-                if (series_1.length > 0 && !this.is_null_series(series_1)) {
-                    series.push({
-                        data: series_1,
-                        name: translate.faostat,
-                        type: 'line',
-                        color: color,
-                        marker: {
-                            lineColor: color
-                        }
-                    });
-                }
-                if (series_2.length > 0 && !this.is_null_series(series_2)) {
-                    series.push({
-                        data: series_2,
-                        name: translate.nc,
-                        type: 'spline',
-                        color: color,
-                        marker: {
-                            lineColor: color,
-                            fillColor: color
-                        }
-                    });
-                }
-
-                /* Show chart if at least one series is not null. */
-                if (series.length > 0) {
-
-                    /* Configure Highcharts. */
-                    config = {
-                        series: series
-                    };
-                    config = $.extend(true, {}, chart_template, config);
-
-                    /* Render the chart. */
-                    $('#' + item_code + '_' + domain_code + '_activity').empty().highcharts(config);
-
-                }
-
-                /* Or a courtesy message otherwise. */
-                else {
-                    msg = "<div class='text-center fs-chart-row'>" + translate.data_not_available + "</div>";
-                    $('#' + item_code + '_' + domain_code + '_activity').empty().html(msg);
-                }
-
-            }
+            //divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
+            //for (i = 0; i < divs.length; i++) {
+            //
+            //    /* Fetch item code and table type from the template ID's. */
+            //    item_code = divs[i].id.substring(0, divs[i].id.indexOf('_'));
+            //    table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
+            //
+            //    /* Create series. */
+            //    series_1 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GValue');
+            //    series_2 = this.create_series(area_code, domain_code.toUpperCase(), table_type, item_code, 'Year', 'GUNFValue');
+            //
+            //    /* Add series with values only. */
+            //    series = [];
+            //    if (series_1.length > 0 && !this.is_null_series(series_1)) {
+            //        series.push({
+            //            data: series_1,
+            //            name: translate.faostat,
+            //            type: 'line',
+            //            color: color,
+            //            marker: {
+            //                lineColor: color
+            //            }
+            //        });
+            //    }
+            //    if (series_2.length > 0 && !this.is_null_series(series_2)) {
+            //        series.push({
+            //            data: series_2,
+            //            name: translate.nc,
+            //            type: 'spline',
+            //            color: color,
+            //            marker: {
+            //                lineColor: color,
+            //                fillColor: color
+            //            }
+            //        });
+            //    }
+            //
+            //    /* Show chart if at least one series is not null. */
+            //    if (series.length > 0) {
+            //
+            //        /* Configure Highcharts. */
+            //        config = {
+            //            series: series
+            //        };
+            //        config = $.extend(true, {}, chart_template, config);
+            //
+            //        /* Render the chart. */
+            //        $('#' + item_code + '_' + domain_code + '_activity').empty().highcharts(config);
+            //
+            //    }
+            //
+            //    /* Or a courtesy message otherwise. */
+            //    else {
+            //        msg = "<div class='text-center fs-chart-row'>" + translate.data_not_available + "</div>";
+            //        $('#' + item_code + '_' + domain_code + '_activity').empty().html(msg);
+            //    }
+            //
+            //}
 
         }
 
