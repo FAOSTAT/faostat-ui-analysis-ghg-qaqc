@@ -3,12 +3,12 @@ define(['jquery',
         'text!faostat_ui_analysis_ghg_qa_qc/html/templates.html',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
         'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
-        'FAOSTAT_UI_COMMONS',
+        'faostat_commons',
         'FAOSTAT_UI_WIDE_TABLES',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert'], function ($, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, chosen) {
+        'sweetAlert'], function ($, Handlebars, templates, translate, chart_template, FAOSTATCommons, WIDE_TABLES, chosen) {
 
     'use strict';
 
@@ -47,7 +47,7 @@ define(['jquery',
         this.CONFIG.lang = this.CONFIG.lang != null ? this.CONFIG.lang : 'en';
 
         /* Store FAOSTAT language. */
-        this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
+        this.CONFIG.lang_faostat = FAOSTATCommons.iso2faostat(this.CONFIG.lang);
 
         /* Cast chart configuration to JSON object. */
         chart_template = $.parseJSON(chart_template);
