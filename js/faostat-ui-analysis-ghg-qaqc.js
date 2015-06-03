@@ -187,7 +187,7 @@ define(['require',
                         model: json,
                         adapter: {
                             filters: ['AreaCode', 'DomainCode', 'TableType', 'GUNFCode'],
-                            x_dimension: 'Year'
+                            xDimensions: 'Year'
                         },
                         onReady: function(creator) {
                             _this.CONFIG.charts_data = creator.adapter.chartObj;
@@ -448,9 +448,7 @@ define(['require',
                             chartObj: chart_template
                         },
                         adapter: {
-                            xAxis: {
-                                order: "ASC"
-                            },
+                            xOrder: "ASC",
                             series: [
                                 {
                                     filters: {
@@ -458,7 +456,7 @@ define(['require',
                                         'TableType': table_type,
                                         'GUNFCode': item_code
                                     },
-                                    value: 'GValue',
+                                    valueDimensions: 'GValue',
                                     type: 'line',
                                     color: color,
                                     name: translate.faostat,
@@ -472,7 +470,7 @@ define(['require',
                                         'TableType': table_type,
                                         'GUNFCode': item_code
                                     },
-                                    value: 'GUNFValue',
+                                    valueDimensions: 'GUNFValue',
                                     type: 'spline',
                                     color: color,
                                     name: translate.nc,
@@ -511,7 +509,7 @@ define(['require',
                                     'TableType': table_type,
                                     'GUNFCode': item_code
                                 },
-                                value: 'GValue',
+                                valueDimensions: 'GValue',
                                 type: 'line',
                                 color: color,
                                 name: translate.faostat,
@@ -525,7 +523,7 @@ define(['require',
                                     'TableType': table_type,
                                     'GUNFCode': item_code
                                 },
-                                value: 'GUNFValue',
+                                valueDimensions: 'GUNFValue',
                                 type: 'spline',
                                 color: color,
                                 name: translate.nc,
