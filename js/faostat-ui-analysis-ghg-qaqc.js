@@ -3,13 +3,15 @@ define(['require',
         'text!faostat_ui_analysis_ghg_qa_qc/html/templates.hbs',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
         'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
-        'FAOSTAT_UI_COMMONS',
+        'faostat_commons',
         'FAOSTAT_UI_WIDE_TABLES',
-        'FENIX_UI_CHART_CREATOR',
+        'wds_client',
+        'fx-c-c/start',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert'], function (Require, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, CHARTS_CREATOR) {
+        'sweetAlert'], function (Require, Handlebars, templates, translate, chart_template, FAOSTATCommons,
+                                 WIDE_TABLES, WDSClient, CHARTS_CREATOR) {
 
     'use strict';
 
@@ -36,7 +38,8 @@ define(['require',
             chart_width_big: 720,
             chart_width_small: 386,
             url_pdf: Require.toUrl('FAOSTAT_UI_ANALYSIS_GHG_QAQC_PDF'),
-            charts_creator: null
+            charts_creator: null,
+            url_wds_crud: 'http://fenixapps2.fao.org/wds_5.1/rest/crud'
         }
 
     }
@@ -50,7 +53,14 @@ define(['require',
         this.CONFIG.lang = this.CONFIG.lang != null ? this.CONFIG.lang : 'en';
 
         /* Store FAOSTAT language. */
-        this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
+        this.CONFIG.lang_faostat = FAOSTATCommons.iso2faostat(this.CONFIG.lang);
+
+        /* Initiate the WDS client. */
+        this.CONFIG.w = new WDSClient({
+            datasource: this.CONFIG.datasource,
+            serviceUrl: this.CONFIG.url_wds_crud
+        });
+        console.log(this.CONFIG.w);
 
         /* Cast chart configuration to JSON object. */
         chart_template = $.parseJSON(chart_template);
@@ -163,28 +173,60 @@ define(['require',
             var sql = _this.get_query(area_code);
 
             /* Query the DB. */
-            Commons.wdstable(sql, function (json) {
+            this.CONFIG.w.retrieve({
+                datasource: this.CONFIG.datasource,
+                payload: {
+                    query: this.get_query(area_code)
+                },
+                success: function (json) {
 
-                /* Initiate charts creator. */
-                _this.CONFIG.charts_creator = new CHARTS_CREATOR();
-                _this.CONFIG.charts_creator.init({
-                    model: json,
-                    adapter: {
-                        filters: ['AreaCode', 'DomainCode', 'TableType', 'GUNFCode'],
-                        x_dimension: 'Year'
-                    },
-                    onReady: function(creator) {
-                        _this.CONFIG.charts_data = creator.adapter.chartObj;
-                    }
-                });
+                    /* Initiate charts creator. */
+                    _this.CONFIG.charts_creator = new CHARTS_CREATOR();
+                    _this.CONFIG.charts_creator.init({
+                        model: json,
+                        adapter: {
+                            filters: ['AreaCode', 'DomainCode', 'TableType', 'GUNFCode'],
+                            x_dimension: 'Year'
+                        },
+                        onReady: function(creator) {
+                            _this.CONFIG.charts_data = creator.adapter.chartObj;
+                        }
+                    });
 
-                /* Store data. */
-                _this.CONFIG.data[area_code] = json;
+                    /* Store data. */
+                    _this.CONFIG.data[area_code] = json;
 
-                /* Render tables. */
-                _this.render_tables(domain_code);
+                    /* Render tables. */
+                    _this.render_tables(domain_code);
 
-            }, this.CONFIG.url_wds, {datasource: this.CONFIG.datasource});
+                }
+            });
+
+
+
+
+            //this.CONFIG.w.wdstable(sql, function (json) {
+            //
+            //    /* Initiate charts creator. */
+            //    _this.CONFIG.charts_creator = new CHARTS_CREATOR();
+            //    _this.CONFIG.charts_creator.init({
+            //        model: json,
+            //        adapter: {
+            //            filters: ['AreaCode', 'DomainCode', 'TableType', 'GUNFCode'],
+            //            x_dimension: 'Year'
+            //        },
+            //        onReady: function(creator) {
+            //            _this.CONFIG.charts_data = creator.adapter.chartObj;
+            //        }
+            //    });
+            //
+            //    /* Store data. */
+            //    _this.CONFIG.data[area_code] = json;
+            //
+            //    /* Render tables. */
+            //    _this.render_tables(domain_code);
+            //
+            //}, this.CONFIG.url_wds, {datasource: this.CONFIG.datasource});
 
         } else {
 
@@ -628,7 +670,7 @@ define(['require',
         };
 
         /* Fetch data and populate the dropdown. */
-        Commons.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
+        this.CONFIG.w.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
 
             /* Initiate options. */
             var s = '<option value="null"></option>';
