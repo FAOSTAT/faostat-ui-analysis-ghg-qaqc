@@ -1,6 +1,6 @@
 define(['jquery',
         'handlebars',
-        'text!faostat_ui_analysis_ghg_qa_qc/html/templates.html',
+        'text!faostat_ui_analysis_ghg_qa_qc/html/templates.hbs',
         'i18n!faostat_ui_analysis_ghg_qa_qc/nls/translate',
         'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
         'faostat_commons',
