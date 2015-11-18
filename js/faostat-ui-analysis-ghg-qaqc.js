@@ -31,7 +31,7 @@ define(['require',
                 {id: 'gb', label: translate.gb, totals: ['6731'], color: '#DD4124'}
             ],
             table_types: ['emissions', 'activity'],
-            url_wds: 'http://localhost:8080/wds/rest',
+            url_wds: 'http://fenixapps2.fao.org/wds_5/rest',
             chart_width_big: 720,
             chart_width_small: 386,
             url_pdf: Require.toUrl('FAOSTAT_UI_ANALYSIS_GHG_QAQC_PDF')
@@ -89,7 +89,7 @@ define(['require',
         });
 
         /* Make selectors 'sticky. */
-        var affix_width = $('#selectors_holder').width();
+/*        var affix_width = $('#selectors_holder').width();
         affix_width = '1000px';
         $('#selectors_holder').affix({
             offset: {
@@ -97,7 +97,7 @@ define(['require',
             }
         }).on('affixed.bs.affix', function (e) {
             $('#selectors_holder').width(affix_width);
-        });
+        });*/
 
         /* Store JQuery selectors. */
         this.CONFIG.domains_selector = $('#domains');
@@ -204,7 +204,7 @@ define(['require',
         $('#tabs_content').empty().html(html);
 
         /* Make the header sticky. */
-        var affix_width = $('#sticky_tabs_header').width();
+/*        var affix_width = $('#sticky_tabs_header').width();
         affix_width = '1000px';
         $('#sticky_tabs_header').affix({
             offset: {
@@ -212,7 +212,7 @@ define(['require',
             }
         }).on('affixed.bs.affix', function (e) {
             $('#sticky_tabs_header').width(affix_width);
-        });
+        });*/
 
         /* Select first tab. */
         $('a[href="#gt"]').tab('show');
@@ -320,8 +320,8 @@ define(['require',
         $('#' + domain_code).empty().html(html);
 
         /* Make selectors 'sticky. */
-        var affix_width = $('.' + domain_code + '_sticky').width();
-        /* TODO Make it adaptive. */
+/*        var affix_width = $('.' + domain_code + '_sticky').width();
+        /!* TODO Make it adaptive. *!/
         var affix_width = '1000px';
         $('.' + domain_code + '_sticky').affix({
             offset: {
@@ -329,7 +329,7 @@ define(['require',
             }
         }).on('affixed.bs.affix', function (e) {
             $('.' + domain_code + '_sticky').width(affix_width);
-        });
+        });*/
 
         /* Select first tab. */
         $('a[href="#' + domain_code + '_charts"]').tab('show');

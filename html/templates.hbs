@@ -46,7 +46,8 @@
 <script type='text/x-handlebars-template' id='verification_structure'>
     <div role='tabpanel' class='tab-pane active' id='verification'>
         <div class='row'>
-            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='selectors_holder' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+            <!--<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='selectors_holder' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
+            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='selectors_holder'>
                 <div class='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
                     <h4>
                         {{geographic_area_label}}
@@ -81,7 +82,8 @@
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel' id='domains_tab'>
-                <ul class='nav nav-tabs' role='tablist' data-spy='affix' data-offset-top='0' data-offset-bottom='200' id='sticky_tabs_header'>
+                <!--<ul class='nav nav-tabs' role='tablist' data-spy='affix' data-offset-top='0' data-offset-bottom='200' id='sticky_tabs_header'>-->
+                <ul class='nav nav-tabs' role='tablist' id='sticky_tabs_header'>
                     {{#each domains}}
                         <li role='presentation'>
                             <a href='#{{id}}' aria-controls='{{id}}' role='tab' data-toggle='tab'>
@@ -125,7 +127,8 @@
                     <div role='tabpanel' class='tab-pane' id='gt_charts'>
                         <br>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+                            <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
                                 <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                     <b>
                                         {{item_label}}
@@ -283,7 +286,8 @@
                     <div role='tabpanel' class='tab-pane' id='ge_charts'>
                         <br>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+                            <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
                                 <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                     <b>
                                         {{item_label}}
@@ -310,7 +314,8 @@
                         </div>
                         <hr class='heavy'>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+                            <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
                                 <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
@@ -530,8 +535,9 @@
                     <div role='tabpanel' class='tab-pane' id='gm_charts'>
                         <br>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
-                                <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                            <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
+                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                     <b>
                                         {{item_label}}
                                     </b>
@@ -557,8 +563,9 @@
                         </div>
                         <hr class='heavy'>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
-                                <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                            <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
                                     </b>
@@ -794,7 +801,8 @@
                     <div role='tabpanel' class='tab-pane' id='gr_charts'>
                         <br>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+                            <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
                                 <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                     <b>
                                         {{item_label}}
@@ -821,7 +829,8 @@
                         </div>
                         <hr class='heavy'>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+                            <!-- data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
                                 <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
@@ -905,7 +914,8 @@
                     <div role='tabpanel' class='tab-pane' id='gas_charts'>
                         <br>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+                            <!-- data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
                                 <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                     <b>
                                         {{item_label}}
@@ -1075,7 +1085,8 @@
                     <div role='tabpanel' class='tab-pane' id='gb_charts'>
                         <br>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+                            <!-- data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
                                 <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                     <b>
                                         {{item_label}}
@@ -1102,7 +1113,8 @@
                         </div>
                         <hr class='heavy'>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+                            <!-- data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
                                 <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
@@ -1237,7 +1249,8 @@
                     <div role='tabpanel' class='tab-pane' id='gh_charts'>
                         <br>
                         <div class='row'>
-                            <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+                            <!-- data-offset-top='0' data-offset-bottom='200'>-->
+                            <div class='{{sticky_header_id}}'>
                                 <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
                                     <b>
                                         {{item_label}}
@@ -1292,12 +1305,13 @@
 <!-- TABLES TEMPLATES: START -->
 <script type='text/x-handlebars-template' id='tables_emissions'>
     <div class='row'>
-        <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+        <!-- data-offset-top='0' data-offset-bottom='200'>-->
+        <div class='{{sticky_header_id}}'>
             <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                 {{#if isEmissions}}
-                <h3>{{faostat_label}} {{{co2eq_label}}}</h3>
+                    <h3>{{faostat_label}} {{{co2eq_label}}}</h3>
                 {{else}}
-                <h3>{{faostat_label}} ({{{mu_label}}})</h3>
+                    <h3>{{faostat_label}} ({{{mu_label}}})</h3>
                 {{/if}}
             </div>
         </div>
@@ -1314,12 +1328,13 @@
     </div>
     <hr>
     <div class='row'>
-        <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
-            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+        <!-- data-offset-top='0' data-offset-bottom='200'>-->
+        <div class='{{sticky_header_id}}'>
+        <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                 {{#if isEmissions}}
-                <h3>{{nc_label}} {{{co2eq_label}}}</h3>
+                    <h3>{{nc_label}} {{{co2eq_label}}}</h3>
                 {{else}}
-                <h3>{{nc_label}} ({{{mu_label}}})</h3>
+                    <h3>{{nc_label}} ({{{mu_label}}})</h3>
                 {{/if}}
             </div>
         </div>
@@ -1336,12 +1351,13 @@
     </div>
     <hr>
     <div class='row'>
-        <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
-            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+        <!-- data-offset-top='0' data-offset-bottom='200'>-->
+        <div class='{{sticky_header_id}}'>
+        <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
                 {{#if isEmissions}}
-                <h3>{{difference_label}} [%]</h3>
+                    <h3>{{difference_label}} [%]</h3>
                 {{else}}
-                <h3>{{difference_label}} [%]</h3>
+                    <h3>{{difference_label}} [%]</h3>
                 {{/if}}
             </div>
         </div>
@@ -1357,24 +1373,25 @@
         </div>
     </div>
     {{#if isEmissions}}
-    <hr>
-    <div class='row'>
-        <div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>
+        <hr>
+        <div class='row'>
+            <!-- data-offset-top='0' data-offset-bottom='200'>-->
+            <div class='{{sticky_header_id}}'>
             <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                <h3>{{norm_difference_label}} [%]</h3>
+                    <h3>{{norm_difference_label}} [%]</h3>
+                </div>
+            </div>
+            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                <h3 class='pull-right'>
+                    <a id='{{id}}_export_table_4'>
+                        <i class='fa fa-download'></i> {{export_data_label}}
+                    </a>
+                </h3>
+            </div>
+            <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                <div id='{{id}}_table_4'></div>
             </div>
         </div>
-        <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-            <h3 class='pull-right'>
-                <a id='{{id}}_export_table_4'>
-                    <i class='fa fa-download'></i> {{export_data_label}}
-                </a>
-            </h3>
-        </div>
-        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <div id='{{id}}_table_4'></div>
-        </div>
-    </div>
     {{/if}}
 </script>
 <!-- TABLES TEMPLATES: END -->
