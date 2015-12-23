@@ -32,8 +32,8 @@ define(['require',
             ],
             table_types: ['emissions', 'activity'],
             url_wds: 'http://fenixapps2.fao.org/wds_5/rest',
-            chart_width_big: 720,
-            chart_width_small: 386,
+            //chart_width_big: 720,
+            //chart_width_small: 386,
             url_pdf: Require.toUrl('FAOSTAT_UI_ANALYSIS_GHG_QAQC_PDF')
         }
 
@@ -229,6 +229,8 @@ define(['require',
         /* Resize charts on tab change. */
         $('#domains_tab').on('shown.bs.tab', function (e) {
 
+            console.log('here');
+
             for (var z = 0 ; z < _this.CONFIG.domains.length ; z++) {
 
                 /* Domain code. */
@@ -240,24 +242,35 @@ define(['require',
                 var divs = $('[id$=' + '_' + domain_code + '_emissions' + ']');
                 for (var i = 0; i < divs.length; i++) {
                     var id = divs[i].id;
-                    chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
                     try {
-                        $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                        $('#' + id).highcharts().reflow();
                     } catch (e) {
-
+                       // console.log(e)
                     }
+                    //chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
+                    //try {
+                    //   $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                    //} catch (e) {
+                    //
+                    //}
                 }
 
                 /* Find all the chart divs: activity. */
                 divs = $('[id$=' + '_' + domain_code + '_activity' + ']');
                 for (i = 0; i < divs.length; i++) {
                     id = divs[i].id;
-                    chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
                     try {
-                        $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                        $('#' + id).highcharts().reflow();
                     } catch (e) {
-
+                       // console.log(e)
                     }
+
+                    //chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
+                    //try {
+                    //    $('#' + id).highcharts().setSize(chart_width, 250, doAnimation);
+                    //} catch (e) {
+                    //
+                    //}
                 }
 
             }
