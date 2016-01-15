@@ -1,45 +1,7 @@
 <script type='text/x-handlebars-template' id='faostat_ui_analysis_ghg_qaqc'>
-    <div class='row'>
-        <div class='col-xs-12 col-sm-8 col-md-8 col-lg-8'>
-            <h1>
-                {{module_label}}
-            </h1>
-        </div>
-        <div class='col-xs-12 col-sm-4 col-md-4 col-lg-4'>
-            <h3 class='instructions pull-right' id='user_guide_top'>
-                <i class="fa fa-file-pdf-o"></i>{{user_guide_label}}
-            </h3>
-        </div>
-    </div>
-    <br>
-    <div class='row'>
-        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <div role='tabpanel'>
-                <ul class='nav nav-tabs' role='tablist'>
-                    <li role='presentation' class='disabled'>
-                        <a href='#qaqc' aria-controls='qaqc' role='tab' data-toggle='tab'>
-                            {{qa_qc_label}}
-                        </a>
-                    </li>
-                    <li role='presentation' class='active'>
-                        <a href='#verification' aria-controls='verification' role='tab' data-toggle='tab'>
-                            {{verification_label}}
-                        </a>
-                    </li>
-                </ul>
-                <div class='tab-content'>
-                    <div role='tabpanel' class='tab-pane' id='qaqc'>
-                        <div class='text-center'>
-                            <h1>
-                                {{page_under_construction_label}}
-                            </h1>
-                        </div>
-                    </div>
-                    {{> verification_structure}}
-                </div>
-            </div>
-        </div>
-    </div>
+
+    {{> verification_structure}}
+
 </script>
 
 
@@ -68,17 +30,23 @@
                 </div>
             </div>
         </div>
-        <hr>
-        <div id='tabs_content'>
-            <h3 class='text-center'>
-                {{{instructions}}} <span class='instructions-here' id='user_guide_bottom'>{{here_label}}</span>.
-            </h3>
+        <div class='row'>
+            <div class='col-xs-12'>
+                <div id='tabs_content'>
+                    <br>
+                    <br>
+                    <h4 class='text-center'>
+                        {{{instructions}}} <span class='instructions-here' id='user_guide_bottom'>{{here_label}}</span>.
+                    </h4>
+                </div>
+            </div>
         </div>
     </div>
 </script>
 
 
 <script type='text/x-handlebars-template' id='tabs_agriculture'>
+    <br>
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel' id='domains_tab'>
@@ -107,7 +75,7 @@
 
 <!-- GT TEMPLATES: START -->
 <script type='text/x-handlebars-template' id='gt_structure'>
-    <hr>
+    <br>
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel'>
@@ -129,12 +97,12 @@
                         <div class='row'>
                             <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
                             <div class='{{sticky_header_id}}'>
-                                <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
                                     </b>
                                 </div>
-                                <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                     <b>
                                         {{{emissions_label}}}
                                     </b>
@@ -142,12 +110,12 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gt_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='1711_gt_emissions'>
                                     {{data_not_available_label}}
                                 </div>
@@ -155,83 +123,83 @@
                         </div>
                         <hr class='heavy'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                 <b>
                                     {{item_label}}
                                 </b>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                 <b>
                                     {{{emissions_label}}}
                                 </b>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{ge_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='5058_gt_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gm_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='5059_gt_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gr_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='5060_gt_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gas_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='1709_gt_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gh_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='6736_gt_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gb_label}}</a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='6731_gt_emissions'>
                                     {{data_not_available_label}}
                                 </div>
@@ -240,20 +208,19 @@
                     </div>
                     <div role='tabpanel' class='tab-pane' id='gt_tables'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-                                <h3>{{table_selector_label}}</h3>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <h4>{{table_selector_label}}</h4>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                                <h3>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <h4>
                                     <select class='chosen-select' id='gt_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
                                         <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity" disabled>{{activity_label}}</option>
                                     </select>
-                                </h3>
+                                </h4>
                             </div>
                         </div>
-                        <hr>
                         <div id='gt_tables_content'></div>
                     </div>
                 </div>
@@ -266,7 +233,7 @@
 
 <!-- GE TEMPLATES: START -->
 <script type='text/x-handlebars-template' id='ge_structure'>
-    <hr>
+    <br>
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel'>
@@ -288,12 +255,12 @@
                         <div class='row'>
                             <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
                             <div class='{{sticky_header_id}}'>
-                                <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
                                     </b>
                                 </div>
-                                <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                     <b>
                                         {{{emissions_label}}}
                                     </b>
@@ -301,12 +268,12 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{ge_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                 <div id='5058_ge_emissions' class='chart-container fs-chart-row'>
                                     {{data_not_available_label}}
                                 </div>
@@ -334,7 +301,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{buffaloes_label}}
                                 </a>
@@ -351,7 +318,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{camels_llamas_label}}
                                 </a>
@@ -368,7 +335,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{cattle_dairy_label}}
                                 </a>
@@ -385,7 +352,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{cattle_non_dairy_label}}
                                 </a>
@@ -402,7 +369,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{goats_label}}
                                 </a>
@@ -419,7 +386,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{horses_label}}
                                 </a>
@@ -436,7 +403,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{mules_asses_label}}
                                 </a>
@@ -453,7 +420,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{sheep_label}}
                                 </a>
@@ -470,7 +437,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{swine_label}}
                                 </a>
@@ -489,17 +456,17 @@
                     </div>
                     <div role='tabpanel' class='tab-pane' id='ge_tables'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-                                <h3>{{table_selector_label}}</h3>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <h4>{{table_selector_label}}</h4>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                                <h3>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <h4>
                                     <select class='chosen-select' id='ge_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
                                         <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity">{{activity_label}}</option>
                                     </select>
-                                </h3>
+                                </h4>
                             </div>
                         </div>
                         <hr>
@@ -515,7 +482,7 @@
 
 <!-- GM TEMPLATES: START -->
 <script type='text/x-handlebars-template' id='gm_structure'>
-    <hr>
+    <br>
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel'>
@@ -537,12 +504,12 @@
                         <div class='row'>
                             <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
                             <div class='{{sticky_header_id}}'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
                                     </b>
                                 </div>
-                                <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                     <b>
                                         {{{emissions_label}}}
                                     </b>
@@ -550,12 +517,12 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gm_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                 <div id='5059_gm_emissions' class='chart-container fs-chart-row'>
                                     {{data_not_available_label}}
                                 </div>
@@ -583,7 +550,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{buffaloes_label}}
                                 </a>
@@ -600,7 +567,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{camels_llamas_label}}
                                 </a>
@@ -617,7 +584,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{cattle_dairy_label}}
                                 </a>
@@ -634,7 +601,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{cattle_non_dairy_label}}
                                 </a>
@@ -651,7 +618,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{goats_label}}
                                 </a>
@@ -668,7 +635,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{horses_label}}
                                 </a>
@@ -685,7 +652,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{mules_asses_label}}
                                 </a>
@@ -702,7 +669,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{poultry_birds_label}}
                                 </a>
@@ -719,7 +686,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{sheep_label}}
                                 </a>
@@ -736,7 +703,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{swine_label}}
                                 </a>
@@ -755,17 +722,17 @@
                     </div>
                     <div role='tabpanel' class='tab-pane' id='gm_tables'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-                                <h3>{{table_selector_label}}</h3>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <h4>{{table_selector_label}}</h4>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                                <h3>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <h4>
                                     <select class='chosen-select' id='gm_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
                                         <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity">{{activity_label}}</option>
                                     </select>
-                                </h3>
+                                </h4>
                             </div>
                         </div>
                         <hr>
@@ -781,7 +748,7 @@
 
 <!-- GR TEMPLATES: START -->
 <script type='text/x-handlebars-template' id='gr_structure'>
-    <hr>
+    <br>
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel'>
@@ -803,12 +770,12 @@
                         <div class='row'>
                             <!--<div class='{{sticky_header_id}}' data-spy='affix' data-offset-top='0' data-offset-bottom='200'>-->
                             <div class='{{sticky_header_id}}'>
-                                <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
                                     </b>
                                 </div>
-                                <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                     <b>
                                         {{{emissions_label}}}
                                     </b>
@@ -816,12 +783,12 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gr_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                 <div id='5060_gr_emissions' class='chart-container fs-chart-row'>
                                     {{data_not_available_label}}
                                 </div>
@@ -849,7 +816,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{rice_label}}
                                 </a>
@@ -868,17 +835,17 @@
                     </div>
                     <div role='tabpanel' class='tab-pane' id='gr_tables'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-                                <h3>{{table_selector_label}}</h3>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <h4>{{table_selector_label}}</h4>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                                <h3>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <h4>
                                     <select class='chosen-select' id='gr_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
                                         <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity">{{activity_label}}</option>
                                     </select>
-                                </h3>
+                                </h4>
                             </div>
                         </div>
                         <hr>
@@ -894,7 +861,7 @@
 
 <!-- GAS TEMPLATES: START -->
 <script type='text/x-handlebars-template' id='gas_structure'>
-    <hr>
+    <br>
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel'>
@@ -916,12 +883,12 @@
                         <div class='row'>
                             <!-- data-offset-top='0' data-offset-bottom='200'>-->
                             <div class='{{sticky_header_id}}'>
-                                <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
                                     </b>
                                 </div>
-                                <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                     <b>
                                         {{{emissions_label}}}
                                     </b>
@@ -929,12 +896,12 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gas_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='1709_gas_emissions'>
                                     {{data_not_available_label}}
                                 </div>
@@ -942,72 +909,72 @@
                         </div>
                         <hr class='heavy'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                 <b>
                                     {{item_label}}
                                 </b>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                 <b>
                                     {{{emissions_label}}}
                                 </b>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{direct_soils_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='5056_gas_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{fertilizers_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='5061_gas_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{manure_soils_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='6722_gas_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{crop_residues_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='5064_gas_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{organic_soils_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='6734_gas_emissions'>
                                     {{data_not_available_label}}
                                 </div>
@@ -1015,22 +982,22 @@
 
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{pasture_label}}</a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='6735_gas_emissions'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{indirect_soils_label}}</a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10 fs-chart-row'>
                                 <div id='5057_gas_emissions'>
                                     {{data_not_available_label}}
                                 </div>
@@ -1039,17 +1006,17 @@
                     </div>
                     <div role='tabpanel' class='tab-pane' id='gas_tables'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-                                <h3>{{table_selector_label}}</h3>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <h4>{{table_selector_label}}</h4>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                                <h3>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <h4>
                                     <select class='chosen-select' id='gas_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
                                         <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity" disabled>{{activity_label}}</option>
                                     </select>
-                                </h3>
+                                </h4>
                             </div>
                         </div>
                         <hr>
@@ -1065,7 +1032,7 @@
 
 <!-- GB TEMPLATES: START -->
 <script type='text/x-handlebars-template' id='gb_structure'>
-    <hr>
+    <br>
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel'>
@@ -1087,12 +1054,12 @@
                         <div class='row'>
                             <!-- data-offset-top='0' data-offset-bottom='200'>-->
                             <div class='{{sticky_header_id}}'>
-                                <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-item'>
                                     <b>
                                         {{item_label}}
                                     </b>
                                 </div>
-                                <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                     <b>
                                         {{{emissions_label}}}
                                     </b>
@@ -1100,13 +1067,13 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gb_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                                <div id='6731_gb_emissions' class='chart-container fs-chart-row'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <div id='6731_gb_emissions' class='chart-container fs-chart-row fs-chart-item'>
                                     {{data_not_available_label}}
                                 </div>
                             </div>
@@ -1133,7 +1100,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{maize_label}}
                                 </a>
@@ -1150,7 +1117,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{rice_label}}
                                 </a>
@@ -1167,7 +1134,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{sugar_cane_label}}
                                 </a>
@@ -1184,7 +1151,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{wheat_label}}
                                 </a>
@@ -1203,20 +1170,19 @@
                     </div>
                     <div role='tabpanel' class='tab-pane' id='gb_tables'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-                                <h3>{{table_selector_label}}</h3>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <h4>{{table_selector_label}}</h4>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                                <h3>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <h4>
                                     <select class='chosen-select' id='gb_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
                                         <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity">{{activity_label}}</option>
                                     </select>
-                                </h3>
+                                </h4>
                             </div>
                         </div>
-                        <hr>
                         <div id='gb_tables_content'></div>
                     </div>
                 </div>
@@ -1229,7 +1195,7 @@
 
 <!-- GH TEMPLATES: START -->
 <script type='text/x-handlebars-template' id='gh_structure'>
-    <hr>
+    <br>
     <div class='row'>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div role='tabpanel'>
@@ -1251,12 +1217,12 @@
                         <div class='row'>
                             <!-- data-offset-top='0' data-offset-bottom='200'>-->
                             <div class='{{sticky_header_id}}'>
-                                <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
+                                <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                                     <b>
                                         {{item_label}}
                                     </b>
                                 </div>
-                                <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                                <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                     <b>
                                         {{{emissions_label}}}
                                     </b>
@@ -1264,12 +1230,12 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 fs-chart-row'>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2 fs-chart-row fs-chart-item'>
                                 <a>
                                     {{gh_label}}
                                 </a>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                                 <div id='6736_gh_emissions' class='chart-container fs-chart-row'>
                                     {{data_not_available_label}}
                                 </div>
@@ -1278,20 +1244,19 @@
                     </div>
                     <div role='tabpanel' class='tab-pane' id='gh_tables'>
                         <div class='row'>
-                            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-                                <h3>{{table_selector_label}}</h3>
+                            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                                <h4>{{table_selector_label}}</h4>
                             </div>
-                            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                                <h3>
+                            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                                <h4>
                                     <select class='chosen-select' id='gh_table_selector' style='width: 100%;'>
                                         <option value="null"></option>
                                         <option value="emissions">{{{emissions_label}}}</option>
                                         <option value="activity">{{activity_label}}</option>
                                     </select>
-                                </h3>
+                                </h4>
                             </div>
                         </div>
-                        <hr>
                         <div id='gh_tables_content'></div>
                     </div>
                 </div>
@@ -1307,20 +1272,20 @@
     <div class='row'>
         <!-- data-offset-top='0' data-offset-bottom='200'>-->
         <div class='{{sticky_header_id}}'>
-            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                 {{#if isEmissions}}
-                    <h3>{{faostat_label}} {{{co2eq_label}}}</h3>
+                    <h4>{{faostat_label}} {{{co2eq_label}}}</h4>
                 {{else}}
-                    <h3>{{faostat_label}} ({{{mu_label}}})</h3>
+                    <h4>{{faostat_label}} ({{{mu_label}}})</h4>
                 {{/if}}
             </div>
         </div>
-        <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-            <h3 class='pull-right'>
+        <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+            <h4 class='pull-right'>
                 <a id='{{id}}_export_table_1'>
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
-            </h3>
+            </h4>
         </div>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div id='{{id}}_table_1'></div>
@@ -1330,20 +1295,20 @@
     <div class='row'>
         <!-- data-offset-top='0' data-offset-bottom='200'>-->
         <div class='{{sticky_header_id}}'>
-        <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+        <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                 {{#if isEmissions}}
-                    <h3>{{nc_label}} {{{co2eq_label}}}</h3>
+                    <h4>{{nc_label}} {{{co2eq_label}}}</h4>
                 {{else}}
-                    <h3>{{nc_label}} ({{{mu_label}}})</h3>
+                    <h4>{{nc_label}} ({{{mu_label}}})</h4>
                 {{/if}}
             </div>
         </div>
-        <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-            <h3 class='pull-right'>
+        <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+            <h4 class='pull-right'>
                 <a id='{{id}}_export_table_2'>
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
-            </h3>
+            </h4>
         </div>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div id='{{id}}_table_2'></div>
@@ -1353,20 +1318,20 @@
     <div class='row'>
         <!-- data-offset-top='0' data-offset-bottom='200'>-->
         <div class='{{sticky_header_id}}'>
-        <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
+        <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
                 {{#if isEmissions}}
-                    <h3>{{difference_label}} [%]</h3>
+                    <h4>{{difference_label}} [%]</h4>
                 {{else}}
-                    <h3>{{difference_label}} [%]</h3>
+                    <h4>{{difference_label}} [%]</h4>
                 {{/if}}
             </div>
         </div>
-        <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-            <h3 class='pull-right'>
+        <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+            <h4 class='pull-right'>
                 <a id='{{id}}_export_table_3'>
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
-            </h3>
+            </h4>
         </div>
         <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
             <div id='{{id}}_table_3'></div>
@@ -1377,16 +1342,16 @@
         <div class='row'>
             <!-- data-offset-top='0' data-offset-bottom='200'>-->
             <div class='{{sticky_header_id}}'>
-            <div class='col-xs-12 col-sm-9 col-md-9 col-lg-9'>
-                    <h3>{{norm_difference_label}} [%]</h3>
+            <div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+                    <h4>{{norm_difference_label}} [%]</h4>
                 </div>
             </div>
-            <div class='col-xs-12 col-sm-3 col-md-3 col-lg-3'>
-                <h3 class='pull-right'>
+            <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
+                <h4 class='pull-right'>
                     <a id='{{id}}_export_table_4'>
                         <i class='fa fa-download'></i> {{export_data_label}}
                     </a>
-                </h3>
+                </h4>
             </div>
             <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
                 <div id='{{id}}_table_4'></div>

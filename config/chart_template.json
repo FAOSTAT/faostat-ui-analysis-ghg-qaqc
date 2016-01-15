@@ -185,6 +185,7 @@
    },
    "tooltip": {
       "crosshairs": true,
-      "shared": true
+      "shared": true,
+      "valueDecimals": 2
    }
 }

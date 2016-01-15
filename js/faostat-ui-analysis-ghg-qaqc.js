@@ -229,8 +229,6 @@ define(['require',
         /* Resize charts on tab change. */
         $('#domains_tab').on('shown.bs.tab', function (e) {
 
-            console.log('here');
-
             for (var z = 0 ; z < _this.CONFIG.domains.length ; z++) {
 
                 /* Domain code. */
@@ -376,7 +374,7 @@ define(['require',
                 var table_type = divs[i].id.substring(1 + divs[i].id.lastIndexOf('_'));
 
                 /* Clear previous charts. */
-                $('#' + item_code + '_' + domain_code + '_emissions').empty().html('<i class="fa fa-spinner fa-spin fs-chart-row"></i>');
+                $('#' + item_code + '_' + domain_code + '_emissions').empty().html('<div style="padding-top:20px;"><i class="fa fa-spinner fa-spin"></i></div>');
 
             }
 
