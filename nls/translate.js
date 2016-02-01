@@ -71,7 +71,7 @@ define({
         wheat: 'Wheat',
         mu: {
             ge: 'Stocks [Head]',
-            gm: 'Manure [Kg]',
+            gm: 'Stocks [Head]',
             gr: 'Area harvested [Ha]',
             gh: 'Burned area [Ha]',
             gb: 'Biomass burned [tonnes]'

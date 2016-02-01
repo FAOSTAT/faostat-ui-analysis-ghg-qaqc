@@ -70,7 +70,7 @@ define({
     wheat: 'Blé',
     mu: {
         ge: 'Réserves [Tête]',
-        gm: 'Fumier [Kg]',
+        gm: 'Réserves [Tête]',
         gr: 'Surface cultivée [Ha]',
         gh: 'Superficie brûlé [Ha]',
         gb: 'Biomasse brûlé [tonnes]'

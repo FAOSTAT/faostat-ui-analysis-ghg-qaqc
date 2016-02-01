@@ -70,7 +70,7 @@ define({
     wheat: 'Trigo',
     mu: {
         ge: 'Existencias [Cabeza]',
-        gm: 'Estiércol [Kg]',
+        gm: 'Existencias [Cabeza]',
         gr: 'Área cosechada [Ha]',
         gh: 'Superficie quemada [Ha]',
         gb: 'Biomasa quemada [tonnes]'
