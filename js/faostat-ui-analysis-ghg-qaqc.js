@@ -454,6 +454,13 @@ define(['require',
                     /* Render the chart. */
                     $('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
 
+                    /* Fix stupid rice. */
+                    if (item_code === '5060') {
+                        if ($('#5060_gr_emissions_2').html().trim() === 'RICE') {
+                            $('#' + item_code + '_' + domain_code + '_emissions_2').empty().highcharts(config);
+                        }
+                    }
+
                 }
 
                 /* Or a courtesy message otherwise. */
