@@ -31,7 +31,7 @@ define(['require',
                 {id: 'gb', label: translate.gb, totals: ['6731'], color: '#DD4124'}
             ],
             table_types: ['emissions', 'activity'],
-            url_wds: 'http://fenixapps2.fao.org/wds_5/rest',
+            url_wds: 'http://fenixapps2.fao.org/wds-5.2.1/rest',
             //chart_width_big: 720,
             //chart_width_small: 386,
             url_pdf: Require.toUrl('FAOSTAT_UI_ANALYSIS_GHG_QAQC_PDF')
@@ -761,28 +761,49 @@ define(['require',
         var wt_3 = new WIDE_TABLES();
         var wt_4 = new WIDE_TABLES();
 
+        /** get country name */
+        var areanames = $('#geographic_areas').find('option:selected');
+        var l = [];
+        for(var i=0; i <= areanames.length; i++) {
+            var label = $(areanames[i]).text();
+            console.log(label);
+            if (label != '') {
+                l.push(label);
+            }
+
+        }
+        var area_name = l.join(", ");
+
         /* Configure tables. */
         var wt_1_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'GValue',
+            area_name: area_name,
+            description: translate.faostat + ' ' +  translate.co2eq,
             placeholder_id: domain_code + '_table_1',
             bottom_row_codes: bottom_row_codes
         });
         var wt_2_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'GUNFValue',
+            area_name: area_name,
+            description: translate.nc  + ' ' +  translate.co2eq,
             placeholder_id: domain_code + '_table_2',
             bottom_row_codes: bottom_row_codes
         });
         var wt_3_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'PerDiff',
+            area_name: area_name,
+            description: translate.difference + ' (%)',
             placeholder_id: domain_code + '_table_3',
             color_values: true
         });
         var wt_4_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'NormPerDiff',
+            area_name: area_name,
+            description: translate.norm_difference + ' (%)',
             placeholder_id: domain_code + '_table_4',
             color_values: true
         });
