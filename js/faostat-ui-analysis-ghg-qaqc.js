@@ -766,11 +766,9 @@ define(['require',
         var l = [];
         for(var i=0; i <= areanames.length; i++) {
             var label = $(areanames[i]).text();
-            console.log(label);
             if (label != '') {
                 l.push(label);
             }
-
         }
         var area_name = l.join(", ");
 
@@ -779,6 +777,7 @@ define(['require',
             data: table_values,
             value_dimension: 'GValue',
             area_name: area_name,
+            source: 'FAO - AFOLU Emissions Analysis Tools',
             description: translate.faostat + ' ' +  translate.co2eq,
             placeholder_id: domain_code + '_table_1',
             bottom_row_codes: bottom_row_codes
@@ -787,6 +786,7 @@ define(['require',
             data: table_values,
             value_dimension: 'GUNFValue',
             area_name: area_name,
+            source: 'FAO - AFOLU Emissions Analysis Tools',
             description: translate.nc  + ' ' +  translate.co2eq,
             placeholder_id: domain_code + '_table_2',
             bottom_row_codes: bottom_row_codes
@@ -795,6 +795,7 @@ define(['require',
             data: table_values,
             value_dimension: 'PerDiff',
             area_name: area_name,
+            source: 'FAO - AFOLU Emissions Analysis Tools',
             description: translate.difference + ' (%)',
             placeholder_id: domain_code + '_table_3',
             color_values: true
@@ -803,6 +804,7 @@ define(['require',
             data: table_values,
             value_dimension: 'NormPerDiff',
             area_name: area_name,
+            source: 'FAO - AFOLU Emissions Analysis Tools',
             description: translate.norm_difference + ' (%)',
             placeholder_id: domain_code + '_table_4',
             color_values: true
