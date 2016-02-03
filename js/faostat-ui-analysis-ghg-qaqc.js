@@ -281,6 +281,18 @@ define(['require',
                     //}
                 }
 
+                /* Fix stupid rice. */
+                divs = $('[id$=' + '_' + domain_code + '_emissions_2' + ']');
+                for (i = 0; i < divs.length; i++) {
+                    log.info('Fix rice. is it Right?', id);
+                    id = divs[i].id;
+                    try {
+                        $('#' + id).highcharts().reflow();
+                    } catch (e) {
+                        // log.info(e)
+                    }
+                }
+
             }
 
         });
@@ -465,10 +477,9 @@ define(['require',
                     $('#' + item_code + '_' + domain_code + '_emissions').empty().highcharts(config);
 
                     /* Fix stupid rice. */
+                    //$('#' + item_code + '_' + domain_code + '_emissions_2').empty();
                     if (item_code === '5060') {
-                        if ($('#5060_gr_emissions_2').html().trim() === 'RICE') {
-                            $('#' + item_code + '_' + domain_code + '_emissions_2').empty().highcharts(config);
-                        }
+                        $('#' + item_code + '_' + domain_code + '_emissions_2').empty().highcharts(config);
                     }
 
                 }
@@ -477,6 +488,9 @@ define(['require',
                 else {
                     var msg = "<div class='text-center fs-chart-row'>" + translate.data_not_available + "</div>";
                     $('#' + item_code + '_' + domain_code + '_emissions').empty().html(msg);
+                    /* Fix stupid rice. */
+                    $('#' + item_code + '_' + domain_code + '_emissions_2').empty().html(msg);
+
                 }
 
             }
