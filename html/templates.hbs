@@ -1282,7 +1282,7 @@
         </div>
         <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
             <h4 class='pull-right'>
-                <a id='{{id}}_export_table_1'>
+                <a id='{{id}}_export_table_1' data-label="{{#if isEmissions}}{{faostat_label}} {{{co2eq_label}}}{{else}}{{faostat_label}} ({{{mu_label}}}){{/if}}">
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
             </h4>
@@ -1305,7 +1305,7 @@
         </div>
         <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
             <h4 class='pull-right'>
-                <a id='{{id}}_export_table_2'>
+                <a id='{{id}}_export_table_2' data-label="{{#if isEmissions}}{{nc_label}} {{{co2eq_label}}}{{else}}{{nc_label}} ({{{mu_label}}}){{/if}}">
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
             </h4>
@@ -1328,7 +1328,7 @@
         </div>
         <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
             <h4 class='pull-right'>
-                <a id='{{id}}_export_table_3'>
+                <a id='{{id}}_export_table_3' data-label="{{#if isEmissions}}{{difference_label}} [%]{{else}}{{difference_label}} [%]{{/if}}">
                     <i class='fa fa-download'></i> {{export_data_label}}
                 </a>
             </h4>
@@ -1348,7 +1348,7 @@
             </div>
             <div class='col-xs-12 col-sm-2 col-md-2 col-lg-2'>
                 <h4 class='pull-right'>
-                    <a id='{{id}}_export_table_4'>
+                    <a id='{{id}}_export_table_4' data-label="{{norm_difference_label}} [%]">
                         <i class='fa fa-download'></i> {{export_data_label}}
                     </a>
                 </h4>

@@ -852,16 +852,20 @@ define(['require',
         }
 
         /* Bind export buttons. */
-        $('#' + domain_code + '_export_table_1').click(function() {
+        $('#' + domain_code + '_export_table_1').click(function(e) {
+            log.info(e);
             wt_1.export_table(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat);
         });
-        $('#' + domain_code + '_export_table_2').click(function() {
+        $('#' + domain_code + '_export_table_2').click(function(e) {
+            log.info(e);
             wt_2.export_table(translate[domain_code] + ' (' + translate.nc + ' [' + table_type + '])', translate.nc);
         });
-        $('#' + domain_code + '_export_table_3').click(function() {
+        $('#' + domain_code + '_export_table_3').click(function(e) {
+            log.info(e);
             wt_3.export_table(translate[domain_code] + ' (' + translate.difference + ' [' + table_type + '])', translate.diff);
         });
-        $('#' + domain_code + '_export_table_4').click(function() {
+        $('#' + domain_code + '_export_table_4').click(function(e) {
+            log.info(e);
             wt_4.export_table(translate[domain_code] + ' (' + translate.norm_difference + '[' + table_type + '])', translate.norm_difference);
         });
 
@@ -937,29 +941,35 @@ define(['require',
         var wt_1_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'GValue',
+            area_name: area_name,
+            source: 'FAO - AFOLU Emissions Analysis Tools',
             placeholder_id: domain_code + '_table_1',
             bottom_row_codes: bottom_row_codes
         });
         var wt_2_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'GUNFValue',
+            area_name: area_name,
+            source: 'FAO - AFOLU Emissions Analysis Tools',
             placeholder_id: domain_code + '_table_2',
             bottom_row_codes: bottom_row_codes
         });
         var wt_3_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'PerDiff',
+            area_name: area_name,
+            source: 'FAO - AFOLU Emissions Analysis Tools',
             placeholder_id: domain_code + '_table_3',
             color_values: true
         });
         var wt_4_config = $.extend(true, {}, wt_config, {
             data: table_values,
             value_dimension: 'NormPerDiff',
+            area_name: area_name,
+            source: 'FAO - AFOLU Emissions Analysis Tools',
             placeholder_id: domain_code + '_table_4',
             color_values: true
         });
-
-        log.info(wt_1_config);
 
         /* Render tables. */
         wt_1.init(wt_1_config);
@@ -976,19 +986,33 @@ define(['require',
         }
 
         /* Bind export buttons. */
-        $('#' + domain_code + '_export_table_1').click(function() {
-            log.info(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat)
-            wt_1.export_table(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat);
+        $('#' + domain_code + '_export_table_1').click(function(e) {
+            log.info($(this).data('label'));
+            var exportObj = {
+                description: $(this).data('label')
+            };
+            wt_1.export_table(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat, exportObj);
         });
-        $('#' + domain_code + '_export_table_2').click(function() {
-            log.info(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat)
-            wt_2.export_table(translate[domain_code] + ' (' + translate.nc + ' [' + table_type + '])', translate.nc);
+        $('#' + domain_code + '_export_table_2').click(function(e) {
+            log.info($(this).data('label'));
+            var exportObj = {
+                description: $(this).data('label')
+            };
+            wt_2.export_table(translate[domain_code] + ' (' + translate.nc + ' [' + table_type + '])', translate.nc, exportObj);
         });
-        $('#' + domain_code + '_export_table_3').click(function() {
-            wt_3.export_table(translate[domain_code] + ' (' + translate.difference + ' [' + table_type + '])', translate.diff);
+        $('#' + domain_code + '_export_table_3').click(function(e) {
+            log.info($(this).data('label'));
+            var exportObj = {
+                description: $(this).data('label')
+            };
+            wt_3.export_table(translate[domain_code] + ' (' + translate.difference + ' [' + table_type + '])', translate.diff, exportObj);
         });
-        $('#' + domain_code + '_export_table_4').click(function() {
-            wt_4.export_table(translate[domain_code] + ' (' + translate.norm_difference + '[' + table_type + '])', translate.norm_difference);
+        $('#' + domain_code + '_export_table_4').click(function(e) {
+            log.info($(this).data('label'));
+            var exportObj = {
+                description: $(this).data('label')
+            };
+            wt_4.export_table(translate[domain_code] + ' (' + translate.norm_difference + '[' + table_type + '])', translate.norm_difference, exportObj);
         });
 
     };
