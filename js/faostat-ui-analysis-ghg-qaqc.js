@@ -5,10 +5,12 @@ define(['require',
         'text!faostat_ui_analysis_ghg_qa_qc/config/chart_template.json',
         'FAOSTAT_UI_COMMONS',
         'FAOSTAT_UI_WIDE_TABLES',
+        'underscore',
+        'loglevel',
         'chosen',
         'highcharts',
         'bootstrap',
-        'sweetAlert'], function (Require, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES) {
+        'sweetAlert'], function (Require, Handlebars, templates, translate, chart_template, Commons, WIDE_TABLES, _, log) {
 
     'use strict';
 
@@ -163,6 +165,14 @@ define(['require',
             /* Query the DB. */
             Commons.wdstable(sql, function (json) {
 
+                // TODO: REMOVE cycle (used for debug)
+/*                log.info(json);
+                _.each(json, function(d) {
+                    if (d['DomainCode'] === 'GM' && d['GUNFItemNameE'] === 'Goats') {
+                        log.info(d);
+                    }
+                });*/
+
                 /* Store data. */
                 _this.CONFIG.data[area_code] = json;
 
@@ -243,7 +253,7 @@ define(['require',
                     try {
                         $('#' + id).highcharts().reflow();
                     } catch (e) {
-                       // console.log(e)
+                       // log.info(e)
                     }
                     //chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
                     //try {
@@ -260,7 +270,7 @@ define(['require',
                     try {
                         $('#' + id).highcharts().reflow();
                     } catch (e) {
-                       // console.log(e)
+                       // log.info(e)
                     }
 
                     //chart_width = $.inArray(id.substring(0, id.indexOf('_')), _this.CONFIG.domains[z].totals) > -1 ? _this.CONFIG.chart_width_big : _this.CONFIG.chart_width_small;
@@ -564,18 +574,21 @@ define(['require',
 
                 /* Create domain object. */
                 var domain_code = this.CONFIG.data[area_code][i].DomainCode;
-                if (this.CONFIG.charts_data[area_code][domain_code] == null)
+                if (this.CONFIG.charts_data[area_code][domain_code] == null) {
                     this.CONFIG.charts_data[area_code][domain_code] = {};
+                }
 
                 /* Create table type object. */
                 var table_type = this.CONFIG.data[area_code][i].TableType;
-                if (this.CONFIG.charts_data[area_code][domain_code][table_type] == null)
+                if (this.CONFIG.charts_data[area_code][domain_code][table_type] == null) {
                     this.CONFIG.charts_data[area_code][domain_code][table_type] = {};
+                }
 
                 /* Create item code object. */
                 var item_code = this.CONFIG.data[area_code][i].GUNFCode;
-                if (this.CONFIG.charts_data[area_code][domain_code][table_type][item_code] == null)
+                if (this.CONFIG.charts_data[area_code][domain_code][table_type][item_code] == null) {
                     this.CONFIG.charts_data[area_code][domain_code][table_type][item_code] = [];
+                }
 
                 /* Push value. */
                 this.CONFIG.charts_data[area_code][domain_code][table_type][item_code].push(this.CONFIG.data[area_code][i]);
@@ -877,15 +890,34 @@ define(['require',
         var table_values = [];
         for (i = 0 ; i < this.CONFIG.data[area_code].length ; i++) {
             if (this.CONFIG.data[area_code][i].DomainCode == domain_code.toUpperCase() &&
-                this.CONFIG.data[area_code][i].TableType == table_type)
+                this.CONFIG.data[area_code][i].TableType == table_type) {
                 table_values.push(this.CONFIG.data[area_code][i]);
+            }
         }
+
+        if ( domain_code.toUpperCase() === 'GM') {
+            log.info("TABLE values;", table_type, domain_code, table_values);
+            //log.info("TABLE data;", this.CONFIG.data[area_code]);
+        }
+
+        /** get country name */
+        var areanames = $('#geographic_areas').find('option:selected');
+        var l = [];
+        for(var i=0; i <= areanames.length; i++) {
+            var label = $(areanames[i]).text();
+            if (label != '') {
+                l.push(label);
+            }
+        }
+        var area_name = l.join(", ");
 
         /* Initiate wide tables library. */
         var wt_1 = new WIDE_TABLES();
         var wt_2 = new WIDE_TABLES();
         var wt_3 = new WIDE_TABLES();
         var wt_4 = new WIDE_TABLES();
+
+        log.info(table_values, bottom_row_codes);
 
         /* Configure tables. */
         var wt_1_config = $.extend(true, {}, wt_config, {
@@ -913,6 +945,8 @@ define(['require',
             color_values: true
         });
 
+        log.info(wt_1_config);
+
         /* Render tables. */
         wt_1.init(wt_1_config);
         wt_2.init(wt_2_config);
@@ -929,9 +963,11 @@ define(['require',
 
         /* Bind export buttons. */
         $('#' + domain_code + '_export_table_1').click(function() {
+            log.info(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat)
             wt_1.export_table(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat);
         });
         $('#' + domain_code + '_export_table_2').click(function() {
+            log.info(translate[domain_code] + ' (' + translate.faostat + ' [' + table_type + '])', translate.faostat)
             wt_2.export_table(translate[domain_code] + ' (' + translate.nc + ' [' + table_type + '])', translate.nc);
         });
         $('#' + domain_code + '_export_table_3').click(function() {
