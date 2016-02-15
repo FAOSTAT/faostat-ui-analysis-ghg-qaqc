@@ -334,6 +334,8 @@ define(['require',
             organic_soils_label: translate.gv,
             buffaloes_label: translate.buffaloes,
             emissions_label: translate.emissions,
+            fromch4andn2o: translate.fromch4andn2o,
+            fromch4: translate.fromch4,
             sugar_cane_label: translate.sugar_cane,
             mules_asses_label: translate.mules_asses,
             cattle_dairy_label: translate.cattle_dairy,
@@ -659,6 +661,7 @@ define(['require',
         /* Table type. */
         var table_type = $('#' + domain_code + '_table_selector').val();
         var isEmissions = table_type == 'emissions';
+        var isFromCH4 = domain_code === 'gm';
 
         try {
 
@@ -675,9 +678,12 @@ define(['require',
                 difference_label: translate.difference,
                 sticky_header_id: domain_code + '_sticky',
                 export_data_label: translate.export_data_label,
-                norm_difference_label: translate.norm_difference
+                norm_difference_label: translate.norm_difference,
+                isFromCH4: isFromCH4,
+                fromch4: translate.fromch4
             };
             var html = template(dynamic_data);
+            log.info(html);
             $('#' + domain_code + '_tables_content').empty().html(html);
 
             /* Populate tables. */
@@ -755,18 +761,20 @@ define(['require',
 
         /* Find codes for the bottom row, if any. */
         var bottom_row_codes;
-        for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
-            if (this.CONFIG.domains[i].id == domain_code) {
-                /* Add only ONE total for tables, the first. Other values are used for charts width. */
-                bottom_row_codes = [this.CONFIG.domains[i].totals[0]];
-                break;
-            }
+
+        if ( domain_code === 'gas') {
+            bottom_row_codes = ["4.D"];
+        }
+        if ( domain_code === 'gt') {
+            bottom_row_codes = ["4"];
         }
 
         /* Common configuration. */
         var wt_config = {
             row_code: 'UNFCCCCode',
-            show_row_code: true,
+            //show_row_code: domain_code == 'gas',
+            //show_row_code: true,
+            show_row_code: false,
             cols_dimension: 'Year',
             lang: this.CONFIG.lang,
             row_label: 'GUNFItemName' + this.CONFIG.lang_faostat,
@@ -825,7 +833,8 @@ define(['require',
             source: 'FAO - AFOLU Emissions Analysis Tools',
             description: translate.difference + ' (%)',
             placeholder_id: domain_code + '_table_3',
-            color_values: true
+            color_values: true,
+            bottom_row_codes: bottom_row_codes
         });
         var wt_4_config = $.extend(true, {}, wt_config, {
             data: table_values,
@@ -834,7 +843,8 @@ define(['require',
             source: 'FAO - AFOLU Emissions Analysis Tools',
             description: translate.norm_difference + ' (%)',
             placeholder_id: domain_code + '_table_4',
-            color_values: true
+            color_values: true,
+            bottom_row_codes: bottom_row_codes
         });
 
         /* Render tables. */
@@ -878,6 +888,14 @@ define(['require',
             $("td[id='4.D.1.5']").html('<div class="double-margin">4.D.1.5</div>');
             $("td[id='4.D.2']").html('<div class="single-margin">4.D.2</div>');
             $("td[id='4.D.3']").html('<div class="single-margin">4.D.3</div>');
+
+            $("td[class='4.D.1']").addClass('single-margin');
+            $("td[class='4.D.1.1']").addClass('double-margin');
+            $("td[class='4.D.1.2']").addClass('double-margin');
+            $("td[class='4.D.1.4']").addClass('double-margin');
+            $("td[class='4.D.1.5']").addClass('double-margin');
+            $("td[class='4.D.2']").addClass('single-margin');
+            $("td[class='4.D.3']").addClass('single-margin');
         }
 
     };
@@ -886,18 +904,22 @@ define(['require',
 
         /* Find codes for the bottom row, if any. */
         var bottom_row_codes;
-        for (var i = 0 ; i < this.CONFIG.domains.length ; i++) {
-            if (this.CONFIG.domains[i].id == domain_code) {
-                /* Add only ONE total for tables, the first. Other values are used for charts width. */
-                bottom_row_codes = [this.CONFIG.domains[i].totals[0]];
-                break;
+        if ( domain_code !== 'gm') {
+            for (var i = 0; i < this.CONFIG.domains.length; i++) {
+                if (this.CONFIG.domains[i].id == domain_code) {
+                    /* Add only ONE total for tables, the first. Other values are used for charts width. */
+                    bottom_row_codes = [this.CONFIG.domains[i].totals[0]];
+                    break;
+                }
             }
         }
 
         /* Common configuration. */
         var wt_config = {
             row_code: 'GUNFCode',
-            show_row_code: domain_code == 'gt' || domain_code == 'gas',
+            //show_row_code: domain_code == 'gt' || domain_code == 'gas',
+            //show_row_code: domain_code == 'gas',
+            show_row_code:false,
             cols_dimension: 'Year',
             lang: this.CONFIG.lang,
             row_label: 'GUNFItemName' + this.CONFIG.lang_faostat,

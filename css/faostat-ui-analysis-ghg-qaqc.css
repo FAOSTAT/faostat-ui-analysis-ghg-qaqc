@@ -7,7 +7,7 @@
 /*}*/
 
 .tab-pane .nav-tabs > li > a {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .fs-chart-row {
@@ -25,10 +25,17 @@ hr.heavy {
 }
 
 .single-margin {
-  margin-left: 16px;
+  /*margin-left: 16px;*/
+  padding-left: 16px !important;
 }
 
 .double-margin {
-  margin-left: 32px;
+  /*margin-left: 32px;*/
+  padding-left: 32px !important;
+}
+
+
+.fx-sandbox a:hover {
+  cursor: pointer; cursor: hand;
 }
 
