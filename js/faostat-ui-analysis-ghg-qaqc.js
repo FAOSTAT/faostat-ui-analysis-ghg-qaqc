@@ -982,7 +982,8 @@ define(['require',
             area_name: area_name,
             source: 'FAO - AFOLU Emissions Analysis Tools',
             placeholder_id: domain_code + '_table_3',
-            color_values: true
+            color_values: true,
+            bottom_row_codes: bottom_row_codes
         });
         var wt_4_config = $.extend(true, {}, wt_config, {
             data: table_values,
@@ -990,7 +991,8 @@ define(['require',
             area_name: area_name,
             source: 'FAO - AFOLU Emissions Analysis Tools',
             placeholder_id: domain_code + '_table_4',
-            color_values: true
+            color_values: true,
+            bottom_row_codes: bottom_row_codes
         });
 
         /* Render tables. */
