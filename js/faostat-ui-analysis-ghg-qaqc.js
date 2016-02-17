@@ -37,7 +37,7 @@ define(['require',
             //chart_width_big: 720,
             //chart_width_small: 386,
             url_pdf: Require.toUrl('FAOSTAT_UI_ANALYSIS_GHG_QAQC_PDF')
-        }
+        };
 
     }
 

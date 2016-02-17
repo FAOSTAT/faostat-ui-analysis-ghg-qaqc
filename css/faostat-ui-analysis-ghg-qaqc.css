@@ -32,6 +32,7 @@ hr.heavy {
 .double-margin {
   /*margin-left: 32px;*/
   padding-left: 32px !important;
+  font-style: italic;
 }
 
 
