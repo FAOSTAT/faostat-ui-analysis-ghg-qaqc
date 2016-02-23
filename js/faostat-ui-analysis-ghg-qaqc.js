@@ -884,16 +884,20 @@ define(['require',
             $("td[id='4.D.1']").html('<div class="single-margin">4.D.1</div>');
             $("td[id='4.D.1.1']").html('<div class="double-margin">4.D.1.1</div>');
             $("td[id='4.D.1.2']").html('<div class="double-margin">4.D.1.2</div>');
+            $("td[id='4.D.1.3']").html('<div class="double-margin">4.D.1.3</div>');
             $("td[id='4.D.1.4']").html('<div class="double-margin">4.D.1.4</div>');
             $("td[id='4.D.1.5']").html('<div class="double-margin">4.D.1.5</div>');
+            $("td[id='4.D.1.6']").html('<div class="double-margin">4.D.1.6</div>');
             $("td[id='4.D.2']").html('<div class="single-margin">4.D.2</div>');
             $("td[id='4.D.3']").html('<div class="single-margin">4.D.3</div>');
 
             $("td[class='4.D.1']").addClass('single-margin');
             $("td[class='4.D.1.1']").addClass('double-margin');
             $("td[class='4.D.1.2']").addClass('double-margin');
+            $("td[class='4.D.1.3']").addClass('double-margin');
             $("td[class='4.D.1.4']").addClass('double-margin');
             $("td[class='4.D.1.5']").addClass('double-margin');
+            $("td[class='4.D.1.6']").addClass('double-margin');
             $("td[class='4.D.2']").addClass('single-margin');
             $("td[class='4.D.3']").addClass('single-margin');
         }
