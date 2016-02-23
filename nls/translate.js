@@ -81,7 +81,9 @@ define({
         page_under_construction: 'Page under construction. We apologies for any inconvenience.',
         instructions: 'Start by selecting the country and the sector.<br>The tool will return a series of results in graphical and tabular format.<br>For more information, a user instruction guide is available',
         here: 'here',
-        user_guide: 'User instruction guide'
+        user_guide: 'User instruction guide',
+        other_direct_emissions: "Other Direct Emissions",
+        n_fixing_crops: "N-Fixing Crops"
     },
     fr : true,
     es : true,

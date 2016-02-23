@@ -349,7 +349,9 @@ define(['require',
             direct_soils_label: translate.direct_soil_emissions,
             table_selector_label: translate.table_selector_label,
             data_not_available_label: translate.data_not_available,
-            sticky_header_id: domain_code + '_sticky'
+            sticky_header_id: domain_code + '_sticky',
+            other_direct_emissions: translate.other_direct_emissions,
+            n_fixing_crops: translate.n_fixing_crops
         };
         var html = template(dynamic_data);
         $('#' + domain_code).empty().html(html);
