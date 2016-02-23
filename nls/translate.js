@@ -53,8 +53,6 @@ define({
         pasture_paddock_manure: 'Pasture, Range and Paddock Manure',
         indirect_emissions: 'Indirect Emissions',
         co2eq: '(Emissions Gg CO<sub>2</sub>eq)',
-        fromch4andn2o: 'From CH<sub>4</sub> and N<sub>2</sub>O',
-        fromch4: 'From CH<sub>4</sub>',
         table_selector_label: 'Table Type',
         export_data_label: 'Export Data',
         buffaloes: 'Buffaloes',
@@ -83,7 +81,9 @@ define({
         here: 'here',
         user_guide: 'User instruction guide',
         other_direct_emissions: "Other Direct Emissions",
-        n_fixing_crops: "N-Fixing Crops"
+        n_fixing_crops: "N-Fixing Crops",
+        from_ch4_and_n2o: "From CH<sub>4</sub> and N<sub>2</sub>O",
+        from_ch4: "From CH<sub>4</sub>"
     },
     fr : true,
     es : true,

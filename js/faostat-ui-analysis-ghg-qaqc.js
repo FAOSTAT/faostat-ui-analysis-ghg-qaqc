@@ -165,10 +165,17 @@ define(['require',
             /* Query the DB. */
             Commons.wdstable(sql, function (json) {
 
-                // TODO: REMOVE cycle (used for debug)
-/*                log.info(json);
+                // TODO: REMOVE (used for debug)
+                /*log.info(json);
+
                 _.each(json, function(d) {
-                    if (d['DomainCode'] === 'GM' && d['GUNFItemNameE'] === 'Goats') {
+                    if (d.DomainCode === 'GM' && d.GUNFCode === '5059') {
+                        log.info(d);
+                    }
+                });
+
+                _.each(json, function(d) {
+                    if (d.DomainCode === 'GT' && d.GUNFCode === '5059') {
                         log.info(d);
                     }
                 });*/
@@ -351,7 +358,9 @@ define(['require',
             data_not_available_label: translate.data_not_available,
             sticky_header_id: domain_code + '_sticky',
             other_direct_emissions: translate.other_direct_emissions,
-            n_fixing_crops: translate.n_fixing_crops
+            n_fixing_crops: translate.n_fixing_crops,
+            from_ch4_and_n2o: translate.from_ch4_and_n2o,
+            from_ch4: translate.from_ch4
         };
         var html = template(dynamic_data);
         $('#' + domain_code).empty().html(html);
@@ -910,7 +919,7 @@ define(['require',
 
         /* Find codes for the bottom row, if any. */
         var bottom_row_codes;
-        if ( domain_code !== 'gm') {
+        //if ( domain_code !== 'gm') {
             for (var i = 0; i < this.CONFIG.domains.length; i++) {
                 if (this.CONFIG.domains[i].id == domain_code) {
                     /* Add only ONE total for tables, the first. Other values are used for charts width. */
@@ -918,7 +927,7 @@ define(['require',
                     break;
                 }
             }
-        }
+        //}
 
         /* Common configuration. */
         var wt_config = {
