@@ -724,7 +724,7 @@ define(['require',
 
         /* Config WDS. */
         var rest_config = {
-            domain: 'GT',
+            domain: 'GUNF',
             tab_group: 1,
             tab_index: 1,
             datasource: this.CONFIG.datasource,
