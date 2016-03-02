@@ -374,6 +374,7 @@ define(['require',
             sticky_header_id: domain_code + '_sticky',
             other_direct_emissions: translate.other_direct_emissions,
             n_fixing_crops: translate.n_fixing_crops,
+            other: translate.other,
             from_ch4_and_n2o: translate.from_ch4_and_n2o,
             from_ch4: translate.from_ch4,
             please_select_option: translate.please_select_option

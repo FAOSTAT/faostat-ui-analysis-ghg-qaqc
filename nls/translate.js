@@ -84,6 +84,8 @@ define({
 
         other_direct_emissions: "Other Direct Emissions",
         n_fixing_crops: "N-Fixing Crops",
+        other: "Other",
+
         from_ch4_and_n2o: "from CH<sub>4</sub> and N<sub>2</sub>O",
         from_ch4: "from CH<sub>4</sub>",
 

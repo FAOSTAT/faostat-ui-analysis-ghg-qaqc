@@ -82,8 +82,10 @@ define({
     here: 'aquí',
     user_guide: 'Guía del usuario',
 
-    other_direct_emissions: "Other Direct Emissions",
-    n_fixing_crops: "N-Fixing Crops",
+    other_direct_emissions: "Otras emisiones directas de suelos",
+    n_fixing_crops: "Cultivos fijadores del nitrógeno",
+    other: "Otras",
+
     from_ch4_and_n2o: "proveniente de CH<sub>4</sub>, proveniente de N<sub>2</sub>O",
     from_ch4: "from CH<sub>4</sub>",
 

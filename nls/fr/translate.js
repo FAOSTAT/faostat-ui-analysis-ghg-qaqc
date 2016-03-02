@@ -82,9 +82,10 @@ define({
     here: 'ici',
     user_guide: 'Guide de l\'utilisateur',
 
+    other_direct_emissions: "Autres émissions directes de sols",
+    n_fixing_crops: "Cultures fixant le N",
+    other: "Autres",
 
-    other_direct_emissions: "Other Direct Emissions",
-    n_fixing_crops: "N-Fixing Crops",
     from_ch4_and_n2o: "venant de CH<sub>4</sub>, venant de N<sub>2</sub>O",
     from_ch4: "From CH<sub>4</sub>",
 
