@@ -15,6 +15,7 @@ define({
         ghg_indicators: 'Indicators',
         ghg_data: 'Georeferenced Data',
         please_select: 'Select...',
+        please_select_option: 'Select an Option',
         verification: 'Verification',
         qa_qc: 'QA/QC',
         gt: 'Agriculture Total',
@@ -77,13 +78,24 @@ define({
             gb: 'Biomass burned [tonnes]'
         },
         page_under_construction: 'Page under construction. We apologies for any inconvenience.',
-        instructions: 'Start by selecting the country and the sector.<br>The tool will return a series of results in graphical and tabular format.<br>For more information, a user instruction guide is available',
+        instructions: 'Start by selecting the country and the sector.<br>The tool will return a series of results in graphical and tabular format.',
         here: 'here',
         user_guide: 'User instruction guide',
+
         other_direct_emissions: "Other Direct Emissions",
         n_fixing_crops: "N-Fixing Crops",
-        from_ch4_and_n2o: "From CH<sub>4</sub> and N<sub>2</sub>O",
-        from_ch4: "From CH<sub>4</sub>"
+        from_ch4_and_n2o: "from CH<sub>4</sub> and N<sub>2</sub>O",
+        from_ch4: "from CH<sub>4</sub>",
+
+        contextButtonTitle: "Chart print/export",
+        downloadJPEG: "Download JPEG image",
+        downloadPDF: "Download PDF document",
+        downloadPNG: "Download PNG image",
+        downloadSVG: "Download SVG vector image",
+        printChart: "Chart print/export",
+        resetZoom: "Reset zoom",
+        resetZoomTitle: "Reset zoom level 1:1"
+
     },
     fr : true,
     es : true,

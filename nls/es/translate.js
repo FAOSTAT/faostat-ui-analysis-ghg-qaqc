@@ -14,6 +14,7 @@ define({
     ghg_indicators: 'Indicadores',
     ghg_data: 'Datos Georreferenciados',
     please_select: 'Seleccionar...',
+    please_select_option: 'Seleccionar una opción',
     verification: 'Verificacion',
     qa_qc: 'SG/CQ',
     gt: 'Agricultura total',
@@ -33,6 +34,7 @@ define({
     gc: 'Tierras de cultivo',
     gg: 'Pastizales',
     gi: 'Combustión de biomasa',
+    gas: 'Suelos agrícolas',
     ag_soils: 'Suelos agrícolas',
     charts: 'Gráficos',
     tables: 'Tablas',
@@ -41,13 +43,13 @@ define({
     emissions_factor: 'Factor de emisión implícito (unidades)',
     data_not_available: 'Datos No Disponible',
     faostat: 'FAOSTAT',
-    nc: 'Comunicación Nacional',
-    difference: 'Diferencia (Comunicación Nacional / FAOSTAT)',
-    norm_difference: 'Diferencia normalizada (Comunicación Nacional / FAOSTAT)',
+    nc: 'Datos Nacionales',
+    difference: 'Diferencia (Datos Nacionales / FAOSTAT)',
+    norm_difference: 'Diferencia normalizada (Datos Nacionales / FAOSTAT)',
     code: 'Código',
     category: 'Categoría',
     agriculture: 'Agricultura',
-    land_use: 'Land Use',
+    land_use: 'Uso de la tierra',
     direct_soil_emissions: 'Emisiones directas del suelo',
     pasture_paddock_maure: 'Estiércol depositado en pastura/prado/pradera',
     indirect_emissions: 'Emisiones indirectas',
@@ -76,7 +78,22 @@ define({
         gb: 'Biomasa quemada [tonnes]'
     },
     page_under_construction: 'Pagina en construcción. Nos disculpas por las molestias.',
-    instructions: 'Seleccione el país y el sector.<br>La herramienta mostrará una serie de resultados en formato gráfico y tabular.<br>Para obtener más información, una guía del usuario está disponible',
+    instructions: 'Seleccione el país y el sector.<br>La herramienta mostrará una serie de resultados en formato gráfico y tabular.',
     here: 'aquí',
-    user_guide: 'Guía del usuario'
+    user_guide: 'Guía del usuario',
+
+    other_direct_emissions: "Other Direct Emissions",
+    n_fixing_crops: "N-Fixing Crops",
+    from_ch4_and_n2o: "proveniente de CH<sub>4</sub>, proveniente de N<sub>2</sub>O",
+    from_ch4: "from CH<sub>4</sub>",
+
+    contextButtonTitle: "Gráfico imprimir/exportar",
+    downloadJPEG: "Descargar JPG",
+    downloadPDF: "Descargar PNG",
+    downloadPNG: "Descargar documento en PDF",
+    downloadSVG: "Descargar SVG",
+    printChart: "Gráfico imprimir/exportar",
+    resetZoom: "Restabl. zoom",
+    resetZoomTitle: "Restablecer el zoom 1:1"
+
 });

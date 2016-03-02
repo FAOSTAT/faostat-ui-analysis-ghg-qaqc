@@ -39,6 +39,20 @@ define(['require',
             url_pdf: Require.toUrl('FAOSTAT_UI_ANALYSIS_GHG_QAQC_PDF')
         };
 
+        // Highcharts multilanguage
+        Highcharts.setOptions({
+            lang: {
+                contextButtonTitle: translate.contextButtonTitle,
+                downloadJPEG: translate.downloadJPEG,
+                downloadPDF: translate.downloadPDF,
+                downloadPNG: translate.downloadPNG,
+                downloadSVG: translate.downloadSVG,
+                printChart: translate.printChart,
+                resetZoom: translate.resetZoom,
+                resetZoomTitle: translate.resetZoomTitle
+            }
+        });
+
     }
 
     GHG_QA_QC.prototype.init = function(config) {
@@ -73,6 +87,7 @@ define(['require',
             module_label: translate.ghg_quality,
             instructions: translate.instructions,
             please_select: translate.please_select,
+            please_select_option: translate.please_select_option,
             geographic_area_label: translate.areas,
             agriculture_label: translate.agriculture,
             verification_label: translate.verification,
@@ -360,7 +375,8 @@ define(['require',
             other_direct_emissions: translate.other_direct_emissions,
             n_fixing_crops: translate.n_fixing_crops,
             from_ch4_and_n2o: translate.from_ch4_and_n2o,
-            from_ch4: translate.from_ch4
+            from_ch4: translate.from_ch4,
+            please_select_option: translate.please_select_option
         };
         var html = template(dynamic_data);
         $('#' + domain_code).empty().html(html);
@@ -691,7 +707,8 @@ define(['require',
                 export_data_label: translate.export_data_label,
                 norm_difference_label: translate.norm_difference,
                 isFromCH4: isFromCH4,
-                fromch4: translate.fromch4
+                fromch4: translate.fromch4,
+                please_select_option: translate.please_select_option
             };
             var html = template(dynamic_data);
             log.info(html);
