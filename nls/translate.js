@@ -26,7 +26,7 @@ define({
         gu: 'Manure applied to Soils',
         gp: 'Animal manure applied to soils',
         ga: 'Crop Residues',
-        gv: 'Cultivation of histosols',
+        gv: 'Cultivation of Organic Soils',
         gb: 'Burning - Crop Residues',
         gh: 'Burning - Savanna',
         gn: 'Energy Use',

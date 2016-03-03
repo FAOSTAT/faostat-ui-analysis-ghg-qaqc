@@ -25,7 +25,7 @@ define({
     gu: 'Fumier appliquée aux sols',
     gp: 'Fumier animal appliqué aux sols',
     ga: 'Résidus de récoltes',
-    gv: 'Cultivation of histosols',
+    gv: 'Culture de sols organiques',
     gb: 'Combustion - résidus de récoltes',
     gh: 'Combustion - Savane',
     gn: 'Consommation d\'énergie',
@@ -51,7 +51,7 @@ define({
     agriculture: 'Agriculture',
     land_use: 'Utilization des terres',
     direct_soil_emissions: 'Émissions directes des sols',
-    pasture_paddock_maure: 'Fumier déposé sur des pâturages/parcours/parcelles',
+    pasture_paddock_manure: 'Fumier déposé sur des pâturages/parcours/parcelles',
     indirect_emissions: 'Émissions indirectes',
     co2eq: '(Émissions Gg CO2eq)',
     table_selector_label: 'Type de Tableau',
@@ -82,12 +82,12 @@ define({
     here: 'ici',
     user_guide: 'Guide de l\'utilisateur',
 
-    other_direct_emissions: "Autres émissions directes de sols",
+    other_direct_emissions: "Autres Emissions Directes",
     n_fixing_crops: "Cultures fixant le N",
     other: "Autres",
 
     from_ch4_and_n2o: "venant de CH<sub>4</sub>, venant de N<sub>2</sub>O",
-    from_ch4: "From CH<sub>4</sub>",
+    from_ch4: "venant de CH<sub>4</sub>",
 
     contextButtonTitle: "Imprimez/Exportez graphique",
     downloadJPEG: "Imprimez graphique, Téléchargez image PNG/JPEG",

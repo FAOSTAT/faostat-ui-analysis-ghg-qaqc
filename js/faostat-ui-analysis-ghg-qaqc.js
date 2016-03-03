@@ -356,8 +356,6 @@ define(['require',
             organic_soils_label: translate.gv,
             buffaloes_label: translate.buffaloes,
             emissions_label: translate.emissions,
-            fromch4andn2o: translate.fromch4andn2o,
-            fromch4: translate.fromch4,
             sugar_cane_label: translate.sugar_cane,
             mules_asses_label: translate.mules_asses,
             cattle_dairy_label: translate.cattle_dairy,
@@ -377,6 +375,8 @@ define(['require',
             other: translate.other,
             from_ch4_and_n2o: translate.from_ch4_and_n2o,
             from_ch4: translate.from_ch4,
+            fromch4andn2o: translate.from_ch4_and_n2o,
+            fromch4: translate.from_ch4,
             please_select_option: translate.please_select_option
         };
         var html = template(dynamic_data);
@@ -709,6 +709,7 @@ define(['require',
                 norm_difference_label: translate.norm_difference,
                 isFromCH4: isFromCH4,
                 fromch4: translate.fromch4,
+                from_ch4: translate.from_ch4,
                 please_select_option: translate.please_select_option
             };
             var html = template(dynamic_data);

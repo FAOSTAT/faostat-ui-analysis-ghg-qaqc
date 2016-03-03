@@ -25,7 +25,7 @@ define({
     gu: 'Estiércol aplicado a los suelos',
     gp: 'Estiércol animal aplicado a los suelos',
     ga: 'Residuos agrícolas',
-    gv: 'Cultivation of histosols',
+    gv: 'Cultivación de suelos orgánicos',
     gb: 'Combustión - residuos agrícolas',
     gh: 'Combustión - Sabana',
     gn: 'Use de energía',
@@ -51,7 +51,7 @@ define({
     agriculture: 'Agricultura',
     land_use: 'Uso de la tierra',
     direct_soil_emissions: 'Emisiones directas del suelo',
-    pasture_paddock_maure: 'Estiércol depositado en pastura/prado/pradera',
+    pasture_paddock_manure: 'Estiércol depositado en pastura/prado/pradera',
     indirect_emissions: 'Emisiones indirectas',
     co2eq: '(Emisiones Gg CO2eq)',
     table_selector_label: 'Tipo de Tabla',
@@ -82,12 +82,12 @@ define({
     here: 'aquí',
     user_guide: 'Guía del usuario',
 
-    other_direct_emissions: "Otras emisiones directas de suelos",
+    other_direct_emissions: "Otras Emisiones Directas",
     n_fixing_crops: "Cultivos fijadores del nitrógeno",
     other: "Otras",
 
     from_ch4_and_n2o: "proveniente de CH<sub>4</sub>, proveniente de N<sub>2</sub>O",
-    from_ch4: "from CH<sub>4</sub>",
+    from_ch4: "proveniente de CH<sub>4</sub>",
 
     contextButtonTitle: "Gráfico imprimir/exportar",
     downloadJPEG: "Descargar JPG",
