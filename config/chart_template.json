@@ -2,6 +2,7 @@
    "chart": {
       "height": 250,
       "spacingBottom": 5,
+      "spacingLeft": 10,
       "alignTicks": false,
       "backgroundColor": "#FFFFFF",
       "spacing": [
@@ -170,7 +171,8 @@
             "color": "#666666",
             "fontWeight": "300",
             "fontSize": 8
-         }
+         },
+         "format": "{value:.0f}"
       },
       "title": {
          "enabled": false,
