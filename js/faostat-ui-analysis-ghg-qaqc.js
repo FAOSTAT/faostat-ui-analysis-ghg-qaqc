@@ -794,6 +794,7 @@ define(['require',
         /* Find codes for the bottom row, if any. */
         var bottom_row_codes;
 
+        // FIX for changes in sum totals
         if ( domain_code === 'gas') {
             bottom_row_codes = ["4.D"];
         }
@@ -951,6 +952,11 @@ define(['require',
                 }
             }
         //}
+
+        // FIX for changes in sum totals
+        if ( domain_code === 'gm') {
+            bottom_row_codes = ["1755"];
+        }
 
         /* Common configuration. */
         var wt_config = {
