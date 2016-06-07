@@ -452,6 +452,8 @@ define(['require',
             var domain_code = this.CONFIG.domains[z].id;
             var color = this.CONFIG.domains[z].color;
 
+            console.log(domain_code, color)
+
             /* Find all the chart divs: emissions. */
             var divs = $('[id$=' + '_' + domain_code + '_emissions' + ']');
             for (var i = 0; i < divs.length; i++) {
