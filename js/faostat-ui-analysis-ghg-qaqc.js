@@ -21,8 +21,9 @@ define(['require',
             data: {},
             charts_data: {},
             lang_faostat: 'E',
-            datasource: 'faostatdata',
+            datasource: 'faostat-ghg-qaqc',
             placeholder_id: 'faostat_ui_analysis_ghg_qaqc_placeholder',
+            baseurl_data: '/table/json',
             domains: [
                 {id: 'gt', label: translate.gt, totals: ['1711', '1709', '5058', '6731', '5059', '6736', '5060'], color: '#009B77'},
                 {id: 'ge', label: translate.ge, totals: ['5058'], color: '#9B2335'},
@@ -452,8 +453,6 @@ define(['require',
             var domain_code = this.CONFIG.domains[z].id;
             var color = this.CONFIG.domains[z].color;
 
-            console.log(domain_code, color)
-
             /* Find all the chart divs: emissions. */
             var divs = $('[id$=' + '_' + domain_code + '_emissions' + ']');
             for (var i = 0; i < divs.length; i++) {
@@ -731,41 +730,44 @@ define(['require',
         return  'SELECT DomainCode, Year, UNFCCCCode, GUNFItemName' + this.CONFIG.lang_faostat + ', ' +
                        'GUNFValue, GUNFCode, GValue, PerDiff, ' +
                        'NormPerDiff, TableType ' +
-                'FROM DataUNFCCC ' +
+                'FROM Warehouse_data.dbo.DataUNFCCC ' +
                 'WHERE AreaCode = \'' + area_code + '\' ' +
                 'AND Year >= 1990 AND Year <= 2012 ' +
                 'AND GUNFCode IS NOT NULL ' +
                 'ORDER BY UNFCCCCode, Year DESC';
     };
 
-    GHG_QA_QC.prototype.populate_countries = function() {
+    GHG_QA_QC.prototype.populate_countries = function () {
 
-        /* This... */
-        var _this = this;
+        var self = this,
+            query =  {
+                "query": "exec Warehouse.dbo.usp_GetListSingle 'GT', " + this.CONFIG.lang_faostat +", 'area'"
+            };
 
-        /* Config WDS. */
-        var rest_config = {
-            domain: 'GUNF',
-            tab_group: 1,
-            tab_index: 1,
-            datasource: this.CONFIG.datasource,
-            lang_faostat: this.CONFIG.lang_faostat
-        };
+        var data = {};
+        data.datasource = this.CONFIG.datasource;
+        data.json = JSON.stringify(query);
+        $.ajax({
+            type: 'POST',
+            url: this.CONFIG.url_wds + this.CONFIG.baseurl_data,
+            data: data,
+            success: function (json) {
 
-        /* Fetch data and populate the dropdown. */
-        Commons.wdsclient('procedures/usp_GetListBox', rest_config, function(json) {
+                // Initiate options.
+                var s = '<option value="null"></option>';
 
-            /* Initiate options. */
-            var s = '<option value="null"></option>';
+                // Iterate over results.
+                for (var i = 0 ; i < json.length ; i++)
+                    s += '<option value="' + json[i][0] + '">' + json[i][1] + '</option>';
 
-            /* Iterate over results. */
-            for (var i = 0 ; i < json.length ; i++)
-                s += '<option value="' + json[i][0] + '">' + json[i][1] + '</option>';
+                // Populate dropdown and define change listener.
+                self.CONFIG.geo_selector.html(s).chosen();
 
-            /* Populate dropdown and define change listener. */
-            _this.CONFIG.geo_selector.html(s).chosen();
+            },
+            error: function (a, b, c) {
+            }
 
-        }, this.CONFIG.url_wds);
+        });
 
     };
 
